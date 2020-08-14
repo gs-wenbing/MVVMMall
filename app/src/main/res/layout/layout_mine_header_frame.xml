@@ -11,7 +11,7 @@
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_50"
         android:layout_marginLeft="@dimen/dp_6"
-        android:src="@drawable/shortcut_brand"
+        android:src="@mipmap/home_grmz"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

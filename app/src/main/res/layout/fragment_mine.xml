@@ -114,7 +114,7 @@
                     android:id="@+id/toolbarAvatar"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:src="@drawable/shortcut_brand" />
+                    android:src="@mipmap/home_grmz" />
 
                 <TextView
                     android:id="@+id/toolbar_username"

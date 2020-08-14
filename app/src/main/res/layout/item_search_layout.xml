@@ -10,7 +10,7 @@
         android:layout_marginLeft="@dimen/sp_14"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/shortcut_discount"
+        android:src="@mipmap/home_grmz"
         />
     <TextView
         android:id="@+id/tvRanking"

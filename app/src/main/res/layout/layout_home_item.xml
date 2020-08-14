@@ -16,13 +16,13 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/shortcut_new" />
+            android:src="@mipmap/home_hqms" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="新品推荐"
+            android:text="环球美食"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -36,13 +36,13 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/shortcut_hot" />
+            android:src="@mipmap/home_grmz" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="热销市场"
+            android:text="个人美妆"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -56,13 +56,13 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/shortcut_discount" />
+            android:src="@mipmap/home_yybj" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="促销折扣"
+            android:text="营养保健"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -76,13 +76,13 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/shortcut_brand" />
+            android:src="@mipmap/home_jjcw" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="品牌街"
+            android:text="家具除外"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -96,13 +96,13 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/shortcut_discount" />
+            android:src="@mipmap/home_sssx" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="建议订单"
+            android:text="速食生鲜"
             android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>
