@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:maxLines="1"
-                    android:text="SiberiaDante"
+                    android:text="Zwb_werq034534"
                     android:textColor="@color/mainBlack"
                     android:textSize="@dimen/sp_16" />
             </LinearLayout>
