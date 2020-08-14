@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    style="@style/AppTheme.Toolbar"
+    >
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/sp_14"
+        android:layout_marginEnd="@dimen/sp_14"
+        android:src="@mipmap/logo" />
+
+    <TextView
+        android:id="@+id/textSearch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_28"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/ivSaoma"
+        android:layout_toRightOf="@+id/ivLogo"
+        android:background="@drawable/header_search_shape_white_background"
+        android:drawableStart="@mipmap/search"
+        android:gravity="center"
+        android:paddingStart="@dimen/sp_14" />
+
+    <ImageView
+        android:id="@+id/ivSaoma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/sp_14"
+        android:layout_marginEnd="@dimen/sp_14"
+        android:src="@mipmap/saoma" />
+</RelativeLayout>

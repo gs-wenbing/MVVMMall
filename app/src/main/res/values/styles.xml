@@ -1,0 +1,93 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Toolbar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_46</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+
+    <!--空心按钮-->
+    <style name="common_hollow_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">@dimen/dp_14</item>
+        <item name="android:paddingLeft">@dimen/dp_14</item>
+        <item name="android:paddingTop">@dimen/dp_6</item>
+        <item name="android:paddingBottom">@dimen/dp_6</item>
+        <item name="android:layout_marginLeft">@dimen/dp_16</item>
+        <item name="android:background">@drawable/btn_common_hollow_selector</item>
+        <item name="android:textColor">@color/mainRed</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <!--实心按钮-->
+    <style name="common_solid_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">@dimen/dp_14</item>
+        <item name="android:paddingLeft">@dimen/dp_14</item>
+        <item name="android:paddingTop">@dimen/dp_6</item>
+        <item name="android:paddingBottom">@dimen/dp_6</item>
+        <item name="android:layout_marginLeft">@dimen/dp_16</item>
+        <item name="android:background">@drawable/btn_common_solid_selector</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <!--个人中心-->
+    <style name="mine_header_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:layout_marginLeft">@dimen/dp_10</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="mine_header_btn_style" parent="mine_header_text_style">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape_deep_red_background</item>
+        <item name="android:drawableRight">@mipmap/next_white</item>
+        <item name="android:layout_marginBottom">@dimen/dp_4</item>
+        <item name="android:paddingLeft">@dimen/dp_8</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="mine_follow_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/grey_light</item>
+        <item name="android:clickable">true</item>
+    </style>
+<!--    商品详情-->
+    <style name="goods_detail_tab">
+        <item name="android:textColor">@drawable/goods_detail_tab_text_clocr</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+</resources>

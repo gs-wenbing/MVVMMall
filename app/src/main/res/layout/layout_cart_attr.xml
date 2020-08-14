@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:padding="@dimen/dp_10"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tvAttrTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="属性"
+        android:textColor="@color/mainBlack"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginBottom="@dimen/dp_10"
+        />
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/flowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:chipSpacingHorizontal="@dimen/dp_14"
+        app:chipSpacingVertical="@dimen/dp_14">
+
+    </com.google.android.material.chip.ChipGroup>
+
+</LinearLayout>

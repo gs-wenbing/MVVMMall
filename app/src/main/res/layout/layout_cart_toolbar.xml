@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    style="@style/AppTheme.Toolbar"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/tvCartTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey_text"
+        android:layout_centerInParent="true"
+        android:text="@string/title_cart"
+        android:textSize="@dimen/sp_18" />
+
+    <TextView
+        android:id="@+id/tvCartEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingStart="@dimen/sp_14"
+        android:paddingEnd="@dimen/sp_14"
+        android:textColor="@color/grey_text"
+        android:clickable="true"
+        android:text="@string/edit"/>
+</RelativeLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_16"
+    android:background="@drawable/shape_vip_background">
+
+    <TextView
+        android:id="@+id/tvVipTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawableLeft="@mipmap/vip"
+        android:text="XXX会员"
+        android:textStyle="italic"
+        android:textColor="@color/E0C675" />
+    <TextView
+        android:id="@+id/tvVipMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_toRightOf="@+id/tvVipTitle"
+        android:text="开通即享5大权益"
+        android:textColor="@color/E0C675"
+        android:textSize="@dimen/sp_12"/>
+    <ImageView
+        android:layout_width="240dp"
+        android:layout_height="130dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:scaleType="fitXY"
+        android:src="@mipmap/vip_card_bg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_vip_text_background"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_2"
+        android:text="立即开通 >"
+        android:textSize="@dimen/sp_12" />
+
+</RelativeLayout>
+
+

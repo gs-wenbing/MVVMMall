@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.zwb.mvvm_mall.ui.home.view.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_classify"
+        android:name="com.zwb.mvvm_mall.ui.classify.view.ClassifyFragment"
+        android:label="@string/title_classify"
+        tools:layout="@layout/fragment_classify" />
+
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.zwb.mvvm_mall.ui.cart.view.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/navigation_mine"
+        android:name="com.zwb.mvvm_mall.ui.mine.view.MineFragment"
+        android:label="@string/title_mine"
+        tools:layout="@layout/fragment_mine" />
+</navigation>
