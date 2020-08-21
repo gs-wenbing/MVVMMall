@@ -30,4 +30,9 @@ interface ApiService{
     @GET("$PROJECT/search/getSearchHotTags")
     suspend fun getSearchHotTags() : BaseResponse<List<SearchHotEntity>>
 
+    @GET("$PROJECT/comment/getCommentList")
+    suspend fun getCommentList() : BaseResponse<List<CommentEntity>>
+
+
+
 }

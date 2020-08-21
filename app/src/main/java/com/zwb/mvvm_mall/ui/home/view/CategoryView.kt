@@ -2,12 +2,14 @@ package com.zwb.mvvm_mall.ui.home.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.bean.GoodsEntity
 import com.zwb.mvvm_mall.ui.home.adapter.HomeGoodsAdapter
 import com.zwb.mvvm_mall.common.view.nested.OnUserVisibleChange
+import com.zwb.mvvm_mall.ui.home.adapter.HomeRecyclerViewAdapter
 
 class CategoryView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0,var index:Int) : ChildRecyclerView(context, attrs, defStyleAttr),
     OnUserVisibleChange {
@@ -25,7 +27,11 @@ class CategoryView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private fun initRecyclerView() {
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
         layoutManager = staggeredGridLayoutManager
-        adapter = HomeGoodsAdapter(R.layout.item_goods_big_layout,mDataList)
+        val temp = HomeRecyclerViewAdapter(mDataList)
+        adapter = temp
+        temp.setOnItemClickListener { adapter, view, position ->
+            mOnItemClickListener?.onItemClick(adapter, view, position)
+        }
     }
 
     private fun initLoadMore() {

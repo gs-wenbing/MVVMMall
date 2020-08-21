@@ -37,7 +37,7 @@ class SearchActivity :BaseVMActivity<SearchViewModel>(){
         StatusBarUtil.immersive(this)
         StatusBarUtil.setPaddingSmart(this, toolbar)
         StatusBarUtil.darkMode(this)
-        tvSearch.setOnClickListener { GoodsDetailActivity.launch(this) }
+        tvSearch.setOnClickListener { GoodsDetailActivity.launch(this,"商品名称") }
         ivBack.setOnClickListener { finish() }
 
         mHeaderView = LayoutInflater.from(this).inflate(R.layout.layout_search_header, null)

@@ -102,11 +102,4 @@ class MainActivity : BaseActivity() {
         }
         return fragment!!
     }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) {
-            mSharedViewModel.windowFocusChangedListener.value = true
-        }
-    }
 }

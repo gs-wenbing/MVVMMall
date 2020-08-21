@@ -1,6 +1,7 @@
 package com.zwb.mvvm_mall.ui.home.adapter
 
 import android.graphics.Color
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.chad.library.adapter.base.BaseQuickAdapter

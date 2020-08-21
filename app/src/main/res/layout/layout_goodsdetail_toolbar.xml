@@ -7,11 +7,24 @@
     >
 
     <ImageView
-        android:layout_width="@dimen/dp_40"
-        android:layout_height="@dimen/dp_40"
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/dp_26"
+        android:layout_height="@dimen/dp_26"
         android:layout_centerVertical="true"
-        android:padding="@dimen/dp_10"
-        android:src="@mipmap/back"/>
+        android:background="@drawable/round_black_background"
+        android:padding="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:src="@mipmap/iv_back_white"/>
+    <TextView
+        android:id="@+id/tvTitleComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="商品评价"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/sp_16"
+        android:visibility="gone"
+        android:textColor="@color/grey_text"
+        />
     <RadioGroup
         android:id="@+id/radioTabs"
         android:layout_width="wrap_content"
@@ -24,7 +37,6 @@
             android:id="@+id/rbGoods"
             style="@style/goods_detail_tab"
             android:checked="true"
-            android:textSize="@dimen/sp_14"
             android:textStyle="bold"
             android:drawableBottom="@mipmap/red_o_line"
             android:text="商品" />
@@ -45,21 +57,24 @@
             android:text="推荐" />
     </RadioGroup>
     <ImageView
-        android:id="@+id/ivFriend"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="@dimen/dp_30"
+        android:id="@+id/ivShare"
+        android:layout_width="@dimen/dp_26"
+        android:layout_height="@dimen/dp_26"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/ivMenu"
-        android:padding="@dimen/dp_2"
+        android:layout_toLeftOf="@+id/ivMessage"
+        android:padding="@dimen/dp_4"
+        android:background="@drawable/round_black_background"
         android:layout_marginRight="@dimen/dp_10"
-        android:src="@mipmap/iv_friend_black" />
+        android:src="@mipmap/iv_share_white" />
 
     <ImageView
-        android:id="@+id/ivMenu"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="@dimen/dp_30"
+        android:id="@+id/ivMessage"
+        android:layout_width="@dimen/dp_26"
+        android:layout_height="@dimen/dp_26"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:padding="@dimen/dp_4"
-        android:src="@mipmap/setting_black" />
+        android:background="@drawable/round_black_background"
+        android:padding="3dp"
+        android:layout_marginRight="@dimen/dp_6"
+        android:src="@mipmap/iv_message_white" />
 </RelativeLayout>

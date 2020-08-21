@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.youth.banner.indicator.CircleIndicator
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
@@ -17,6 +18,7 @@ import com.zwb.mvvm_mall.bean.BannerResponse
 import com.zwb.mvvm_mall.ui.search.view.SearchActivity
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.common.view.nested.bean.CategoryBean
+import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.homeRecyclerView
 import kotlinx.android.synthetic.main.layout_home_header.view.*
@@ -62,6 +64,11 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(),ChildRecyclerView.OnRecycle
             LinearLayoutManager.HORIZONTAL,false)
         mHeaderView.horizontalRecyclerview.adapter = mHAdapter
 
+        mHAdapter.setOnItemClickListener { adapter, _, position ->
+            GoodsDetailActivity.launch(requireActivity(),
+                (adapter.getItem(position) as GoodsEntity).goodsName)
+        }
+
         mCacheVies = multiTypeAdapter.getRecyclerViewList()
 //        swipeRefreshLayout.setColorSchemeColors(Color.RED)
         swipeRefreshLayout.setOnRefreshListener {
@@ -87,6 +94,7 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(),ChildRecyclerView.OnRecycle
             1 -> mViewModel.loadRecyclerGoodsData1()
             2 -> mViewModel.loadRecyclerGoodsData2()
             3 -> mViewModel.loadRecyclerGoodsData3()
+            4-> mViewModel.loadRecyclerGoodsData4()
         }
     }
 
@@ -97,6 +105,7 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(),ChildRecyclerView.OnRecycle
             1 -> mViewModel.loadRecyclerGoodsData1()
             2 -> mViewModel.loadRecyclerGoodsData2()
             3 -> mViewModel.loadRecyclerGoodsData3()
+            4 -> mViewModel.loadRecyclerGoodsData4()
         }
         return true
     }
@@ -135,6 +144,11 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(),ChildRecyclerView.OnRecycle
                 setRecyclerViewData(3,it)
             }
         })
+        mViewModel.mRecyclerGoods4.observe(this, Observer {
+            it?.let {
+                setRecyclerViewData(4,it)
+            }
+        })
     }
 
     private fun setBannerData(list: List<BannerResponse>) {
@@ -151,6 +165,14 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(),ChildRecyclerView.OnRecycle
             mCacheVies = multiTypeAdapter.getRecyclerViewList()
         }
         mCacheVies!![mCategoryBean.tabTitleList[index]]!!.setData(isRefrash = false,list = list)
+        mCacheVies!![mCategoryBean.tabTitleList[index]]!!.setItemClickListener(object :ChildRecyclerView.OnItemClickListener{
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                if(adapter.getItem(position) is GoodsEntity){
+                    GoodsDetailActivity.launch(requireActivity(),
+                        (adapter.getItem(position) as GoodsEntity).goodsName)
+                }
+            }
+        })
     }
     override fun onDestroy() {
         super.onDestroy()

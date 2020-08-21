@@ -3,7 +3,9 @@ package com.zwb.mvvm_mall.ui.home.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zwb.mvvm_mall.bean.GoodsEntity
 import com.zwb.mvvm_mall.common.view.nested.helper.FlingHelper
 import com.zwb.mvvm_mall.common.utils.UIUtils
@@ -104,11 +106,14 @@ open class ChildRecyclerView @JvmOverloads constructor(context: Context, attrs: 
     }
 
     var mOnRecyclerViewLoadListener: OnRecyclerViewLoadListener? = null
-
     fun setOnRecyclerViewLoadListener(listener: OnRecyclerViewLoadListener){
         this.mOnRecyclerViewLoadListener = listener
     }
 
+    var mOnItemClickListener: OnItemClickListener? = null
+    fun setItemClickListener(listener: OnItemClickListener){
+        this.mOnItemClickListener = listener
+    }
 
     interface OnRecyclerViewLoadListener{
         fun onRecyclerViewInitData(index:Int)
@@ -116,5 +121,8 @@ open class ChildRecyclerView @JvmOverloads constructor(context: Context, attrs: 
         fun onRecyclerViewLoadMore(index:Int):Boolean
     }
 
+    interface OnItemClickListener {
+        fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int)
+    }
     open fun setData(isRefrash:Boolean,list: List<GoodsEntity>) {}
 }

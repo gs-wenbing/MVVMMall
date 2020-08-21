@@ -54,7 +54,13 @@ class HomeViewModel : BaseViewModel<HomeRepository>() {
             mRecyclerGoods3.value = mRepository.loadSeckillGoodsCo()
         }, loadState)
     }
-
+    //直播
+    var mRecyclerGoods4:MutableLiveData<List<GoodsEntity>> = MutableLiveData()
+    fun loadRecyclerGoodsData4(){
+        initiateRequest({
+            mRecyclerGoods4.value = mRepository.loadSeckillGoodsCo()
+        }, loadState)
+    }
     var mHomeRecyclerViewData:MutableLiveData<HashMap<String, List<GoodsEntity>>> = MutableLiveData()
     fun loadListData(){
 

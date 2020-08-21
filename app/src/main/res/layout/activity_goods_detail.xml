@@ -4,9 +4,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/detailScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/layout_goodsdetail_goods"/>
+            <include layout="@layout/layout_goodsdetail_comment"/>
+            <include layout="@layout/layout_goodsdetail_detail"/>
+            <TextView
+                android:id="@+id/tvRecommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:text="看了又看"
+                android:gravity="center"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/grey_text"
+                android:textStyle="bold"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detailRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
     <include layout="@layout/layout_goodsdetail_toolbar"/>
 
-    <include layout="@layout/layout_goodsdetail_goods"/>
+    <com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer
+        android:id="@+id/mainPlayer"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"
+        />
+    <FrameLayout
+        android:id="@+id/frameComment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_marginTop="@dimen/dp_46"
+        android:layout_marginBottom="@dimen/dp_50"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/dp_50"
+        android:background="#f5f5f5"/>
+    <RelativeLayout
+        android:id="@+id/rlDetailBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_gravity="bottom"
+        android:paddingRight="@dimen/dp_14"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_4"
+        android:background="@color/white">
 
+        <TextView
+            android:id="@+id/tvShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/sp_12"
+            android:drawableTop="@mipmap/iv_shop"
+            android:text="店铺"/>
+        <TextView
+            android:id="@+id/tvCustomerService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:textSize="@dimen/sp_12"
+            android:drawableTop="@mipmap/iv_customerservice"
+            android:layout_toRightOf="@+id/tvShop"
+            android:text="客服"/>
+        <TextView
+            android:id="@+id/tvCollection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:textSize="@dimen/sp_12"
+            android:drawableTop="@mipmap/iv_collection"
+            android:layout_toRightOf="@+id/tvCustomerService"
+            android:text="店铺"/>
+        <TextView
+            android:id="@+id/tvAddCart"
+            style="@style/common_solid_btn_style"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tvBuy"
+            android:background="@drawable/btn_common_solid_yellow_selector"
+            android:text="加入购物车"/>
+        <TextView
+            android:id="@+id/tvBuy"
+            style="@style/common_solid_btn_style"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="立即购买"/>
+    </RelativeLayout>
 </FrameLayout>

@@ -55,6 +55,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.6.2"
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.6.2"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    //完整版引入
+    implementation 'com.shuyu:GSYVideoPlayer:7.1.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
