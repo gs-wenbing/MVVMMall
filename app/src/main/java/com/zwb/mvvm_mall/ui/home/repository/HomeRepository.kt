@@ -16,4 +16,9 @@ class HomeRepository(private val loadState: MutableLiveData<State>): BaseReposit
     suspend fun loadSeckillGoodsCo(): List<GoodsEntity> {
         return apiService.getSeckillGoodsList().dataConvert(loadState)
     }
+
+    suspend fun loadBoutiqueGoodsCo(): List<GoodsEntity> {
+        return apiService.getBoutiqueGoodsList().dataConvert(loadState)
+    }
+
 }

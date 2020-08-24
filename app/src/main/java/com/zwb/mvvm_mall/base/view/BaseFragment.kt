@@ -20,7 +20,7 @@ abstract class BaseFragment: Fragment() {
     private var mActivityProvider: ViewModelProvider? = null
 
     lateinit var mContext: Context
-    abstract val layoutId:Int
+    abstract var layoutId:Int
 
     open fun initView(){}
 
@@ -33,7 +33,7 @@ abstract class BaseFragment: Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mSharedViewModel = getAppViewModelProvider().get(SharedViewModel::class.java!!)
+        mSharedViewModel = getAppViewModelProvider().get(SharedViewModel::class.java)
     }
 
 

@@ -43,6 +43,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc02'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc02'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
     implementation 'com.youth.banner:banner:2.1.0'
@@ -50,6 +51,7 @@ dependencies {
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:2.6.2"
     implementation "com.squareup.retrofit2:converter-gson:2.6.2"
@@ -57,6 +59,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.1.2'
     //完整版引入
     implementation 'com.shuyu:GSYVideoPlayer:7.1.5'
+
+    implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

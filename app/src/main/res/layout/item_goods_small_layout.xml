@@ -20,13 +20,6 @@
         android:visibility="gone"
         />
     <TextView
-        android:id="@+id/tvGoodsModel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="G-xiadfasdf"
-        android:visibility="gone"
-        />
-    <TextView
         android:id="@+id/tvGoodsPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

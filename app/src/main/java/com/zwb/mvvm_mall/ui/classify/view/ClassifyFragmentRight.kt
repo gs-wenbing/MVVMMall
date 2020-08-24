@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_classify_right.*
 
 class ClassifyFragmentRight : BaseVMFragment<ClassifyViewModel>() {
 
-    override val layoutId: Int = R.layout.fragment_classify_right
+    override var layoutId: Int = R.layout.fragment_classify_right
 
     lateinit var mPAdapter: ClassifyRightAdapter
 

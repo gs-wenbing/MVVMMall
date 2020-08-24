@@ -34,9 +34,10 @@ import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer
 import com.zwb.mvvm_mall.ui.goods.adapter.GoodsBannerAdapter.VideoHolder
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.zwb.mvvm_mall.R
+import com.zwb.mvvm_mall.common.utils.dp2px
+import com.zwb.mvvm_mall.common.view.GridItemDecoration
 import com.zwb.mvvm_mall.common.view.NumIndicator
-
-
+import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
 
 
 class GoodsDetailActivity : BaseVMActivity<GoodsViewModel>(){
@@ -53,7 +54,13 @@ class GoodsDetailActivity : BaseVMActivity<GoodsViewModel>(){
         super.initView()
         StatusBarUtil.immersive(this)
         StatusBarUtil.setPaddingSmart(this, toolbar)
-        ivBack.setOnClickListener { finish() }
+        ivBack.setOnClickListener {
+            if(mCommentFragment!=null && mCommentFragment!!.isAdded){
+                closeCommentFragment()
+            }else{
+                finish()
+            }
+        }
         val goodsName = intent.getStringExtra("goodsName")
         tvGoodsName.text = goodsName
         radioTabs.alpha = 0f
@@ -188,11 +195,12 @@ class GoodsDetailActivity : BaseVMActivity<GoodsViewModel>(){
     override fun initDataObserver() {
         super.initDataObserver()
         mViewModel.mSeckillGoods.observe(this, Observer {
-            detailRecyclerView.layoutManager = GridLayoutManager(this,2)
-            detailRecyclerView.adapter = HomeGoodsAdapter(R.layout.item_goods_big_layout,it.toMutableList())
+            detailRecyclerView.layoutManager = PersistentStaggeredGridLayoutManager(2)
+            detailRecyclerView.addItemDecoration(GridItemDecoration(this.dp2px(8f)))
+            detailRecyclerView.adapter = HomeGoodsAdapter(it.toMutableList())
 
             recommendRecyclerView.layoutManager = GridLayoutManager(this,3)
-            recommendRecyclerView.adapter = HomeGoodsAdapter(R.layout.item_goods_middle_layout,it.toMutableList().subList(0,6))
+            recommendRecyclerView.adapter = HomeGoodsAdapter(it.toMutableList().subList(0,6),R.layout.item_goods_middle_layout)
         })
         mViewModel.mCommentList.observe(this, Observer {
             setCommentData(it)
@@ -247,18 +255,22 @@ class GoodsDetailActivity : BaseVMActivity<GoodsViewModel>(){
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
             if(mCommentFragment!=null && mCommentFragment!!.isAdded){
-                tvTitleComment.visibility  = View.GONE
-                radioTabs.visibility  = View.VISIBLE
-                val transaction = supportFragmentManager.beginTransaction()
-                transaction.setCustomAnimations(
-                    R.anim.push_left_in,
-                    R.anim.push_left_out)
-                transaction.remove(mCommentFragment!!)
-                transaction.commit()
+                closeCommentFragment()
                 return false
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    fun closeCommentFragment(){
+        tvTitleComment.visibility  = View.GONE
+        radioTabs.visibility  = View.VISIBLE
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(
+            R.anim.push_left_in,
+            R.anim.push_left_out)
+        transaction.remove(mCommentFragment!!)
+        transaction.commit()
     }
     override fun onPause() {
         super.onPause()

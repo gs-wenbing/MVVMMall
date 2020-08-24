@@ -11,7 +11,6 @@ import com.zwb.mvvm_mall.ui.cart.adapter.CartAdapter
 import com.zwb.mvvm_mall.ui.cart.viewmodel.CartViewModel
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import kotlinx.android.synthetic.main.fragment_cart.*
-import kotlinx.android.synthetic.main.layout_home_toolbar.*
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zwb.mvvm_mall.bean.CartDividingEntity
@@ -27,11 +26,13 @@ import com.bumptech.glide.Glide
 import com.google.android.material.chip.ChipGroup
 import com.zwb.mvvm_mall.bean.GoodsModelItemEntity
 import com.zwb.mvvm_mall.bean.SecurityEntity
+import com.zwb.mvvm_mall.common.utils.dp2px
 import com.zwb.mvvm_mall.common.view.FixedHeightBottomSheetDialog
+import com.zwb.mvvm_mall.common.view.GridItemDecoration
+import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.dialog_cart_attr_layout.view.*
 import kotlinx.android.synthetic.main.layout_cart_attr.view.*
 import kotlinx.android.synthetic.main.layout_cart_toolbar.*
-import kotlinx.android.synthetic.main.layout_home_toolbar.toolbar
 
 /**
  * 购物车
@@ -49,7 +50,7 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
     private var tempDialogGoodsModel:TextView?=null
     private var attrMap:MutableMap<String,String> = HashMap()
 
-    override val layoutId = (R.layout.fragment_cart)
+    override var layoutId = (R.layout.fragment_cart)
 
     override fun initView() {
         super.initView()
@@ -60,6 +61,7 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
         val layoutManager = GridLayoutManager(mContext, 2)
         mAdapter = CartAdapter(mCartMultiList)
         rvCart.layoutManager = layoutManager
+        rvCart.addItemDecoration(GridItemDecoration(activity!!.dp2px(8f)))
         rvCart.adapter = mAdapter
 
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

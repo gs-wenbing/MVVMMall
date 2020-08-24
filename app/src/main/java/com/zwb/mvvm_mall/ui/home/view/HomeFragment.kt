@@ -1,65 +1,55 @@
 package com.zwb.mvvm_mall.ui.home.view
 
-import android.annotation.SuppressLint
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.youth.banner.indicator.CircleIndicator
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
+import com.zwb.mvvm_mall.bean.BannerResponse
 import com.zwb.mvvm_mall.bean.GoodsEntity
+import com.zwb.mvvm_mall.common.utils.StatusBarUtil
+import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
 import com.zwb.mvvm_mall.ui.home.adapter.BannerImageAdapter
 import com.zwb.mvvm_mall.ui.home.adapter.HomeGoodsAdapter
+import com.zwb.mvvm_mall.ui.home.adapter.HomeListAdapter
+import com.zwb.mvvm_mall.ui.home.adapter.MenuPagerAdapter
+import com.zwb.mvvm_mall.ui.home.helper.SyncScrollHelper
 import com.zwb.mvvm_mall.ui.home.viewmodel.HomeViewModel
-import com.zwb.mvvm_mall.ui.home.adapter.MultiTypeAdapter
-import com.zwb.mvvm_mall.bean.BannerResponse
 import com.zwb.mvvm_mall.ui.search.view.SearchActivity
-import com.zwb.mvvm_mall.common.utils.StatusBarUtil
-import com.zwb.mvvm_mall.common.view.nested.bean.CategoryBean
-import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.homeRecyclerView
 import kotlinx.android.synthetic.main.layout_home_header.view.*
-import kotlinx.android.synthetic.main.layout_home_toolbar.*
-import java.util.*
-import kotlin.collections.HashMap
+import kotlinx.android.synthetic.main.layout_home_item.view.*
 
 
-@SuppressLint("Registered")
-class HomeFragment : BaseVMFragment<HomeViewModel>(),ChildRecyclerView.OnRecyclerViewLoadListener {
+class HomeFragment : BaseVMFragment<HomeViewModel>(){
 
-    lateinit var mHeaderView: View
-    private val mTitles = arrayOf("精选", "新品", "直播", "实惠", "买家秀")
-    private val mDataList = ArrayList<CategoryBean>()
-    private var mCacheVies:HashMap<String, CategoryView>?= null
-    private val mCategoryBean = CategoryBean()
-    private lateinit var multiTypeAdapter:MultiTypeAdapter
-
+    private lateinit var mHeaderView: View
+    private lateinit var listAdapter: HomeListAdapter
     //横向RecyclerView的adapter
     lateinit var mHAdapter: HomeGoodsAdapter
 
-    override val layoutId: Int = R.layout.fragment_home
+    override var layoutId: Int = R.layout.fragment_home
     override fun initView() {
         super.initView()
         StatusBarUtil.immersive(activity)
-        StatusBarUtil.setPaddingSmart(activity, toolbar)
-        textSearch.setOnClickListener { SearchActivity.launch(requireActivity()) }
+        StatusBarUtil.setPaddingSmart(activity, mainToolbar)
+        mainSearchLayout.setOnClickListener { SearchActivity.launch(mActivity) }
+
+        listAdapter = HomeListAdapter(mActivity,arrayOf(1).asList().toMutableList())
+        mainRecyclerView.layoutManager = LinearLayoutManager(mActivity)
+        mainRecyclerView.adapter = listAdapter
+
         mHeaderView = LayoutInflater.from(context).inflate(R.layout.layout_home_header, null)
-        homeRecyclerView.initLayoutManager()
+        listAdapter.addHeaderView(mHeaderView)
 
-        mCategoryBean.tabTitleList.clear()
-        mCategoryBean.tabTitleList.addAll(mTitles.asList())
-        mDataList.add(mCategoryBean)
+        mHeaderView.home_menu_viewpager2.offscreenPageLimit = 2
+        mHeaderView.home_menu_viewpager2.adapter = MenuPagerAdapter(mActivity)
+        mHeaderView.home_menu_indicator.setViewPager2(mHeaderView.home_menu_viewpager2, 2)
 
-        multiTypeAdapter = MultiTypeAdapter(mDataList, this)
-        homeRecyclerView.adapter = multiTypeAdapter
-        multiTypeAdapter.addHeaderView(mHeaderView)
-
-        multiTypeAdapter.notifyDataSetChanged()
-
-        mHAdapter = HomeGoodsAdapter(R.layout.item_goods_small_layout,null)
+        mHAdapter = HomeGoodsAdapter(null,R.layout.item_goods_small_layout)
         mHeaderView.horizontalRecyclerview.layoutManager = LinearLayoutManager(activity,
             LinearLayoutManager.HORIZONTAL,false)
         mHeaderView.horizontalRecyclerview.adapter = mHAdapter
@@ -69,12 +59,14 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(),ChildRecyclerView.OnRecycle
                 (adapter.getItem(position) as GoodsEntity).goodsName)
         }
 
-        mCacheVies = multiTypeAdapter.getRecyclerViewList()
-//        swipeRefreshLayout.setColorSchemeColors(Color.RED)
-        swipeRefreshLayout.setOnRefreshListener {
-            refresh()
-        }
+        val syncScrollHelper = SyncScrollHelper(this)
+        syncScrollHelper.initLayout()
+        syncScrollHelper.syncRecyclerViewScroll(mainRecyclerView)
+        syncScrollHelper.syncRefreshPullDown(mainRefreshLayout)
 
+        mainRefreshLayout.setOnRefreshListener {
+            initData()
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -88,95 +80,20 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(),ChildRecyclerView.OnRecycle
         mViewModel.loadSeckillGoodsData()
     }
 
-    override fun onRecyclerViewInitData(index:Int) {
-        when (index) {
-            0 -> mViewModel.loadRecyclerGoodsData0()
-            1 -> mViewModel.loadRecyclerGoodsData1()
-            2 -> mViewModel.loadRecyclerGoodsData2()
-            3 -> mViewModel.loadRecyclerGoodsData3()
-            4-> mViewModel.loadRecyclerGoodsData4()
-        }
-    }
-
-
-    override fun onRecyclerViewLoadMore(index:Int): Boolean {
-        when (index) {
-            0 -> mViewModel.loadRecyclerGoodsData0()
-            1 -> mViewModel.loadRecyclerGoodsData1()
-            2 -> mViewModel.loadRecyclerGoodsData2()
-            3 -> mViewModel.loadRecyclerGoodsData3()
-            4 -> mViewModel.loadRecyclerGoodsData4()
-        }
-        return true
-    }
-
-    private fun refresh() {
-        swipeRefreshLayout.isRefreshing = false
-    }
     override fun initDataObserver() {
-        mViewModel.mBannerData.observe(this, Observer { response->
-            response?.let {
-                setBannerData(it)
-            }
+        mViewModel.mBannerData.observe(this, Observer {
+            setBannerData(it)
         })
         mViewModel.mSeckillGoods.observe(this, Observer {
-            it?.let {
-                mHAdapter.setNewData(it)
-            }
-        })
-        mViewModel.mRecyclerGoods0.observe(this, Observer {
-            it?.let {
-                setRecyclerViewData(0,it)
-            }
-        })
-        mViewModel.mRecyclerGoods1.observe(this, Observer {
-            it?.let {
-                setRecyclerViewData(1,it)
-            }
-        })
-        mViewModel.mRecyclerGoods2.observe(this, Observer {
-            it?.let {
-                setRecyclerViewData(2,it)
-            }
-        })
-        mViewModel.mRecyclerGoods3.observe(this, Observer {
-            it?.let {
-                setRecyclerViewData(3,it)
-            }
-        })
-        mViewModel.mRecyclerGoods4.observe(this, Observer {
-            it?.let {
-                setRecyclerViewData(4,it)
-            }
+            mHAdapter.setNewData(it)
+            mainRefreshLayout.finishRefresh()
         })
     }
-
     private fun setBannerData(list: List<BannerResponse>) {
-        val adapter = BannerImageAdapter(list)
-        mHeaderView.mBanner?.let {
-            it.addBannerLifecycleObserver(this)
-            it.indicator = CircleIndicator(activity)
-            it.setBannerRound2(20f)
-            it.adapter = adapter
-        }
-    }
-    private fun setRecyclerViewData(index:Int,list:List<GoodsEntity>){
-        if(mCacheVies==null){
-            mCacheVies = multiTypeAdapter.getRecyclerViewList()
-        }
-        mCacheVies!![mCategoryBean.tabTitleList[index]]!!.setData(isRefrash = false,list = list)
-        mCacheVies!![mCategoryBean.tabTitleList[index]]!!.setItemClickListener(object :ChildRecyclerView.OnItemClickListener{
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                if(adapter.getItem(position) is GoodsEntity){
-                    GoodsDetailActivity.launch(requireActivity(),
-                        (adapter.getItem(position) as GoodsEntity).goodsName)
-                }
-            }
-        })
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        multiTypeAdapter.destroy()
+        mHeaderView.mBanner.adapter = BannerImageAdapter(list)
+        mHeaderView.mBanner.addBannerLifecycleObserver(this)
+        mHeaderView.mBanner.indicator = CircleIndicator(activity)
+        mHeaderView.mBanner.setBannerRound2(20f)
     }
 
     companion object {

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.layout_home_toolbar.*
 
 class ClassifyFragment : BaseVMFragment<ClassifyViewModel>() {
 
-    override val layoutId: Int = R.layout.fragment_classify
+    override var layoutId: Int = R.layout.fragment_classify
     lateinit var mPAdapter:ClassifyPAdapter
     override fun initView() {
         super.initView()

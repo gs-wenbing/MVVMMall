@@ -26,13 +26,16 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.widget.TextView
 import androidx.core.graphics.drawable.DrawableCompat
+import com.zwb.mvvm_mall.common.utils.dp2px
+import com.zwb.mvvm_mall.common.view.GridItemDecoration
+import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
 
 
 class MineFragment : BaseVMFragment<MineViewModel>(){
     private var mOffset = 0
     private var mScrollY = 0
     private var lastScrollY = 0
-    override val layoutId = R.layout.fragment_mine
+    override var layoutId = R.layout.fragment_mine
     override fun initView() {
         super.initView()
         StatusBarUtil.immersive(activity)
@@ -153,8 +156,9 @@ class MineFragment : BaseVMFragment<MineViewModel>(){
     }
     override fun initDataObserver() {
         mViewModel.mSeckillGoods.observe(this, Observer {
-            mineRecyclerView.layoutManager = GridLayoutManager(mActivity,2)
-            mineRecyclerView.adapter =HomeGoodsAdapter(R.layout.item_goods_big_layout,it.toMutableList())
+            mineRecyclerView.layoutManager = PersistentStaggeredGridLayoutManager(2)
+            mineRecyclerView.addItemDecoration(GridItemDecoration(activity!!.dp2px(8f)))
+            mineRecyclerView.adapter =HomeGoodsAdapter(it.toMutableList())
         })
     }
 

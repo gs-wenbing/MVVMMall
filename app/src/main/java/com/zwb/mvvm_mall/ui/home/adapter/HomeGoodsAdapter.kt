@@ -9,8 +9,8 @@ import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.bean.GoodsEntity
 import com.zwb.mvvm_mall.common.utils.UIUtils
 
-class HomeGoodsAdapter(layoutID:Int,data: MutableList<GoodsEntity>?) :
-    BaseQuickAdapter<GoodsEntity, BaseViewHolder>(layoutID, data) {
+class HomeGoodsAdapter(data: MutableList<GoodsEntity>?,resID:Int = R.layout.item_goods_commen_layout) :
+    BaseQuickAdapter<GoodsEntity, BaseViewHolder>(resID, data) {
 
     override fun convert(helper: BaseViewHolder, item: GoodsEntity?) {
         item?.let {

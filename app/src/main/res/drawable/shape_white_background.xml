@@ -8,8 +8,5 @@
 <!--     android:radius 弧形的半径-->
     <corners android:radius="@dimen/dp_10" />
     
-    <stroke
-        android:width="2px"
-        android:color="#f5f5f5" />
 
 </shape>

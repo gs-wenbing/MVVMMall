@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_goods_comment.*
 
 class GoodsCommentFragment : BaseVMFragment<GoodsViewModel>() {
 
-    override val layoutId: Int = R.layout.fragment_goods_comment
+    override var layoutId: Int = R.layout.fragment_goods_comment
 
 
     override fun initView() {

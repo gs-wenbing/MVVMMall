@@ -24,7 +24,7 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
     init {
         addItemType(STRING_DATA, R.layout.item_cart_dividing_layout)
         addItemType(LINEAR_DATA, R.layout.item_cart_linear_layout)
-        addItemType(GRID_DATA, R.layout.item_goods_big_layout)
+        addItemType(GRID_DATA, R.layout.item_cart_goods_layout)
     }
 
     override fun convert(helper: BaseViewHolder, item: MultiItemEntity?) {

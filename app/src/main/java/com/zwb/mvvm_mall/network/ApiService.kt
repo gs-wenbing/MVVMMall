@@ -18,9 +18,15 @@ interface ApiService{
     @GET("$PROJECT/home/getSeckillGoodsList")
     suspend fun getSeckillGoodsList() : BaseResponse<List<GoodsEntity>>
 
+    /**
+     * 精品列表
+     */
+    @GET("$PROJECT/home/getBoutiqueGoodsList")
+    suspend fun getBoutiqueGoodsList() : BaseResponse<List<GoodsEntity>>
 
     @GET("$PROJECT/home/getCartList")
     suspend fun getCartList() : BaseResponse<List<CartGoodsEntity>>
+
     @GET("$PROJECT/home/getSeckillGoodsList")
     suspend fun getCartLikeGoods() : BaseResponse<List<CartLikeGoodsEntity>>
 
