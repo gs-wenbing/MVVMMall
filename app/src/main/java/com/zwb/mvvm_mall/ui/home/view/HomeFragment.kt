@@ -1,6 +1,5 @@
 package com.zwb.mvvm_mall.ui.home.view
 
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
@@ -50,6 +49,7 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(){
         mHeaderView.home_menu_indicator.setViewPager2(mHeaderView.home_menu_viewpager2, 2)
 
         mHAdapter = HomeGoodsAdapter(null,R.layout.item_goods_small_layout)
+        mHAdapter.setPriceSize(14)
         mHeaderView.horizontalRecyclerview.layoutManager = LinearLayoutManager(activity,
             LinearLayoutManager.HORIZONTAL,false)
         mHeaderView.horizontalRecyclerview.adapter = mHAdapter

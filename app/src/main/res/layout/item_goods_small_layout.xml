@@ -2,14 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:paddingLeft="@dimen/dp_4"
-    android:paddingRight="@dimen/dp_4"
+    android:paddingLeft="@dimen/dp_2"
+    android:paddingRight="@dimen/dp_2"
     android:orientation="vertical">
-    <ImageView
+    <com.rishabhharit.roundedimageview.RoundedImageView
         android:id="@+id/ivIcon"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        app:cornerRadius="8dp"
+        app:roundedCorners="all"
         />
     <TextView
         android:id="@+id/tvGoodsName"
@@ -32,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/grey_text"
+        android:textSize="@dimen/sp_12"
         android:text="￥13.89"
         />
 </LinearLayout>

@@ -3,16 +3,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_white_background"
-    android:paddingTop="@dimen/dp_10"
-    android:paddingBottom="@dimen/dp_10"
-    android:paddingRight="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_8"
+    android:paddingBottom="@dimen/dp_8"
+    android:paddingRight="@dimen/dp_8"
     android:layout_margin="@dimen/dp_4">
     <ImageView
         android:id="@+id/ivCheck"
-        android:layout_width="@dimen/dp_32"
+        android:layout_width="@dimen/dp_28"
         android:layout_height="@dimen/dp_60"
         android:layout_centerVertical="true"
-        android:padding="@dimen/dp_4"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_4"
+        android:paddingRight="@dimen/dp_4"
         android:src="@mipmap/checkbox"/>
     <ImageView
         android:id="@+id/ivIcon"

@@ -12,6 +12,11 @@ import com.zwb.mvvm_mall.common.utils.UIUtils
 class HomeGoodsAdapter(data: MutableList<GoodsEntity>?,resID:Int = R.layout.item_goods_commen_layout) :
     BaseQuickAdapter<GoodsEntity, BaseViewHolder>(resID, data) {
 
+    private var priceSize=UIUtils.dp2px(16f)
+
+    fun setPriceSize(size:Int){
+        priceSize=UIUtils.dp2px(size.toFloat())
+    }
     override fun convert(helper: BaseViewHolder, item: GoodsEntity?) {
         item?.let {
             helper.setText(R.id.tvGoodsName,it.goodsName)
@@ -19,7 +24,7 @@ class HomeGoodsAdapter(data: MutableList<GoodsEntity>?,resID:Int = R.layout.item
 
             val price = String.format(mContext.getString(R.string.price),it.price.toString())
             helper.setText(R.id.tvGoodsPrice, UIUtils.setTextViewContentStyle(price,
-                AbsoluteSizeSpan(UIUtils.dp2px(18f)),
+                AbsoluteSizeSpan(priceSize),
                 ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
                 2,price.indexOf(".")+1
             ))

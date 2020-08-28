@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dp_10"
     android:orientation="vertical">
 
 
@@ -12,46 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         app:layout_collapseMode="parallax"
+        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginLeft="@dimen/dp_8"
         app:layout_collapseParallaxMultiplier="0.7" />
 
     <include layout="@layout/layout_home_item" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ad1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="@drawable/shape_white_background"
-        android:padding="@dimen/dp_10">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/icon_fire"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        >
         <TextView
             android:id="@+id/t"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="10dp"
+            android:drawablePadding="@dimen/dp_10"
+            android:drawableRight="@mipmap/bg_next"
+            android:drawableLeft="@mipmap/icon_fire"
             android:text="限时抢购"
             android:textColor="@color/mainBlack"
             android:textSize="@dimen/sp_14"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/bg_next"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView

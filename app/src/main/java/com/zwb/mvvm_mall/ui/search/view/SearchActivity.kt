@@ -18,6 +18,7 @@ import com.zwb.mvvm_mall.ui.search.viewmodel.SearchViewModel
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.common.utils.UIUtils
 import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
+import com.zwb.mvvm_mall.ui.goods.view.GoodsListActivity
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.layout_home_toolbar.toolbar
 import kotlinx.android.synthetic.main.layout_search_header.view.*
@@ -37,6 +38,8 @@ class SearchActivity :BaseVMActivity<SearchViewModel>(){
         StatusBarUtil.immersive(this)
         StatusBarUtil.setPaddingSmart(this, toolbar)
         StatusBarUtil.darkMode(this)
+        tvSearch.visibility = View.VISIBLE
+        ivRight.visibility = View.GONE
         tvSearch.setOnClickListener { GoodsDetailActivity.launch(this,"商品名称") }
         ivBack.setOnClickListener { finish() }
 
@@ -80,6 +83,9 @@ class SearchActivity :BaseVMActivity<SearchViewModel>(){
             tv.gravity = Gravity.CENTER
             tv.text = it.tagName
             flowLayout.addView(tv)
+            tv.setOnClickListener {
+                GoodsListActivity.launch(this)
+            }
         }
     }
 

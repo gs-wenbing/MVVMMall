@@ -1,12 +1,8 @@
 package com.zwb.mvvm_mall.ui.home.view
 
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
-import com.zwb.mvvm_mall.common.utils.dp2px
-import com.zwb.mvvm_mall.common.view.GridItemDecoration
 import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
 import com.zwb.mvvm_mall.ui.home.adapter.PagerListAdapter
 import com.zwb.mvvm_mall.ui.home.viewmodel.HomeViewModel
@@ -19,7 +15,6 @@ class HomePageGoodsFragment1 : BaseVMFragment<HomeViewModel>(){
     override fun initView() {
         super.initView()
         childRecyclerView.layoutManager =  PersistentStaggeredGridLayoutManager(2)
-        childRecyclerView.addItemDecoration(GridItemDecoration(activity!!.dp2px(8f)))
         childRecyclerView.adapter = mAdapter
     }
 

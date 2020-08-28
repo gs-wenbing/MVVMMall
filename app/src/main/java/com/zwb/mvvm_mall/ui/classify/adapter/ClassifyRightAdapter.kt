@@ -15,7 +15,6 @@ class ClassifyRightAdapter(data: MutableList<ClassifySectionEntity>?) :
     override fun convert(helper: BaseViewHolder, item: ClassifySectionEntity?) {
         item?.let {
             helper.setText(R.id.tvTitle,it.t.goodsClassName)
-//            error(R.drawable.error_image).
             Glide.with(mContext).load(it.t.picURL).into(helper.getView(R.id.ivIcon))
         }
     }

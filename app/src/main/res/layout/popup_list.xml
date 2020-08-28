@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/shape_bottom_white_background"
+    android:paddingBottom="@dimen/dp_10"
+    android:layout_height="wrap_content">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layoutBottom"
+        android:overScrollMode="never"
+        />
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvReset"
+            style="@style/common_hollow_btn_style"
+            android:layout_width="150dp"
+            android:text="重置"/>
+        <TextView
+            android:id="@+id/tvConfirm"
+            style="@style/common_solid_btn_style"
+            android:layout_width="150dp"
+            android:text="确定"/>
+    </LinearLayout>
+</RelativeLayout>

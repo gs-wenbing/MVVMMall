@@ -6,10 +6,8 @@
     <solid android:color="@color/main_grey" />
     <!-- 设置四个角为弧形 -->
 <!--     android:radius 弧形的半径-->
-    <corners android:radius="@dimen/dp_16" />
+    <corners android:bottomLeftRadius="@dimen/dp_10"
+            android:bottomRightRadius="@dimen/dp_10" />
     
-    <stroke
-        android:width="2px"
-        android:color="#f5f5f5" />
 
 </shape>

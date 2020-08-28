@@ -6,6 +6,7 @@
     android:gravity="center"
     android:background="@drawable/shape_white_background_selector"
     android:paddingBottom="8dp"
+    android:layout_margin="@dimen/dp_4"
     android:orientation="vertical">
     <com.rishabhharit.roundedimageview.RoundedImageView
         android:id="@+id/ivIcon"
@@ -25,7 +26,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="8dp"
         android:paddingRight="10dp"
-        android:textSize="@dimen/sp_14"
+        android:textSize="@dimen/sp_13"
         android:textColor="@color/grey_text"
         android:lines="2"
         android:text="名称"

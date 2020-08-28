@@ -24,10 +24,6 @@ import android.graphics.drawable.Drawable
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.widget.TextView
-import androidx.core.graphics.drawable.DrawableCompat
-import com.zwb.mvvm_mall.common.utils.dp2px
-import com.zwb.mvvm_mall.common.view.GridItemDecoration
 import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
 
 
@@ -157,7 +153,6 @@ class MineFragment : BaseVMFragment<MineViewModel>(){
     override fun initDataObserver() {
         mViewModel.mSeckillGoods.observe(this, Observer {
             mineRecyclerView.layoutManager = PersistentStaggeredGridLayoutManager(2)
-            mineRecyclerView.addItemDecoration(GridItemDecoration(activity!!.dp2px(8f)))
             mineRecyclerView.adapter =HomeGoodsAdapter(it.toMutableList())
         })
     }

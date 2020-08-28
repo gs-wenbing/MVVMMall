@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemAttrView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/dp_8"
+    android:layout_marginBottom="@dimen/dp_8"
+    android:gravity="center"
+    android:layout_gravity="center">
+    <ImageView
+        android:id="@+id/ivAttrSelected"
+        android:layout_width="@dimen/dp_14"
+        android:layout_height="@dimen/dp_14"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_10"
+        android:visibility="visible"
+        android:src="@mipmap/selected"/>
+    <TextView
+        android:id="@+id/tvAttrName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:textSize="@dimen/sp_13"
+        android:textColor="@color/grey_text"
+        android:gravity="center"
+        />
+
+</LinearLayout>

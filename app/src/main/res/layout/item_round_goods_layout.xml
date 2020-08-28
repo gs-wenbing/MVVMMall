@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
+    android:paddingBottom="@dimen/dp_4"
+    android:layout_margin="@dimen/dp_2"
     android:background="@drawable/shape_white_background_selector"
-    android:paddingBottom="8dp"
-    android:layout_margin="@dimen/dp_4"
     android:orientation="vertical">
     <com.rishabhharit.roundedimageview.RoundedImageView
         android:id="@+id/ivIcon"
@@ -16,44 +15,34 @@
         app:cornerRadius="8dp"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintTop_toTopOf="parent"
-        app:roundedCorners="topLeft|topRight" />
+        app:roundedCorners="all" />
     <TextView
         android:id="@+id/tvGoodsName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="标题"
+        android:textSize="@dimen/sp_12"
         android:ellipsize="end"
         android:lineSpacingExtra="2dp"
         android:maxLines="2"
-        android:paddingLeft="10dp"
-        android:paddingTop="8dp"
-        android:paddingRight="10dp"
-        android:textSize="@dimen/sp_14"
+        android:paddingLeft="@dimen/dp_4"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingRight="@dimen/dp_4"
         android:textColor="@color/grey_text"
-        android:lines="2"
-        android:text="名称"
+        android:gravity="center_vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivIcon"
         />
     <TextView
         android:id="@+id/tvGoodsPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:text="110"
         android:textColor="@color/mainRed"
-        android:text="￥13.89"
+        android:textStyle="bold"
+        android:paddingLeft="@dimen/dp_4"
         android:textSize="@dimen/sp_12"
-        android:paddingLeft="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvGoodsName"
-        />
-    <TextView
-        android:id="@+id/goodsSimilarBtn"
-        android:layout_width="38dp"
-        android:layout_height="18dp"
-        android:background="@drawable/shape_grey_background"
-        android:gravity="center"
-        android:text="看相似"
-        android:textSize="9sp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/tvGoodsPrice"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvGoodsPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/tvGoodsName"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

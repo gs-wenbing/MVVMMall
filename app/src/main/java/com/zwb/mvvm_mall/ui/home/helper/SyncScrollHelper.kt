@@ -45,13 +45,13 @@ class SyncScrollHelper(mainFragment: HomeFragment) {
 
     init {
         val recyclerView = mainFragment.mainRecyclerView
-        val stickyHeight = activity.dp2px(18f).toInt()
+        val stickyHeight = activity.dp2px(10f).toInt()
         recyclerView.setStickyHeight(stickyHeight)
 
         mainFragment.homeFloatCloseBtn.setOnClickListener {
             floatAdClosed = true
             floatAdLayout.visibility = View.GONE
-            recyclerView.setStickyHeight(activity.dp2px(-32f).toInt())
+            recyclerView.setStickyHeight(activity.dp2px(-40f).toInt())
         }
     }
 

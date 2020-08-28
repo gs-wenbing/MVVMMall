@@ -39,6 +39,9 @@ interface ApiService{
     @GET("$PROJECT/comment/getCommentList")
     suspend fun getCommentList() : BaseResponse<List<CommentEntity>>
 
+    @GET("$PROJECT/goods/getFilterAttrs")
+    suspend fun getFilterAttrs() : BaseResponse<List<GoodsAttrFilterEntity>>
+
 
 
 }

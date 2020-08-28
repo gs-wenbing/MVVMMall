@@ -10,5 +10,7 @@
         android:id="@+id/rvRight"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
         />
 </LinearLayout>

@@ -16,4 +16,5 @@
     <string name="cart_coupon_money">优惠券：¥ %1$s &#160;&#8201;优惠明细</string>
 
     <string name="behavior_sample_title">com.zwb.mvvm_mall.ui.home.behavior.SampleTitleBehavior</string>
+
 </resources>

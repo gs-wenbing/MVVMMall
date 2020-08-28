@@ -3,34 +3,31 @@ package com.zwb.mvvm_mall.ui.cart.view
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
+import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.google.android.material.chip.ChipGroup
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
-import com.zwb.mvvm_mall.ui.cart.adapter.CartAdapter
-import com.zwb.mvvm_mall.ui.cart.viewmodel.CartViewModel
-import com.zwb.mvvm_mall.common.utils.StatusBarUtil
-import kotlinx.android.synthetic.main.fragment_cart.*
-import com.chad.library.adapter.base.entity.MultiItemEntity
-import androidx.recyclerview.widget.GridLayoutManager
 import com.zwb.mvvm_mall.bean.CartDividingEntity
 import com.zwb.mvvm_mall.bean.CartGoodsEntity
+import com.zwb.mvvm_mall.bean.GoodsModelItemEntity
+import com.zwb.mvvm_mall.bean.SecurityEntity
+import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.common.utils.UIUtils
+import com.zwb.mvvm_mall.common.view.FixedHeightBottomSheetDialog
+import com.zwb.mvvm_mall.ui.cart.adapter.CartAdapter
 import com.zwb.mvvm_mall.ui.cart.adapter.CartAdapter.Companion.GRID_DATA
 import com.zwb.mvvm_mall.ui.cart.adapter.CartAdapter.Companion.LINEAR_DATA
 import com.zwb.mvvm_mall.ui.cart.adapter.CartAdapter.Companion.STRING_DATA
-import android.view.LayoutInflater
-import android.widget.TextView
-import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.google.android.material.chip.ChipGroup
-import com.zwb.mvvm_mall.bean.GoodsModelItemEntity
-import com.zwb.mvvm_mall.bean.SecurityEntity
-import com.zwb.mvvm_mall.common.utils.dp2px
-import com.zwb.mvvm_mall.common.view.FixedHeightBottomSheetDialog
-import com.zwb.mvvm_mall.common.view.GridItemDecoration
-import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
+import com.zwb.mvvm_mall.ui.cart.viewmodel.CartViewModel
+import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
 import kotlinx.android.synthetic.main.dialog_cart_attr_layout.view.*
+import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.layout_cart_attr.view.*
 import kotlinx.android.synthetic.main.layout_cart_toolbar.*
 
@@ -61,7 +58,6 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
         val layoutManager = GridLayoutManager(mContext, 2)
         mAdapter = CartAdapter(mCartMultiList)
         rvCart.layoutManager = layoutManager
-        rvCart.addItemDecoration(GridItemDecoration(activity!!.dp2px(8f)))
         rvCart.adapter = mAdapter
 
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -137,7 +133,7 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
      * 跳转到商品详情
      */
     private fun toGoodsDetail(goodsEntity: CartGoodsEntity) {
-        Toast.makeText(mContext,"跳转到商品详情",Toast.LENGTH_SHORT).show()
+        GoodsDetailActivity.launch(requireActivity(),goodsEntity.goodsName)
     }
     /**
      * 修改该商品购物车数量

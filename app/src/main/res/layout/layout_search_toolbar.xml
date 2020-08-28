@@ -18,22 +18,34 @@
         android:id="@+id/textSearch"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_28"
+        android:textSize="@dimen/sp_14"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/tvSearch"
         android:layout_toRightOf="@+id/ivBack"
+        android:layout_marginRight="@dimen/dp_50"
         android:background="@drawable/shape_grey_background"
-        android:drawableStart="@mipmap/search"
+        android:drawableLeft="@mipmap/search"
         android:textColor="@color/grey_text"
-        android:paddingStart="@dimen/sp_14" />
+        android:drawablePadding="@dimen/dp_10"
+        android:paddingLeft="@dimen/sp_14" />
 
     <TextView
         android:id="@+id/tvSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/sp_14"
-        android:layout_marginEnd="@dimen/sp_14"
         android:textColor="@color/grey_text"
+        android:gravity="center"
+        android:visibility="gone"
         android:text="搜索"/>
+    <ImageView
+        android:id="@+id/ivRight"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:visibility="visible"
+        android:src="@mipmap/switch_grid"
+        android:padding="@dimen/dp_12"
+        />
 </RelativeLayout>

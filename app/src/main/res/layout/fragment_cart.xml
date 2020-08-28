@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:layout_above="@+id/rlCartBottom"
-        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_4"
         />
     <View
         android:layout_width="match_parent"

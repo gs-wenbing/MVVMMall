@@ -50,3 +50,11 @@ fun FragmentActivity.getScreenWidth(): Int {
     windowManager.defaultDisplay.getMetrics(dm)
     return dm.widthPixels
 }
+/**
+ * 获取屏幕高度
+ */
+fun FragmentActivity.getScreenHeight(): Int {
+    val dm = DisplayMetrics()
+    windowManager.defaultDisplay.getMetrics(dm)
+    return dm.heightPixels
+}

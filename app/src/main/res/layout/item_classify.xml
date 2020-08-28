@@ -2,15 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:layout_marginBottom="@dimen/dp_14"
     android:orientation="vertical">
-    <ImageView
+    <com.rishabhharit.roundedimageview.RoundedImageView
         android:id="@+id/ivIcon"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:padding="@dimen/dp_6"
-        android:background="@drawable/shape_background"
+        android:scaleType="centerCrop"
+        app:cornerRadius="8dp"
+        app:layout_constraintDimensionRatio="1"
+        app:roundedCorners="all"
+        android:background="@drawable/shape_white_background"
         />
     <TextView
         android:id="@+id/tvTitle"

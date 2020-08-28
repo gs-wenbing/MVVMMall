@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_white_background_selector"
-    android:paddingBottom="8dp"
+    android:paddingBottom="@dimen/dp_8"
+    android:layout_margin="@dimen/dp_4"
     android:orientation="vertical">
 
     <com.rishabhharit.roundedimageview.RoundedImageView
@@ -12,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:cornerRadius="8dp"
+        app:cornerRadius="@dimen/dp_8"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintTop_toTopOf="parent"
         app:roundedCorners="topLeft|topRight" />
@@ -22,14 +23,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:lineSpacingExtra="2dp"
+        android:lineSpacingExtra="@dimen/dp_2"
         android:maxLines="2"
-        android:paddingLeft="10dp"
-        android:paddingTop="8dp"
-        android:paddingRight="10dp"
-        android:text="What R U nongshalei?"
-        android:textColor="#666"
-        android:textSize="13sp"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_10"
+        android:textColor="@color/grey_text"
+        android:textSize="@dimen/sp_13"
         app:layout_constraintTop_toBottomOf="@+id/ivIcon" />
 
     <TextView
@@ -38,10 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="110"
-        android:textColor="#f00"
-        android:textSize="15sp"
+        android:textColor="@color/mainRed"
         android:textStyle="bold"
-        android:paddingLeft="10dp"
+        android:textSize="@dimen/sp_12"
+        android:paddingLeft="@dimen/dp_10"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGoodsName" />
 

@@ -1,7 +1,6 @@
 package com.zwb.mvvm_mall.ui.goods.view
 
 import android.content.Intent
-import android.graphics.Point
 import android.graphics.Typeface
 import android.view.KeyEvent
 import android.view.View
@@ -26,7 +25,6 @@ import kotlinx.android.synthetic.main.layout_goodsdetail_goods.*
 import kotlinx.android.synthetic.main.layout_goodsdetail_toolbar.*
 import kotlin.math.min
 import android.widget.LinearLayout
-import androidx.fragment.app.FragmentTransaction
 import com.youth.banner.listener.OnPageChangeListener
 import com.zwb.mvvm_mall.bean.GoodsBannerEntity
 import com.zwb.mvvm_mall.ui.goods.adapter.GoodsBannerAdapter
@@ -34,8 +32,6 @@ import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer
 import com.zwb.mvvm_mall.ui.goods.adapter.GoodsBannerAdapter.VideoHolder
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.zwb.mvvm_mall.R
-import com.zwb.mvvm_mall.common.utils.dp2px
-import com.zwb.mvvm_mall.common.view.GridItemDecoration
 import com.zwb.mvvm_mall.common.view.NumIndicator
 import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
 
@@ -196,11 +192,10 @@ class GoodsDetailActivity : BaseVMActivity<GoodsViewModel>(){
         super.initDataObserver()
         mViewModel.mSeckillGoods.observe(this, Observer {
             detailRecyclerView.layoutManager = PersistentStaggeredGridLayoutManager(2)
-            detailRecyclerView.addItemDecoration(GridItemDecoration(this.dp2px(8f)))
             detailRecyclerView.adapter = HomeGoodsAdapter(it.toMutableList())
 
             recommendRecyclerView.layoutManager = GridLayoutManager(this,3)
-            recommendRecyclerView.adapter = HomeGoodsAdapter(it.toMutableList().subList(0,6),R.layout.item_goods_middle_layout)
+            recommendRecyclerView.adapter = HomeGoodsAdapter(it.toMutableList().subList(0,6),R.layout.item_round_goods_layout)
         })
         mViewModel.mCommentList.observe(this, Observer {
             setCommentData(it)
