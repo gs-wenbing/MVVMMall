@@ -24,6 +24,7 @@ class GoodsListAdapter(resID:Int,data: MutableList<GoodsEntity>?) :
                     ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
                     2,price.indexOf(".")+1
                 ))
+            helper.addOnClickListener(R.id.tvShop)
         }
     }
 }

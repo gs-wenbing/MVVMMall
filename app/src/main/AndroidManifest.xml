@@ -25,9 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.search.view.SearchActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.goods.view.GoodsListActivity"
+
+        <activity android:name=".ui.goods.view.SearchGoodsActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.goods.view.GoodsDetailActivity"
             android:screenOrientation="portrait"/>

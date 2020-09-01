@@ -1,54 +1,47 @@
-package com.zwb.mvvm_mall.ui.search.view
+package com.zwb.mvvm_mall.ui.goods.view
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.zwb.mvvm_mall.R
-import com.zwb.mvvm_mall.base.view.BaseVMActivity
+import com.zwb.mvvm_mall.base.view.BaseVMFragment
 import com.zwb.mvvm_mall.bean.SearchTagEntity
-import com.zwb.mvvm_mall.ui.search.adapter.SearchAdapter
-import com.zwb.mvvm_mall.ui.search.viewmodel.SearchViewModel
-import com.zwb.mvvm_mall.common.utils.StatusBarUtil
+import com.zwb.mvvm_mall.common.utils.KeyBoardUtils
 import com.zwb.mvvm_mall.common.utils.UIUtils
-import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
-import com.zwb.mvvm_mall.ui.goods.view.GoodsListActivity
-import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.layout_home_toolbar.toolbar
+import com.zwb.mvvm_mall.ui.goods.adapter.SearchRecordAdapter
+import com.zwb.mvvm_mall.ui.goods.viewmodel.GoodsViewModel
+import kotlinx.android.synthetic.main.fragment_search_record.*
 import kotlinx.android.synthetic.main.layout_search_header.view.*
-import kotlinx.android.synthetic.main.layout_search_toolbar.*
 
-@SuppressLint("Registered")
-class SearchActivity :BaseVMActivity<SearchViewModel>(){
+/**
+ * 搜索记录
+ */
+class SearchRecordFragment :BaseVMFragment<GoodsViewModel>(){
 
-    private lateinit var mAdapter:SearchAdapter
+    private lateinit var mAdapter: SearchRecordAdapter
 
     private lateinit var mHeaderView: View
 
-    override val layoutId = R.layout.activity_search
+    override var layoutId = R.layout.fragment_search_record
 
     override fun initView() {
         super.initView()
-        StatusBarUtil.immersive(this)
-        StatusBarUtil.setPaddingSmart(this, toolbar)
-        StatusBarUtil.darkMode(this)
-        tvSearch.visibility = View.VISIBLE
-        ivRight.visibility = View.GONE
-        tvSearch.setOnClickListener { GoodsDetailActivity.launch(this,"商品名称") }
-        ivBack.setOnClickListener { finish() }
-
-        mHeaderView = LayoutInflater.from(this).inflate(R.layout.layout_search_header, null)
-
-        mAdapter = SearchAdapter(null)
-        rvSearch.layoutManager = LinearLayoutManager(this)
+        mHeaderView = LayoutInflater.from(mActivity).inflate(R.layout.layout_search_header, null)
+        mAdapter = SearchRecordAdapter(null)
+        rvSearch.layoutManager = LinearLayoutManager(mActivity)
         rvSearch.adapter = mAdapter
         mAdapter.addHeaderView(mHeaderView)
+        rvSearch.setOnTouchListener { _, _ ->
+            KeyBoardUtils.hideInputForce(mActivity)
+            true
+        }
     }
 
     override fun initData() {
@@ -58,6 +51,7 @@ class SearchActivity :BaseVMActivity<SearchViewModel>(){
     }
 
     override fun initDataObserver() {
+        super.initDataObserver()
         mViewModel.mSearchTagsData.observe(this, Observer {
             it?.let {
                 setSearchTagView(mHeaderView.flowLayout,it)
@@ -70,10 +64,11 @@ class SearchActivity :BaseVMActivity<SearchViewModel>(){
     }
 
     private fun setSearchTagView(flowLayout: ChipGroup, list:List<SearchTagEntity>) {
+        flowLayout.removeAllViews()
         list.forEach {
-            val tv = TextView(this)
+            val tv = TextView(mActivity)
             tv.setBackgroundResource(R.drawable.shape_grey_background)
-            tv.setTextColor(getColor(R.color.grey_text))
+            tv.setTextColor(mActivity.getColor(R.color.grey_text))
             tv.setPadding(
                 UIUtils.dp2px(15f), UIUtils.dp2px(5f),
                 UIUtils.dp2px(15f), UIUtils.dp2px(5f)
@@ -84,15 +79,15 @@ class SearchActivity :BaseVMActivity<SearchViewModel>(){
             tv.text = it.tagName
             flowLayout.addView(tv)
             tv.setOnClickListener {
-                GoodsListActivity.launch(this)
+                KeyBoardUtils.hideInputForce(mActivity)
+                mViewModel.mSearchKey.value = tv.text.toString()
+                mViewModel.mSearchStatus.value = SearchGoodsActivity.SearchStatus_GOODS
             }
         }
     }
-
-    companion object{
-        fun launch(activity: FragmentActivity) =
-            activity.apply {
-                startActivity(Intent(this, SearchActivity::class.java))
-            }
+    companion object {
+        fun newInstance(): SearchRecordFragment {
+            return SearchRecordFragment()
+        }
     }
 }

@@ -13,10 +13,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.android.material.chip.ChipGroup
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
-import com.zwb.mvvm_mall.bean.CartDividingEntity
-import com.zwb.mvvm_mall.bean.CartGoodsEntity
-import com.zwb.mvvm_mall.bean.GoodsModelItemEntity
-import com.zwb.mvvm_mall.bean.SecurityEntity
+import com.zwb.mvvm_mall.bean.*
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.common.utils.UIUtils
 import com.zwb.mvvm_mall.common.view.FixedHeightBottomSheetDialog
@@ -88,6 +85,12 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
                 view.id == R.id.ivReduce -> updateCartNum(adapter.getItem(position) as CartGoodsEntity,0,position)
                 view.id == R.id.ivPlus -> updateCartNum(adapter.getItem(position) as CartGoodsEntity,1,position)
                 view.id == R.id.tvGoodsModel -> showBottomSheetDialog(adapter.getItem(position) as CartGoodsEntity,position)
+            }
+        }
+        mAdapter.setOnItemClickListener { adapter, _, position ->
+            val cartGoods = adapter.getItem(position) as CartLikeGoodsEntity
+            if(cartGoods.itemType==GRID_DATA){
+                GoodsDetailActivity.launch(requireActivity(),cartGoods.goodsName)
             }
         }
     }

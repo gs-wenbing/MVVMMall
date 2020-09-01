@@ -11,13 +11,13 @@ import com.zwb.mvvm_mall.bean.BannerResponse
 import com.zwb.mvvm_mall.bean.GoodsEntity
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
+import com.zwb.mvvm_mall.ui.goods.view.SearchGoodsActivity
 import com.zwb.mvvm_mall.ui.home.adapter.BannerImageAdapter
 import com.zwb.mvvm_mall.ui.home.adapter.HomeGoodsAdapter
 import com.zwb.mvvm_mall.ui.home.adapter.HomeListAdapter
 import com.zwb.mvvm_mall.ui.home.adapter.MenuPagerAdapter
 import com.zwb.mvvm_mall.ui.home.helper.SyncScrollHelper
 import com.zwb.mvvm_mall.ui.home.viewmodel.HomeViewModel
-import com.zwb.mvvm_mall.ui.search.view.SearchActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_home_header.view.*
 import kotlinx.android.synthetic.main.layout_home_item.view.*
@@ -35,7 +35,7 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(){
         super.initView()
         StatusBarUtil.immersive(activity)
         StatusBarUtil.setPaddingSmart(activity, mainToolbar)
-        mainSearchLayout.setOnClickListener { SearchActivity.launch(mActivity) }
+        mainSearchLayout.setOnClickListener { SearchGoodsActivity.launch(mActivity,"") }
 
         listAdapter = HomeListAdapter(mActivity,arrayOf(1).asList().toMutableList())
         mainRecyclerView.layoutManager = LinearLayoutManager(mActivity)

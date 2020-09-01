@@ -1,48 +1,40 @@
 package com.zwb.mvvm_mall.ui.goods.view
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.View
-import androidx.fragment.app.FragmentActivity
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zwb.mvvm_mall.R
-import com.zwb.mvvm_mall.base.view.BaseVMActivity
+import com.zwb.mvvm_mall.base.view.BaseVMFragment
 import com.zwb.mvvm_mall.bean.GoodsAttrFilterEntity
 import com.zwb.mvvm_mall.bean.GoodsEntity
-import com.zwb.mvvm_mall.bean.SearchTagEntity
-import com.zwb.mvvm_mall.common.utils.StatusBarUtil
-import com.zwb.mvvm_mall.common.utils.dp2px
 import com.zwb.mvvm_mall.common.view.PopupWindowList
 import com.zwb.mvvm_mall.ui.goods.adapter.GoodsAttrFilterAdapter
 import com.zwb.mvvm_mall.ui.goods.adapter.GoodsListAdapter
 import com.zwb.mvvm_mall.ui.goods.viewmodel.GoodsViewModel
-import com.zwb.mvvm_mall.ui.search.view.SearchActivity
-import kotlinx.android.synthetic.main.activity_goods_list.*
+import kotlinx.android.synthetic.main.fragment_search_goodslist.*
 import kotlinx.android.synthetic.main.layout_goodslist_filter.*
-import kotlinx.android.synthetic.main.layout_search_toolbar.*
 
+/**
+ * 商品列表页面
+ */
+class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
 
-class GoodsListActivity :BaseVMActivity<GoodsViewModel>(){
-
-    private lateinit var mAdapter:GoodsListAdapter
-    lateinit var mAttrFilterAdapter:GoodsAttrFilterAdapter
-    lateinit var mGridManager:GridLayoutManager
-    lateinit var mLinearManager:LinearLayoutManager
-
+    private lateinit var mAdapter: GoodsListAdapter
+    private lateinit var mAttrFilterAdapter: GoodsAttrFilterAdapter
+    private lateinit var mGridManager: GridLayoutManager
+    private  lateinit var mLinearManager: LinearLayoutManager
     var mGoodsList:MutableList<GoodsEntity>?=null
-
     private var mToLinear = true
-    override val layoutId = R.layout.activity_goods_list
+
+    override var layoutId = R.layout.fragment_search_goodslist
+
     override fun initView() {
         super.initView()
-        StatusBarUtil.darkMode(this,true)
-        ivBack.setOnClickListener { finish() }
-        tvSearch.visibility = View.GONE
-        ivRight.visibility = View.VISIBLE
-        ivRight.setOnClickListener {switchList()}
         initAdapter()
         initFilter()
         listRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -57,7 +49,6 @@ class GoodsListActivity :BaseVMActivity<GoodsViewModel>(){
                 }
             }
         })
-
         actionButton.setOnClickListener {
             listRecyclerView.scrollToPosition(0)
         }
@@ -78,21 +69,25 @@ class GoodsListActivity :BaseVMActivity<GoodsViewModel>(){
         mViewModel.mFilterAttrs.observe(this, Observer {
             mAttrFilterAdapter.setNewData(it.toMutableList())
         })
+
+        mViewModel.mSearchKey.observe(this, Observer {
+            mViewModel.loadSeckillGoodsData()
+        })
     }
 
     private fun initFilter(){
         mAttrFilterAdapter = GoodsAttrFilterAdapter(null)
-        hRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        hRecyclerView.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.HORIZONTAL,false)
         hRecyclerView.adapter = mAttrFilterAdapter
         mAttrFilterAdapter.setOnItemClickListener { adapter, view, position ->
-            val popWindow = PopupWindowList(this)
+            val popWindow = PopupWindowList(mActivity)
             val goodsAttrFilter = adapter.data[position] as GoodsAttrFilterEntity
             if(goodsAttrFilter.subAttrList!=null && goodsAttrFilter.subAttrList!!.isNotEmpty()){
                 popWindow.setData(goodsAttrFilter.subAttrList!!)
                 popWindow.showAsDropDown(view)
                 popWindow.applyDim(0.5f,listRecyclerView)
                 goodsAttrFilter.isSelected = true
-                popWindow.setOnPopupListener(object :PopupWindowList.OnPopupListener{
+                popWindow.setOnPopupListener(object : PopupWindowList.OnPopupListener{
                     override fun onDismiss(isConfirm: Boolean) {
                         if(!isConfirm){
                             popWindow.updateItem(isConfirm = false)
@@ -127,12 +122,13 @@ class GoodsListActivity :BaseVMActivity<GoodsViewModel>(){
 
     private fun initAdapter(){
         mAdapter = GoodsListAdapter(R.layout.item_goods_commen_layout,null)
-        mLinearManager = LinearLayoutManager(this)
-        mGridManager = GridLayoutManager(this, 2)
+        mLinearManager = LinearLayoutManager(mActivity)
+        mGridManager = GridLayoutManager(mActivity, 2)
         listRecyclerView.layoutManager = mGridManager
         listRecyclerView.adapter = mAdapter
+        setOnItemClick()
     }
-    private fun switchList(){
+    fun switchList(ivRight:ImageView){
         mToLinear = if(mToLinear){
             ivRight.setImageResource(R.mipmap.switch_grid)
             listRecyclerView.layoutManager = mLinearManager
@@ -145,14 +141,22 @@ class GoodsListActivity :BaseVMActivity<GoodsViewModel>(){
             true
         }
         listRecyclerView.adapter = mAdapter
+        setOnItemClick()
+    }
+
+    private fun setOnItemClick(){
         mAdapter.setOnItemClickListener { adapter, _, position ->
-            GoodsDetailActivity.launch(this, (adapter.getItem(position) as GoodsEntity).goodsName)
+            GoodsDetailActivity.launch(mActivity, (adapter.getItem(position) as GoodsEntity).goodsName)
+        }
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when {
+                view.id == R.id.tvShop -> Toast.makeText(mActivity,"店铺",Toast.LENGTH_SHORT).show()
+            }
         }
     }
-    companion object{
-        fun launch(activity: FragmentActivity) =
-            activity.apply {
-                startActivity(Intent(this, GoodsListActivity::class.java))
-            }
+    companion object {
+        fun newInstance(): SearchGoodsFragment {
+            return SearchGoodsFragment()
+        }
     }
 }

@@ -16,8 +16,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_scrollFlags="scroll|enterAlways">
-
-            <include layout="@layout/layout_search_toolbar"/>
             <include
                 android:id="@+id/layoutSort"
                 layout="@layout/layout_goodslist_sort"/>

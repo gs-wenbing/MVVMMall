@@ -1,4 +1,4 @@
-package com.zwb.mvvm_mall.ui.search.adapter
+package com.zwb.mvvm_mall.ui.goods.adapter
 
 import android.view.View
 import android.widget.TextView
@@ -9,7 +9,7 @@ import com.youth.banner.util.BannerUtils
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.bean.SearchHotEntity
 
-class SearchAdapter(data: MutableList<SearchHotEntity>?):
+class SearchRecordAdapter(data: MutableList<SearchHotEntity>?):
     BaseQuickAdapter<SearchHotEntity, BaseViewHolder>(R.layout.item_search_layout,data){
     override fun convert(helper: BaseViewHolder, item: SearchHotEntity?) {
         item?.let {

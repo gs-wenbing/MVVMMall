@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-    <include layout="@layout/layout_search_toolbar"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSearch"
+        android:id="@+id/rvSimilar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
         />
 </LinearLayout>

@@ -44,6 +44,19 @@
         android:paddingLeft="@dimen/dp_10"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGoodsName" />
-
+    <TextView
+        android:id="@+id/tvShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="@dimen/dp_10"
+        android:text="莎啦啦瓜批专营店  上海"
+        android:textColor="@color/grey_light"
+        android:gravity="center_vertical"
+        android:drawableRight="@mipmap/small_next"
+        android:drawablePadding="@dimen/dp_6"
+        android:textSize="@dimen/sp_11"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGoodsPrice"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

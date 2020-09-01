@@ -257,7 +257,7 @@ class GoodsDetailActivity : BaseVMActivity<GoodsViewModel>(){
         return super.onKeyDown(keyCode, event)
     }
 
-    fun closeCommentFragment(){
+    private fun closeCommentFragment(){
         tvTitleComment.visibility  = View.GONE
         radioTabs.visibility  = View.VISIBLE
         val transaction = supportFragmentManager.beginTransaction()
