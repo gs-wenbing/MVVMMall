@@ -2,16 +2,23 @@ package com.zwb.mvvm_mall.ui.goods.view
 
 import android.content.Intent
 import android.text.TextUtils
+import android.util.SparseArray
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMActivity
+import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.utils.KeyBoardUtils
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
+import com.zwb.mvvm_mall.ui.cart.view.CartFragment
+import com.zwb.mvvm_mall.ui.classify.view.ClassifyFragment
 import com.zwb.mvvm_mall.ui.goods.viewmodel.GoodsViewModel
+import com.zwb.mvvm_mall.ui.home.view.HomeFragment
+import com.zwb.mvvm_mall.ui.mine.view.MineFragment
 import kotlinx.android.synthetic.main.activity_goods_search.*
 import kotlinx.android.synthetic.main.layout_search_toolbar.*
 
@@ -20,9 +27,11 @@ import kotlinx.android.synthetic.main.layout_search_toolbar.*
 
 class SearchGoodsActivity :BaseVMActivity<GoodsViewModel>(){
 
-    private var mRecordFragment:SearchRecordFragment?=null
-    private var mGoodsFragment:SearchGoodsFragment?=null
-    private var mSimilarFragment:SearchSimilarFragment?=null
+    private var mLastIndex: Int = -1
+    private val mFragmentMap:MutableMap<Int,Fragment> = HashMap()
+    // 当前显示的 fragment
+    private var mCurrentFragment: Fragment? = null
+    private var mLastFragment: Fragment? = null
 
     override val layoutId = R.layout.activity_goods_search
 
@@ -33,8 +42,8 @@ class SearchGoodsActivity :BaseVMActivity<GoodsViewModel>(){
         ivRight.visibility = View.GONE
         //处理返回键逻辑
         ivBack.setOnClickListener {
-            if(mGoodsFragment!=null && mGoodsFragment!!.isVisible){
-                showRecordFragment()
+            if(mCurrentFragment is SearchGoodsFragment){
+                switchFragment(Constant.SEARCH_RECORD)
                 setEditFocus()
             }else{
                 finish()
@@ -44,7 +53,7 @@ class SearchGoodsActivity :BaseVMActivity<GoodsViewModel>(){
         textSearch.setOnTouchListener { _, event ->
             event?.let {
                 if(it.action == MotionEvent.ACTION_UP)
-                    if(mGoodsFragment!=null && mGoodsFragment!!.isVisible){
+                    if(mCurrentFragment is SearchGoodsFragment){
                         mViewModel.mSearchStatus.value = SearchStatus_SIMILAR
                         setEditFocus()
                     }
@@ -54,27 +63,22 @@ class SearchGoodsActivity :BaseVMActivity<GoodsViewModel>(){
 
        //点击搜索按钮
         tvSearch.setOnClickListener {
-            if((mRecordFragment!=null && mRecordFragment!!.isVisible)
-                || (mSimilarFragment!=null && mSimilarFragment!!.isVisible)){
-                var searchKey = textSearch.hint.toString()
-                if(textSearch.text!=null && !TextUtils.isEmpty(textSearch.text.toString())){
-                    searchKey = textSearch.text.toString()
-                }
-                mViewModel.mSearchKey.value = searchKey
-                mViewModel.mSearchStatus.value = SearchStatus_GOODS
-                clearFocus()
+            var searchKey = textSearch.hint.toString()
+            if(textSearch.text!=null && !TextUtils.isEmpty(textSearch.text.toString())){
+                searchKey = textSearch.text.toString()
             }
+            mViewModel.mSearchKey.value = searchKey
+            mViewModel.mSearchStatus.value = SearchStatus_GOODS
+            clearFocus()
         }
         ivRight.setOnClickListener {
-            if(mGoodsFragment!=null && mGoodsFragment!!.isVisible){
-                mGoodsFragment!!.switchList(ivRight)
+            if(mFragmentMap[Constant.SEARCH_GOODS]!=null){
+                (mFragmentMap[Constant.SEARCH_GOODS] as SearchGoodsFragment).switchList(ivRight)
             }
         }
         ivDelete.setOnClickListener {
-            if(mSimilarFragment!=null && mSimilarFragment!!.isVisible){
-                mViewModel.mSearchKey.value = ""
-                mViewModel.mSearchStatus.value = SearchStatus_RECORD
-            }
+            mViewModel.mSearchKey.value = ""
+            mViewModel.mSearchStatus.value = SearchStatus_RECORD
         }
         layoutVoice.setOnClickListener {
             Toast.makeText(this,"语音",Toast.LENGTH_SHORT).show()
@@ -82,7 +86,6 @@ class SearchGoodsActivity :BaseVMActivity<GoodsViewModel>(){
     }
 
     override fun initData() {
-        super.initData()
         val searchKey= intent.getStringExtra(SearchKey)
         if(!TextUtils.isEmpty(searchKey)){
             mViewModel.mSearchKey.value = intent.getStringExtra(SearchKey)
@@ -97,17 +100,17 @@ class SearchGoodsActivity :BaseVMActivity<GoodsViewModel>(){
         mViewModel.mSearchStatus.observe(this, Observer {
             when (it) {
                 SearchStatus_RECORD -> {//切换到搜索记录的fragment
-                    showRecordFragment()
+                    switchFragment(Constant.SEARCH_RECORD)
                     setEditFocus()
                     ivDelete.visibility = View.GONE
                 }
                 SearchStatus_SIMILAR -> {//切换到搜索类似关键词的fragment
-                    showSimilarFragment()
+                    switchFragment(Constant.SEARCH_SIMILAR)
                     setEditFocus()
                     ivDelete.visibility = View.VISIBLE
                 }
                 SearchStatus_GOODS -> {//切换到搜索商品列表的fragment
-                    showGoodsFragment()
+                    switchFragment(Constant.SEARCH_GOODS)
                     clearFocus()
                     ivDelete.visibility = View.GONE
                 }
@@ -121,25 +124,49 @@ class SearchGoodsActivity :BaseVMActivity<GoodsViewModel>(){
         })
     }
 
-    private fun showGoodsFragment(){
-        if(mGoodsFragment==null)
-            mGoodsFragment = SearchGoodsFragment.newInstance()
-        supportFragmentManager.beginTransaction().replace(R.id.layoutContent,
-            mGoodsFragment!!).commit()
-    }
-    private fun showSimilarFragment(){
-        if(mSimilarFragment==null)
-            mSimilarFragment = SearchSimilarFragment.newInstance()
-        supportFragmentManager.beginTransaction().replace(R.id.layoutContent,
-            mSimilarFragment!!).commit()
-    }
-    private fun showRecordFragment(){
-        if(mRecordFragment==null)
-            mRecordFragment = SearchRecordFragment.newInstance()
-        supportFragmentManager.beginTransaction().replace(R.id.layoutContent,
-            mRecordFragment!!).commit()
+    private fun switchFragment(index: Int) {
+        val fragmentManager = supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        // 将当前显示的fragment和上一个需要隐藏的fragment分别加上tag, 并获取出来
+        // 给fragment添加tag,这样可以通过findFragmentByTag找到存在的fragment，不会出现重复添加
+        mCurrentFragment = fragmentManager.findFragmentByTag(index.toString())
+        mLastFragment = fragmentManager.findFragmentByTag(mLastIndex.toString())
+        // 如果位置不同
+        if (index != mLastIndex) {
+            if (mLastFragment != null) {
+                transaction.hide(mLastFragment!!)
+            }
+            if (mCurrentFragment == null) {
+                mCurrentFragment = getFragment(index)
+                transaction.add(R.id.layoutContent, mCurrentFragment!!, index.toString())
+            } else {
+                transaction.show(mCurrentFragment!!)
+            }
+        }
+
+        // 如果位置相同或者新启动的应用
+        if (index == mLastIndex) {
+            if (mCurrentFragment == null) {
+                mCurrentFragment = getFragment(index)
+                transaction.add(R.id.layoutContent, mCurrentFragment!!, index.toString())
+            }
+        }
+        transaction.commit()
+        mLastIndex = index
     }
 
+    private fun getFragment(key: Int): Fragment {
+        var fragment: Fragment? = mFragmentMap[key]
+        if (fragment == null) {
+            when (key) {
+                Constant.SEARCH_GOODS -> fragment = SearchGoodsFragment.newInstance()
+                Constant.SEARCH_RECORD -> fragment = SearchRecordFragment.newInstance()
+                Constant.SEARCH_SIMILAR -> fragment = SearchSimilarFragment.newInstance()
+            }
+            mFragmentMap[key] = fragment!!
+        }
+        return fragment
+    }
     private fun setEditFocus(){
         textSearch.isFocusable = true
         textSearch.isFocusableInTouchMode = true
@@ -159,8 +186,8 @@ class SearchGoodsActivity :BaseVMActivity<GoodsViewModel>(){
     }
 
     override fun onBackPressed() {
-        if(mGoodsFragment!=null && mGoodsFragment!!.isVisible){
-            showRecordFragment()
+        if(mCurrentFragment is SearchGoodsFragment){
+            switchFragment(Constant.SEARCH_RECORD)
             setEditFocus()
         }else{
             finish()

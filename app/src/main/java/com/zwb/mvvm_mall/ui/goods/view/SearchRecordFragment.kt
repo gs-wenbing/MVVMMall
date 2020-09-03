@@ -1,14 +1,11 @@
 package com.zwb.mvvm_mall.ui.goods.view
 
-import android.annotation.SuppressLint
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment

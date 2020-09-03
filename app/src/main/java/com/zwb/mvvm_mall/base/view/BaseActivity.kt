@@ -3,6 +3,8 @@ package com.zwb.mvvm_mall.base.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 import com.zwb.mvvm_mall.MyApplication
 import com.zwb.mvvm_mall.base.vm.SharedViewModel
 
@@ -10,15 +12,15 @@ abstract class BaseActivity : AppCompatActivity() {
 
     lateinit var mSharedViewModel: SharedViewModel
     private var mActivityProvider: ViewModelProvider? = null
-
     abstract val layoutId: Int
 
     open fun initView() {}
 
     open fun initData() {}
 
-    abstract fun setContentView()
+    open fun reLoad() = initData()
 
+    abstract fun setContentView()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -15,9 +15,9 @@ class ClassifyViewModel : BaseViewModel<ClassifyRepository>() {
     var mCurrClassify: MutableLiveData<ClassifyEntity> = MutableLiveData()
 
 
-    fun loadClassifyCo() {
+    fun loadClassifyCo(key:String) {
         initiateRequest({
-            mClassifyData.value = mRepository.loadClassifyCo()
+            mClassifyData.value = mRepository.loadClassifyCo(key)
         }, loadState)
     }
 

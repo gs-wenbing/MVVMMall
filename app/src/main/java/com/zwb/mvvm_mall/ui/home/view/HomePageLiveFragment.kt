@@ -1,8 +1,10 @@
 package com.zwb.mvvm_mall.ui.home.view
 
+import android.os.Handler
 import androidx.lifecycle.Observer
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
+import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
 import com.zwb.mvvm_mall.ui.home.adapter.PagerLiveAdapter
 import com.zwb.mvvm_mall.ui.home.viewmodel.HomeViewModel
@@ -17,16 +19,20 @@ class HomePageLiveFragment : BaseVMFragment<HomeViewModel>(){
         super.initView()
         childRecyclerView.layoutManager =  PersistentStaggeredGridLayoutManager(2)
         childRecyclerView.adapter = mAdapter
+        registerPlaceHolderLoad(childRecyclerView,R.layout.layout_placeholder_home_list)
     }
 
     override fun initData() {
         super.initData()
-        mViewModel.loadRecyclerGoodsData2()
+        Handler().postDelayed({
+            mViewModel.loadRecyclerGoodsData2()
+        }, 2000)
     }
 
     override fun initDataObserver() {
         super.initDataObserver()
         mViewModel.mRecyclerGoods2.observe(this, Observer {
+            showSuccess(Constant.COMMON_KEY)
             mAdapter.setNewData(it.toMutableList())
         })
     }

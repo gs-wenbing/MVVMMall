@@ -14,6 +14,7 @@ import com.google.android.material.chip.ChipGroup
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
 import com.zwb.mvvm_mall.bean.*
+import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.common.utils.UIUtils
 import com.zwb.mvvm_mall.common.view.FixedHeightBottomSheetDialog
@@ -93,7 +94,9 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
                 GoodsDetailActivity.launch(requireActivity(),cartGoods.goodsName)
             }
         }
+        registerDefaultLoad(rvCart,Constant.URL_CARTS)
     }
+
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
@@ -101,7 +104,8 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
         }
     }
     override fun initData() {
-        mViewModel.loadCartGoodsData()
+        super.initData()
+        mViewModel.loadCartGoodsData(Constant.URL_CARTS)
     }
     override fun initDataObserver() {
         mViewModel.mCartGoodsData.observe(this, Observer {

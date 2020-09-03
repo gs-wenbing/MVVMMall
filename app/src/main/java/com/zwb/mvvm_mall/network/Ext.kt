@@ -3,7 +3,6 @@ package com.zwb.mvvm_mall.network
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zwb.mvvm_mall.common.utils.Constant
-import com.wjx.android.wanandroidmvvm.network.NetExceptionHandle
 import com.zwb.mvvm_mall.base.repository.BaseRepository
 import com.zwb.mvvm_mall.base.viewstate.State
 import com.zwb.mvvm_mall.base.viewstate.StateType
@@ -18,26 +17,22 @@ import kotlinx.coroutines.launch
  */
 
 fun <T> BaseResponse<T>.dataConvert(
-    loadState: MutableLiveData<State>
+    loadState: MutableLiveData<State>,
+    urlKey:String = ""
 ): T {
-    when (errorCode) {
+    return when (errorCode) {
         Constant.SUCCESS -> {
             if (data is List<*>) {
                 if ((data as List<*>).isEmpty()) {
-                    loadState.postValue(State(StateType.EMPTY))
+                    loadState.postValue(State(StateType.EMPTY,urlKey))
                 }
             }
-            loadState.postValue(State(StateType.SUCCESS))
-            return data
+            loadState.postValue(State(StateType.SUCCESS,urlKey))
+            data
         }
-//        Constant.NOT_LOGIN -> {
-//            UserInfo.instance.logoutSuccess()
-//            loadState.postValue(State(StateType.ERROR, message = "请重新登录"))
-//            return data
-//        }
         else -> {
-            loadState.postValue(State(StateType.ERROR, message = errorMsg))
-            return data
+            loadState.postValue(State(StateType.ERROR,urlKey, message = errorMsg))
+            data
         }
     }
 }

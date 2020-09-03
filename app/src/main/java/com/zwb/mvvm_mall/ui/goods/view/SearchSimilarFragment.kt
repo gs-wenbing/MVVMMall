@@ -22,7 +22,7 @@ class SearchSimilarFragment :BaseVMFragment<GoodsViewModel>(){
     override fun initData() {
         super.initData()
         rvSimilar.layoutManager = LinearLayoutManager(mActivity)
-        var similarAdapter = SearchSimilarAdapter(arrayOf("格子裤女直筒"
+        val similarAdapter = SearchSimilarAdapter(arrayOf("格子裤女直筒"
             ,"格子裤女直筒2"
             ,"格子裤女直筒3"
             ,"格子裤女直筒4"
@@ -42,7 +42,7 @@ class SearchSimilarFragment :BaseVMFragment<GoodsViewModel>(){
         }
         rvSimilar.setOnTouchListener { _, _ ->
             KeyBoardUtils.hideInputForce(mActivity)
-            true
+            false
         }
     }
 

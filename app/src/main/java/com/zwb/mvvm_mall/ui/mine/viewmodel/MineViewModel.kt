@@ -8,29 +8,15 @@ import com.zwb.mvvm_mall.bean.BannerResponse
 import com.zwb.mvvm_mall.ui.mine.repository.MineRepository
 
 class MineViewModel: BaseViewModel<MineRepository>(){
-    var mBannerData: MutableLiveData<List<BannerResponse>> = MutableLiveData()
-
-    fun loadBannerCo() {
-        initiateRequest({
-            mBannerData.value = mRepository.loadBannerCo()
-        }, loadState)
-    }
 
 
     var mSeckillGoods:MutableLiveData<List<GoodsEntity>> = MutableLiveData()
-    fun loadSeckillGoodsData(){
+    fun loadSeckillGoodsData(key:String){
         initiateRequest({
-            mSeckillGoods.value = mRepository.loadSeckillGoodsCo()
+            mSeckillGoods.value = mRepository.loadSeckillGoodsCo(key)
         }, loadState)
     }
 
 
-    var mListScrollEnabled:MutableLiveData<Boolean> = MutableLiveData()
 
-    var mListData:MutableLiveData<List<String>> = MutableLiveData()
-    fun loadListData(){
-        //创建一个带元素的可变集合
-        val list = mutableListOf("22","33","22","33","22","33","22","33","22","33","33","22","33","22","33","22","33","33","22","33","22","33","22","33","33","22","33","22","33","22","33","22","33","22","33","22","33","33","22","33","22","33","22","33","33","22","33","22","33","22","33","33","22","33","22","33","22","33","22","33","22","33","22","33","33","22","33","22","33","22","33","33","22","33","22","33","22","33","33","22","33")
-        mListData.value = list
-    }
 }

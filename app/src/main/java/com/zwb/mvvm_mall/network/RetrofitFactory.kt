@@ -1,10 +1,8 @@
 package com.zwb.mvvm_mall.network
-import android.util.Log
 import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.utils.SPreference
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

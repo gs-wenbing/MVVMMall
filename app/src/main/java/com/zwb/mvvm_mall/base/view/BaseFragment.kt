@@ -2,7 +2,6 @@ package com.zwb.mvvm_mall.base.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ abstract class BaseFragment: Fragment() {
     protected lateinit var mSharedViewModel: SharedViewModel
     private var mFragmentProvider: ViewModelProvider? = null
     private var mActivityProvider: ViewModelProvider? = null
-
     lateinit var mContext: Context
     abstract var layoutId:Int
 
@@ -26,10 +24,12 @@ abstract class BaseFragment: Fragment() {
 
     open fun initData(){}
 
+    open fun reLoad() = initData()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mActivity = context as AppCompatActivity
-        mContext = this.activity!!.baseContext
+        mContext = this.requireActivity().baseContext
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ abstract class BaseFragment: Fragment() {
         initData()
     }
 
-    protected fun getAppViewModelProvider(): ViewModelProvider {
+    private fun getAppViewModelProvider(): ViewModelProvider {
         return (mActivity.applicationContext as MyApplication).getAppViewModelProvider(mActivity)
     }
 

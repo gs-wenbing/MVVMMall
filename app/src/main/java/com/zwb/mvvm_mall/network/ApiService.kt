@@ -7,8 +7,6 @@ import retrofit2.http.GET
 
 interface ApiService{
 
-    @GET("/banner/json")
-    fun loadBanner(): Observable<BaseResponse<List<BannerResponse>>>
     @GET("$PROJECT/banner/json")
     suspend fun loadBannerCo(): BaseResponse<List<BannerResponse>>
 

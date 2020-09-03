@@ -1,5 +1,6 @@
 package com.zwb.mvvm_mall.ui.home.view
 
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
@@ -9,6 +10,7 @@ import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
 import com.zwb.mvvm_mall.bean.BannerResponse
 import com.zwb.mvvm_mall.bean.GoodsEntity
+import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
 import com.zwb.mvvm_mall.ui.goods.view.SearchGoodsActivity
@@ -67,6 +69,7 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(){
         mainRefreshLayout.setOnRefreshListener {
             initData()
         }
+        registerPlaceHolderLoad(mHeaderView.horizontalRecyclerview,R.layout.layout_placeholder_home_h_veiw)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -77,7 +80,9 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(){
     }
     override fun initData() {
         mViewModel.loadBannerCo()
-        mViewModel.loadSeckillGoodsData()
+        Handler().postDelayed({
+            mViewModel.loadSeckillGoodsData()
+        }, 2000)
     }
 
     override fun initDataObserver() {
@@ -85,6 +90,7 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(){
             setBannerData(it)
         })
         mViewModel.mSeckillGoods.observe(this, Observer {
+            showSuccess(Constant.COMMON_KEY)
             mHAdapter.setNewData(it)
             mainRefreshLayout.finishRefresh()
         })

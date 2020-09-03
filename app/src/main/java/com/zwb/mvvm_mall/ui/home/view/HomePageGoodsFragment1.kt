@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
 import com.zwb.mvvm_mall.bean.GoodsEntity
+import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
 import com.zwb.mvvm_mall.ui.goods.view.GoodsDetailActivity
 import com.zwb.mvvm_mall.ui.home.adapter.PagerListAdapter
@@ -22,6 +23,7 @@ class HomePageGoodsFragment1 : BaseVMFragment<HomeViewModel>(){
             GoodsDetailActivity.launch(requireActivity(),
                 (adapter.getItem(position) as GoodsEntity).goodsName)
         }
+        registerPlaceHolderLoad(childRecyclerView,R.layout.layout_placeholder_home_list)
     }
 
     override fun initData() {
@@ -32,6 +34,7 @@ class HomePageGoodsFragment1 : BaseVMFragment<HomeViewModel>(){
     override fun initDataObserver() {
         super.initDataObserver()
         mViewModel.mRecyclerGoods1.observe(this, Observer {
+            showSuccess(Constant.COMMON_KEY)
             mAdapter.setNewData(it.toMutableList())
         })
     }

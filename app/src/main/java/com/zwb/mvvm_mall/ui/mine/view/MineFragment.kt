@@ -10,6 +10,7 @@ import com.youth.banner.util.BannerUtils
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
 import com.zwb.mvvm_mall.bean.GoodsEntity
+import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.common.utils.UIUtils
 import com.zwb.mvvm_mall.common.view.PersistentStaggeredGridLayoutManager
@@ -82,6 +83,7 @@ class MineFragment : BaseVMFragment<MineViewModel>(){
             GoodsDetailActivity.launch(requireActivity(),
                 (adapter.getItem(position) as GoodsEntity).goodsName)
         }
+        registerDefaultLoad(mineRecyclerView,Constant.URL_SECKILL_GOODS)
     }
 
     private fun setViewStyle() {
@@ -141,7 +143,6 @@ class MineFragment : BaseVMFragment<MineViewModel>(){
         )
     }
 
-
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden && lastScrollY==0) {
@@ -152,8 +153,9 @@ class MineFragment : BaseVMFragment<MineViewModel>(){
     }
     override fun initData() {
         super.initData()
-        mViewModel.loadSeckillGoodsData()
+        mViewModel.loadSeckillGoodsData(Constant.URL_SECKILL_GOODS)
     }
+
     override fun initDataObserver() {
         mViewModel.mSeckillGoods.observe(this, Observer {
             mAdapter.setNewData(it.toMutableList())

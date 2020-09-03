@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zwb.mvvm_mall.common.view.recyclerview.ChildRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/childRecyclerView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutContent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/dp_4">
+    android:layout_height="match_parent">
+    <com.zwb.mvvm_mall.common.view.recyclerview.ChildRecyclerView
+        android:id="@+id/childRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dp_4">
 
-</com.zwb.mvvm_mall.common.view.recyclerview.ChildRecyclerView>
+    </com.zwb.mvvm_mall.common.view.recyclerview.ChildRecyclerView>
+</LinearLayout>

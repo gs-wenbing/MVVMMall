@@ -62,7 +62,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:visibility="visible"
-        android:src="@mipmap/switch_list"
+        android:src="@mipmap/switch_grid"
         android:padding="@dimen/dp_12"
         />
 </RelativeLayout>

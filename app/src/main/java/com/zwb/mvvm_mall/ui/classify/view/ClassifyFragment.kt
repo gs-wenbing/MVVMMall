@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
+import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.utils.StatusBarUtil
 import com.zwb.mvvm_mall.ui.classify.adapter.ClassifyPAdapter
 import com.zwb.mvvm_mall.ui.classify.viewmodel.ClassifyViewModel
@@ -34,6 +35,7 @@ class ClassifyFragment : BaseVMFragment<ClassifyViewModel>() {
             }
             mPAdapter.notifyDataSetChanged()
         }
+        registerDefaultLoad(layoutContent,Constant.URL_GOODS_CLASS)
     }
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
@@ -43,7 +45,7 @@ class ClassifyFragment : BaseVMFragment<ClassifyViewModel>() {
     }
     override fun initData() {
         super.initData()
-        mViewModel.loadClassifyCo()
+        mViewModel.loadClassifyCo(Constant.URL_GOODS_CLASS)
 
     }
 

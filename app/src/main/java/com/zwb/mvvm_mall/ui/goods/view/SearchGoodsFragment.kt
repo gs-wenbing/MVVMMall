@@ -18,6 +18,13 @@ import com.zwb.mvvm_mall.ui.goods.adapter.GoodsListAdapter
 import com.zwb.mvvm_mall.ui.goods.viewmodel.GoodsViewModel
 import kotlinx.android.synthetic.main.fragment_search_goodslist.*
 import kotlinx.android.synthetic.main.layout_goodslist_filter.*
+import android.os.Handler
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView
+import com.kingja.loadsir.core.LoadSir
+import com.zwb.mvvm_mall.common.callback.PlaceHolderCallBack
+import com.zwb.mvvm_mall.common.utils.Constant
+
 
 /**
  * 商品列表页面
@@ -29,7 +36,8 @@ class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
     private lateinit var mGridManager: GridLayoutManager
     private  lateinit var mLinearManager: LinearLayoutManager
     var mGoodsList:MutableList<GoodsEntity>?=null
-    private var mToLinear = true
+    private var mToGrid = true
+    private var isLoadMore = true
 
     override var layoutId = R.layout.fragment_search_goodslist
 
@@ -41,29 +49,38 @@ class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
 
             @SuppressLint("RestrictedApi")
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (listRecyclerView.canScrollVertically(-1)) {
-                    actionButton.visibility = View.VISIBLE
+                if (recyclerView.canScrollVertically(-1)) {
+                    actionButton?.visibility = View.VISIBLE
                 } else {
                     //滑动到顶部
-                    actionButton.visibility = View.INVISIBLE
+                    actionButton?.visibility = View.INVISIBLE
                 }
             }
         })
         actionButton.setOnClickListener {
             listRecyclerView.scrollToPosition(0)
         }
+        registerPlaceHolderLoad(coordinatorLayout, R.layout.layout_placeholder_search_goods)
     }
 
-    override fun initData() {
-        super.initData()
-        mViewModel.loadSeckillGoodsData()
-        mViewModel.loadFilterAttrsData()
+    private fun loadData(){
+        isLoadMore = false
+        showPlaceHolder()
+        //模拟加载效果
+        Handler().postDelayed({
+            mViewModel.loadFilterAttrsData()
+            mViewModel.loadSeckillGoodsData()
+        }, 2000)
     }
-
     override fun initDataObserver() {
         super.initDataObserver()
         mViewModel.mSeckillGoods.observe(this, Observer {
-            mGoodsList = it.toMutableList()
+            if(!isLoadMore){
+                showSuccess(Constant.COMMON_KEY)
+                mGoodsList = it.toMutableList()
+            }else{
+                mGoodsList?.addAll(it.toMutableList())
+            }
             mAdapter.setNewData(mGoodsList)
         })
         mViewModel.mFilterAttrs.observe(this, Observer {
@@ -71,8 +88,12 @@ class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
         })
 
         mViewModel.mSearchKey.observe(this, Observer {
-            mViewModel.loadSeckillGoodsData()
+            loadData()
         })
+    }
+
+    override fun reLoad() {
+        loadData()
     }
 
     private fun initFilter(){
@@ -110,6 +131,7 @@ class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
                             goodsAttrFilter.selectString += it.attrName+","
                         }
                         adapter.notifyDataSetChanged()
+                        isLoadMore = false
                         mViewModel.loadSeckillGoodsData()
                     }
                 })
@@ -121,15 +143,15 @@ class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
     }
 
     private fun initAdapter(){
-        mAdapter = GoodsListAdapter(R.layout.item_goods_commen_layout,null)
+        mAdapter = GoodsListAdapter(R.layout.item_goods_linear_layout,null)
         mLinearManager = LinearLayoutManager(mActivity)
         mGridManager = GridLayoutManager(mActivity, 2)
-        listRecyclerView.layoutManager = mGridManager
+        listRecyclerView.layoutManager = mLinearManager
         listRecyclerView.adapter = mAdapter
-        setOnItemClick()
+        setRecyclerViewListener()
     }
     fun switchList(ivRight:ImageView){
-        mToLinear = if(mToLinear){
+        mToGrid = if(mToGrid){
             ivRight.setImageResource(R.mipmap.switch_grid)
             listRecyclerView.layoutManager = mLinearManager
             mAdapter = GoodsListAdapter(R.layout.item_goods_linear_layout,mGoodsList)
@@ -141,18 +163,24 @@ class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
             true
         }
         listRecyclerView.adapter = mAdapter
-        setOnItemClick()
+        setRecyclerViewListener()
     }
 
-    private fun setOnItemClick(){
+    private fun setRecyclerViewListener(){
         mAdapter.setOnItemClickListener { adapter, _, position ->
             GoodsDetailActivity.launch(mActivity, (adapter.getItem(position) as GoodsEntity).goodsName)
         }
-        mAdapter.setOnItemChildClickListener { adapter, view, position ->
+        mAdapter.setOnItemChildClickListener { _, view, _ ->
             when {
                 view.id == R.id.tvShop -> Toast.makeText(mActivity,"店铺",Toast.LENGTH_SHORT).show()
             }
         }
+        mAdapter.setOnLoadMoreListener({
+            Handler().postDelayed({
+                isLoadMore = true
+                mViewModel.loadSeckillGoodsData()
+            }, 2000)
+        },listRecyclerView)
     }
     companion object {
         fun newInstance(): SearchGoodsFragment {
