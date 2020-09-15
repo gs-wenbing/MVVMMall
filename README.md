@@ -5,7 +5,13 @@
 
 项目截图：
 <img src="https://github.com/gs-wenbing/MVVMMall/blob/master/screenshot/pic1.png" width="1125" alt="示例1" />
+<br/>
+
+
 <img src="https://github.com/gs-wenbing/MVVMMall/blob/master/screenshot/pic2.png" width="1125" alt="示例2" />
+<br/>
+
+
 <img src="https://github.com/gs-wenbing/MVVMMall/blob/master/screenshot/pic3.png" width="1125" alt="示例3" />
 
 # 说明
