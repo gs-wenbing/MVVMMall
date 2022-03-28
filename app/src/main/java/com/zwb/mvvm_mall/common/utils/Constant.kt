@@ -8,8 +8,8 @@ package com.zwb.mvvm_mall.common.utils
  * Time: 17:36
  */
 object Constant {
-    const val BASE_URL = "https://mockapi.eolinker.com/"
-    const val PROJECT = "/JiPqtefd9325e3466dc720a8c0ad3364c4f791e227debcd"
+    const val BASE_URL = "https://mockapi.eolink.com/"
+    const val PROJECT = "/p6QCAEw5a26610182ff15ddc6f4f212776fdfbb3ce18328"
 //    const val BASE_URL = "https://wanandroid.com/"
 
 
