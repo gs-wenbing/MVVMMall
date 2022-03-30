@@ -3,13 +3,12 @@ package com.zwb.mvvm_mall.common.utils
 /**
  * Created with Android Studio.
  * Description:
- * @author: Wangjianxian
  * @date: 2020/02/24
  * Time: 17:36
  */
 object Constant {
     const val BASE_URL = "https://mockapi.eolink.com/"
-    const val PROJECT = "/p6QCAEw5a26610182ff15ddc6f4f212776fdfbb3ce18328"
+    const val PROJECT = "/JiPqtefd9325e3466dc720a8c0ad3364c4f791e227debcd"
 //    const val BASE_URL = "https://wanandroid.com/"
 
 
