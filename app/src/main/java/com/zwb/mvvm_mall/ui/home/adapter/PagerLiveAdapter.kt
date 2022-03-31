@@ -17,6 +17,7 @@ import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.bean.GoodsEntity
 import com.zwb.mvvm_mall.common.utils.UIUtils
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 
 
 class PagerLiveAdapter (layoutID:Int, data: MutableList<GoodsEntity>?) :
@@ -30,7 +31,7 @@ class PagerLiveAdapter (layoutID:Int, data: MutableList<GoodsEntity>?) :
             helper.setText(
                 R.id.tvGoodsPrice, UIUtils.setTextViewContentStyle(price,
                     AbsoluteSizeSpan(UIUtils.dp2px(18f)),
-                    ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
+                    ForegroundColorSpan(ContextCompat.getColor(mContext,R.color.mainRed)),
                     2,price.indexOf(".")+1
                 ))
             val imageView=helper.getView<ImageView>(R.id.ivIcon)

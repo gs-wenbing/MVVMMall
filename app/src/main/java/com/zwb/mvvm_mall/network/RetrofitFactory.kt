@@ -1,17 +1,19 @@
 package com.zwb.mvvm_mall.network
+import android.util.Log
 import com.zwb.mvvm_mall.common.utils.Constant
 import com.zwb.mvvm_mall.common.utils.SPreference
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.StringBuilder
+import java.io.UnsupportedEncodingException
+import java.net.URLDecoder
+
 
 /**
  * Created with Android Studio.
  * Description:
- * @author: Wangjianxian
  * @date: 2020/02/24
  * Time: 16:56
  */
@@ -27,7 +29,7 @@ class RetrofitFactory private constructor() {
         retrofit = Retrofit.Builder()
             .baseUrl(Constant.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(initOkHttpClient())
             .build()
     }
@@ -39,20 +41,34 @@ class RetrofitFactory private constructor() {
     }
 
     private fun initOkHttpClient(): OkHttpClient {
+
         return OkHttpClient.Builder()
-//            .addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> message?.let { Log.i(Constant.RETROFIT_LOG,message) } }).setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(initLoggingIntercept())
             .addInterceptor(initCookieIntercept())
             .addInterceptor(initLoginIntercept())
             .addInterceptor(initCommonInterceptor())
             .build()
+    }
+    private fun initLoggingIntercept(): Interceptor {
+        return HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                try {
+                    val text: String = URLDecoder.decode(message, "utf-8")
+                    Log.e("OKHttp-----", text)
+                } catch (e: UnsupportedEncodingException) {
+                    e.printStackTrace()
+                    Log.e("OKHttp-----", message)
+                }
+            }
+        }).apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
     }
 
     private fun initCookieIntercept(): Interceptor {
         return Interceptor { chain ->
             val request = chain.request()
             val response = chain.proceed(request)
-            val requestUrl = request.url().toString()
-            val domain = request.url().host()
             response
         }
     }
@@ -61,7 +77,6 @@ class RetrofitFactory private constructor() {
         return Interceptor { chain ->
             val request = chain.request()
             val builder = request.newBuilder()
-            val domain = request.url().host()
             val response = chain.proceed(builder.build())
             response
         }
@@ -98,7 +113,7 @@ class RetrofitFactory private constructor() {
 
     private fun saveCookie(domain: String?, parseCookie: String) {
         domain?.let {
-            var resutl :String by SPreference("cookie",parseCookie)
+            var resutl :String by SPreference("cookie", parseCookie)
             resutl = parseCookie
         }
     }

@@ -91,47 +91,47 @@ class MineFragment : BaseVMFragment<MineViewModel>(){
         cloud1.setImageDrawable(
             UIUtils.tintDrawable(
                 cloud1.drawable,
-                ColorStateList.valueOf(mActivity.getColor(R.color.F5766F))
+                ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.F5766F))
             )
         )
         curve1.setImageDrawable(
             UIUtils.tintDrawable(
                 curve1.drawable,
-                ColorStateList.valueOf(mActivity.getColor(R.color.F5766F))
+                ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.F5766F))
             )
         )
 
         cloud2.setImageDrawable(
             UIUtils.tintDrawable(
                 cloud2.drawable,
-                ColorStateList.valueOf(mActivity.getColor(R.color.E0C675))
+                ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.E0C675))
             )
         )
         curve2.setImageDrawable(
             UIUtils.tintDrawable(
                 curve2.drawable,
-                ColorStateList.valueOf(mActivity.getColor(R.color.E0C675))
+                ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.E0C675))
             )
         )
 
         UIUtils.setTextViewStyles(
             tvMineRecommend,
             intArrayOf(
-                mActivity.getColor(R.color.F5766F),
-                mActivity.getColor(R.color.mainRed),
-                mActivity.getColor(R.color.F5766F)
+                ContextCompat.getColor(mContext,R.color.F5766F),
+                ContextCompat.getColor(mContext,R.color.mainRed),
+                ContextCompat.getColor(mContext,R.color.F5766F)
             ), floatArrayOf(0f, 0.5f, 1.0f)
         )
         UIUtils.setTextViewStyles(
             tvVipMsg, intArrayOf(
-                mActivity.getColor(R.color.white),
-                mActivity.getColor(R.color.E0C675),
-                mActivity.getColor(R.color.FEFBBE)
+                ContextCompat.getColor(mContext,R.color.white),
+                ContextCompat.getColor(mContext,R.color.E0C675),
+                ContextCompat.getColor(mContext,R.color.FEFBBE)
             ), floatArrayOf(0f, 0.7f, 1.0f)
         )
         UIUtils.setTextViewStyles(
             tvVipTitle,
-            intArrayOf(mActivity.getColor(R.color.E0C675), mActivity.getColor(R.color.FEFBBE)),
+            intArrayOf(ContextCompat.getColor(mContext,R.color.E0C675), ContextCompat.getColor(mContext,R.color.FEFBBE)),
             floatArrayOf(0f, 0.6f)
         )
 

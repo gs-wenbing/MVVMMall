@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 /**
  * Created with Android Studio.
  * Description:数据解析扩展函数
- * @author: Wangjianxian
  * @CreateDate: 2020/4/19 17:35
  */
 
@@ -20,7 +19,7 @@ fun <T> BaseResponse<T>.dataConvert(
     loadState: MutableLiveData<State>,
     urlKey:String = ""
 ): T {
-    return when (errorCode) {
+    return when (result) {
         Constant.SUCCESS -> {
             if (data is List<*>) {
                 if ((data as List<*>).isEmpty()) {

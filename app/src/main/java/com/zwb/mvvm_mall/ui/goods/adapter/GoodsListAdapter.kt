@@ -2,6 +2,7 @@ package com.zwb.mvvm_mall.ui.goods.adapter
 
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -21,7 +22,7 @@ class GoodsListAdapter(resID:Int,data: MutableList<GoodsEntity>?) :
             helper.setText(
                 R.id.tvGoodsPrice, UIUtils.setTextViewContentStyle(price,
                     AbsoluteSizeSpan(UIUtils.dp2px(16f)),
-                    ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
+                    ForegroundColorSpan(ContextCompat.getColor(mContext,R.color.mainRed)),
                     2,price.indexOf(".")+1
                 ))
             helper.addOnClickListener(R.id.tvShop)

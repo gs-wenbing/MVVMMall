@@ -4,6 +4,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.ChipGroup
@@ -65,7 +66,7 @@ class SearchRecordFragment :BaseVMFragment<GoodsViewModel>(){
         list.forEach {
             val tv = TextView(mActivity)
             tv.setBackgroundResource(R.drawable.shape_grey_background)
-            tv.setTextColor(mActivity.getColor(R.color.grey_text))
+            tv.setTextColor(ContextCompat.getColor(mContext,R.color.grey_text))
             tv.setPadding(
                 UIUtils.dp2px(15f), UIUtils.dp2px(5f),
                 UIUtils.dp2px(15f), UIUtils.dp2px(5f)

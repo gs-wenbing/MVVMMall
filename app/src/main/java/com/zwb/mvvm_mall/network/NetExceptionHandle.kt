@@ -14,7 +14,6 @@ import java.net.UnknownHostException
 /**
  * Created with Android Studio.
  * Description:
- * @author: Wangjianxian
  * @CreateDate: 2020/5/5 11:32
  */
 object NetExceptionHandle {

@@ -5,6 +5,7 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -47,7 +48,7 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
                     val price = String.format(mContext.getString(R.string.price),cartGoods.price.toString())
                     helper.setText(R.id.tvGoodsPrice, UIUtils.setTextViewContentStyle(price,
                         AbsoluteSizeSpan(UIUtils.dp2px(18f)),
-                        ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
+                        ForegroundColorSpan(ContextCompat.getColor(mContext,R.color.mainRed)),
                         2,price.indexOf(".")+1
                     ))
                     if(cartGoods.isSelected){
@@ -71,7 +72,7 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
                     val price = String.format(mContext.getString(R.string.price),cartLikeGoods.price.toString())
                     helper.setText(R.id.tvGoodsPrice, UIUtils.setTextViewContentStyle(price,
                         AbsoluteSizeSpan(UIUtils.dp2px(18f)),
-                        ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
+                        ForegroundColorSpan(ContextCompat.getColor(mContext,R.color.mainRed)),
                         1,price.indexOf(".")+1
                     ))
                 }
@@ -84,14 +85,14 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
         helper.getView<ImageView>(R.id.cloud1).setImageDrawable(
             UIUtils.tintDrawable(
                 cloud1.drawable,
-                ColorStateList.valueOf(mContext.getColor(R.color.F5766F))
+                ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.F5766F))
             )
         )
         val curve1 = helper.getView<ImageView>(R.id.curve1)
         curve1.setImageDrawable(
             UIUtils.tintDrawable(
                 curve1.drawable,
-                ColorStateList.valueOf(mContext.getColor(R.color.F5766F))
+                ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.F5766F))
             )
         )
 
@@ -99,23 +100,23 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
         cloud2.setImageDrawable(
             UIUtils.tintDrawable(
                 cloud2.drawable,
-                ColorStateList.valueOf(mContext.getColor(R.color.E0C675))
+                ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.E0C675))
             )
         )
         val curve2 = helper.getView<ImageView>(R.id.curve2)
         curve2.setImageDrawable(
             UIUtils.tintDrawable(
                 curve2.drawable,
-                ColorStateList.valueOf(mContext.getColor(R.color.E0C675))
+                ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.E0C675))
             )
         )
 
         UIUtils.setTextViewStyles(
             helper.getView(R.id.tvCartLike),
             intArrayOf(
-                mContext.getColor(R.color.F5766F),
-                mContext.getColor(R.color.mainRed),
-                mContext.getColor(R.color.F5766F)
+                ContextCompat.getColor(mContext,R.color.F5766F),
+                ContextCompat.getColor(mContext,R.color.mainRed),
+                ContextCompat.getColor(mContext,R.color.F5766F)
             ), floatArrayOf(0f, 0.5f, 1.0f)
         )
     }

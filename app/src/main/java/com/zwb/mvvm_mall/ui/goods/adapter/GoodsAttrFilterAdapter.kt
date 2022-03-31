@@ -3,6 +3,7 @@ package com.zwb.mvvm_mall.ui.goods.adapter
 import android.graphics.Typeface
 import android.text.TextUtils
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zwb.mvvm_mall.R
@@ -26,7 +27,7 @@ class GoodsAttrFilterAdapter(data: MutableList<GoodsAttrFilterEntity>?) :
             }
             //选中的状态
             if(it.isSelected){
-                tvAttrName.setTextColor(mContext.getColor(R.color.mainRed))
+                tvAttrName.setTextColor(ContextCompat.getColor(mContext,R.color.mainRed))
                 tvAttrName.typeface = Typeface.DEFAULT_BOLD
                 tvAttrName.setBackgroundResource(R.drawable.btn_common_hollow_selector)
                 //下拉框选中的值
@@ -36,7 +37,7 @@ class GoodsAttrFilterAdapter(data: MutableList<GoodsAttrFilterEntity>?) :
                     tvAttrName.text = it.selectString
                 }
             }else{
-                tvAttrName.setTextColor(mContext.getColor(R.color.grey_text))
+                tvAttrName.setTextColor(ContextCompat.getColor(mContext,R.color.grey_text))
                 tvAttrName.typeface = Typeface.DEFAULT
                 tvAttrName.setBackgroundResource(R.drawable.shape_grey_background)
             }

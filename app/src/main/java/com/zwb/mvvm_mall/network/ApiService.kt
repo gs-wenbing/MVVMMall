@@ -2,7 +2,6 @@ package com.zwb.mvvm_mall.network
 
 import com.zwb.mvvm_mall.bean.*
 import com.zwb.mvvm_mall.common.utils.Constant.PROJECT
-import io.reactivex.Observable
 import retrofit2.http.GET
 
 interface ApiService{

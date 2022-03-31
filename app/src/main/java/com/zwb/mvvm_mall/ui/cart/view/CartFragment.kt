@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
@@ -79,13 +80,13 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
         }
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
-            when {
-                view.id == R.id.ivCheck -> onItemCheckClick(adapter.getItem(position) as CartGoodsEntity,position)
-                view.id == R.id.ivIcon -> toGoodsDetail(adapter.getItem(position) as CartGoodsEntity)
-                view.id == R.id.tvGoodsName -> toGoodsDetail(adapter.getItem(position) as CartGoodsEntity)
-                view.id == R.id.ivReduce -> updateCartNum(adapter.getItem(position) as CartGoodsEntity,0,position)
-                view.id == R.id.ivPlus -> updateCartNum(adapter.getItem(position) as CartGoodsEntity,1,position)
-                view.id == R.id.tvGoodsModel -> showBottomSheetDialog(adapter.getItem(position) as CartGoodsEntity,position)
+            when (view.id) {
+                R.id.ivCheck -> onItemCheckClick(adapter.getItem(position) as CartGoodsEntity,position)
+                R.id.ivIcon -> toGoodsDetail(adapter.getItem(position) as CartGoodsEntity)
+                R.id.tvGoodsName -> toGoodsDetail(adapter.getItem(position) as CartGoodsEntity)
+                R.id.ivReduce -> updateCartNum(adapter.getItem(position) as CartGoodsEntity,0,position)
+                R.id.ivPlus -> updateCartNum(adapter.getItem(position) as CartGoodsEntity,1,position)
+                R.id.tvGoodsModel -> showBottomSheetDialog(adapter.getItem(position) as CartGoodsEntity,position)
             }
         }
         mAdapter.setOnItemClickListener { adapter, _, position ->
@@ -237,7 +238,7 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
         if(mAllMoney!=0.0){
             tvAllMoney.text = UIUtils.setTextViewContentStyle(allPrice,
                 null,
-                ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
+                ForegroundColorSpan(ContextCompat.getColor(mContext,R.color.mainRed)),
                 3,allPrice.length
             )
         }else{
@@ -275,7 +276,7 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
         val price = String.format(mActivity.getString(R.string.price),cartGoods.price.toString())
         dialogContainer.tvGoodsPrice.text = UIUtils.setTextViewContentStyle(price,
             AbsoluteSizeSpan(UIUtils.dp2px(18f)),
-            ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
+            ForegroundColorSpan(ContextCompat.getColor(mContext,R.color.mainRed)),
             2,price.indexOf(".")+1
         )
         dialogContainer.tvStock.text = String.format(mActivity.getString(R.string.stock),cartGoods.stock.toString())
@@ -319,7 +320,7 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
     private fun addTag2FlowLayout(flowLayout: ChipGroup,viewList:MutableList<TextView>,attrName:String,attrTitle:String){
         val tv = TextView(mActivity)
         tv.setBackgroundResource(R.drawable.shape_grey_background)
-        tv.setTextColor(mActivity.getColor(R.color.grey_text))
+        tv.setTextColor(ContextCompat.getColor(mContext,R.color.grey_text))
         tv.setPadding(
             UIUtils.dp2px(15f), UIUtils.dp2px(5f),
             UIUtils.dp2px(15f), UIUtils.dp2px(5f)
@@ -333,10 +334,10 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
         tv.setOnClickListener {
             viewList.forEach {view->
                 view.setBackgroundResource(R.drawable.shape_grey_background)
-                view.setTextColor(mActivity.getColor(R.color.grey_text))
+                view.setTextColor(ContextCompat.getColor(mContext,R.color.grey_text))
             }
             tv.setBackgroundResource(R.drawable.shape_grey_selected_background)
-            tv.setTextColor(mActivity.getColor(R.color.mainRed))
+            tv.setTextColor(ContextCompat.getColor(mContext,R.color.mainRed))
 
             attrMap[attrTitle] = tv.text.toString()
             tempDialogGoodsModel?.text = String.format(mActivity.getString(R.string.selected),attrMap.values.toString())

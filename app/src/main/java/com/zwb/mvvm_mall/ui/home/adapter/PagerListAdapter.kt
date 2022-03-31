@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
@@ -24,7 +25,7 @@ class PagerListAdapter (layoutID:Int,data: MutableList<GoodsEntity>?) :
             helper.setText(
                 R.id.tvGoodsPrice, UIUtils.setTextViewContentStyle(price,
                     AbsoluteSizeSpan(UIUtils.dp2px(18f)),
-                    ForegroundColorSpan(mContext.getColor(R.color.mainRed)),
+                    ForegroundColorSpan(ContextCompat.getColor(mContext,R.color.mainRed)),
                     2,price.indexOf(".")+1
                 ))
             val imageView=helper.getView<ImageView>(R.id.ivIcon)

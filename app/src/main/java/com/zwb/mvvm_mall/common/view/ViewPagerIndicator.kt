@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.common.utils.UIUtils
@@ -27,7 +28,7 @@ class ViewPagerIndicator @JvmOverloads constructor(
     private var interval = 4
     private var dotsCount = 0
 
-    private var selectedColor: Int = resources.getColor(R.color.mainRed)
+    private var selectedColor: Int = ContextCompat.getColor(context,R.color.mainRed)
     private var normalColor = Color.parseColor("#afdddddd")
 
     init {
