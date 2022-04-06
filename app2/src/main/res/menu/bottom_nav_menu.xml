@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@mipmap/tab_home"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/menu_classify"
+        android:icon="@mipmap/tab_cate"
+        android:title="@string/title_classify" />
+
+    <item
+        android:id="@+id/menu_cart"
+        android:icon="@mipmap/tab_cart"
+        android:title="@string/title_cart" />
+    <item
+        android:id="@+id/menu_mine"
+        android:icon="@mipmap/tab_my"
+        android:title="@string/title_mine" />
+</menu>

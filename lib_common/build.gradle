@@ -1,0 +1,30 @@
+//****************************************
+//********* lib_common 的配置文件 **********
+//****************************************
+
+apply from: '../base_lib.gradle'
+
+android {
+
+    defaultConfig {
+        resValue "string", "BUGLY_APP_ID", SDKKeyConfig.BUGLY_APP_ID
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    resourcePrefix "common_"
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    api project(path: ':lib_base')
+
+    kapt GitHub.GlideCompiler
+    kapt GitHub.ARouteCompiler
+    kapt GitHub.EventBusAPT
+    kapt GitHub.AutoServiceAnnotations
+    kapt JetPack.LifecycleCompilerAPT
+}

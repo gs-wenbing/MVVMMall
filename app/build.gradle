@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -28,40 +26,26 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
+    // 自定义打包apk的文件名
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (outputFileName != null && outputFileName.endsWith('.apk')) {
+                outputFileName = "${BuildConfig.applicationId}" +
+                        "_${BuildConfig.versionCode}" +
+                        "(${BuildConfig.versionName})" +
+                        "_${variant.buildType.name}" +
+                        ".apk"
+            }
+        }
+    }
 }
 
 dependencies {
-    implementation Kotlin.Kotlin
-    implementation AndroidX.AppCompat
-    implementation AndroidX.CoreKtx
-    implementation AndroidX.MultiDex
-    implementation AndroidX.ConstraintLayout
-    implementation AndroidX.Viewpager2
-
-    implementation JetPack.NavigationFragment
-    implementation JetPack.NavigationUI
-    implementation JetPack.ViewModel
-    implementation JetPack.LiveData
-    implementation JetPack.Lifecycle
-
-    implementation GitHub.Glide
-    implementation GitHub.GlideCompiler
-
-    implementation GitHub.RecyclerViewAdapter
-    implementation GitHub.Banner
-    implementation GitHub.SmartRefreshLayout
-    implementation GitHub.MagicIndicator
-    implementation GitHub.GSYVideoPlayer
-    implementation GitHub.RoundedImageView
-    implementation GitHub.Loadsir
-
-    implementation GitHub.OkHttp
-    implementation GitHub.Retrofit
-    implementation GitHub.RetrofitConverterGson
-    implementation GitHub.OkHttpInterceptorLogging
-
-    testImplementation Android.Junit
-    androidTestImplementation AndroidX.TestExtJunit
-    androidTestImplementation AndroidX.TestEspresso
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+//    if (!ProjectBuildConfig.isAppMode) {
+//        // 有业务组件时 把这个去掉 这里只是为了使用base里的依赖库
+//        implementation project(path: ':module_home')
+//    } else {
+    implementation project(path: ":lib_base")
+//    }
 }

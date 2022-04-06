@@ -97,12 +97,6 @@ object GitHub {
     const val AutoServiceAnnotations = "com.google.auto.service:auto-service-annotations:1.0"
 
 
-    // Kotlin图片加载框架
-    const val Coil = "io.coil-kt:coil:1.3.0"
-    const val CoilGIF = "io.coil-kt:coil-gif:1.3.0"
-    const val CoilSVG = "io.coil-kt:coil-svg:1.3.0"
-    const val CoilVideo = "io.coil-kt:coil-video:1.3.0"
-
     // Koin AndroidX Scope feature
     const val KoinAndroidxScope = "org.koin:koin-androidx-scope:2.1.5"
     // Koin AndroidX ViewModel feature
@@ -113,8 +107,8 @@ object GitHub {
     const val Banner = "com.youth.banner:banner:2.1.0"
     const val SmartRefreshLayout = "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0"
     const val MagicIndicator = "com.github.hackware1993:MagicIndicator:1.5.0"
-    const val Glide = "com.github.bumptech.glide:glide:4.11.0"
-    const val GlideCompiler = "com.github.bumptech.glide:compiler:4.11.0"
+    const val Glide = "com.github.bumptech.glide:glide:4.9.0"
+    const val GlideCompiler = "com.github.bumptech.glide:compiler:4.9.0"
     const val GSYVideoPlayer = "com.shuyu:GSYVideoPlayer:7.1.5"
     const val RoundedImageView = "com.rishabhharit.roundedimageview:RoundedImageView:0.8.4"
     const val Loadsir = "com.kingja.loadsir:loadsir:1.3.8"

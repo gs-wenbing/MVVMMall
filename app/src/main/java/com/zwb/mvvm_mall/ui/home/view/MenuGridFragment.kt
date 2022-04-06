@@ -15,7 +15,7 @@ class MenuGridFragment : Fragment(R.layout.fragment_menu_grid) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        menu_recyclerview.layoutManager = GridLayoutManager(activity, 5)
-        menu_recyclerview.adapter = MenuGridAdapter(activity!!, page)
+        menu_recyclerview.layoutManager = GridLayoutManager(requireActivity(), 5)
+        menu_recyclerview.adapter = MenuGridAdapter(requireActivity(), page)
     }
 }

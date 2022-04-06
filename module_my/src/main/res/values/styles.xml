@@ -1,0 +1,30 @@
+<resources>
+
+
+    <!--个人中心-->
+    <style name="mine_header_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:layout_marginLeft">@dimen/dp_10</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="mine_header_btn_style" parent="mine_header_text_style">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape_deep_red_background</item>
+        <item name="android:drawableRight">@mipmap/next_white</item>
+        <item name="android:layout_marginBottom">@dimen/dp_4</item>
+        <item name="android:paddingLeft">@dimen/dp_8</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="mine_follow_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/grey_light</item>
+        <item name="android:clickable">true</item>
+    </style>
+</resources>

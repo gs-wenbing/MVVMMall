@@ -11,10 +11,10 @@ import com.zwb.mvvm_mall.ui.cart.view.CartFragment
 import com.zwb.mvvm_mall.ui.classify.view.ClassifyFragment
 import com.zwb.mvvm_mall.ui.home.view.HomeFragment
 import com.zwb.mvvm_mall.ui.mine.view.MineFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var  navView:BottomNavigationView
     private var mLastIndex: Int = -1
     private val mFragmentSparseArray = SparseArray<Fragment>()
     // 当前显示的 fragment
@@ -29,13 +29,12 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         super.initView()
-        navView = findViewById(R.id.nav_view)
         switchFragment(Constant.HOME)
         initBottomNavigation()
     }
 
     private fun initBottomNavigation() {
-        navView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
+        nav_view.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
                     switchFragment(Constant.HOME)

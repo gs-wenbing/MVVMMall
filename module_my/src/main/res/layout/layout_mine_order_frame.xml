@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/shape_white_background"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginRight="@dimen/dp_10"
+    android:layout_marginTop="@dimen/dp_6"
+    android:layout_marginBottom="@dimen/dp_6"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_10">
+    <TextView
+        android:id="@+id/tvMyOrder"
+        style="@style/mine_follow_text_style"
+        android:text="我的订单"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:textColor="@color/grey_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tvFollow"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+    <TextView
+        android:id="@+id/tvAllOrder"
+        style="@style/mine_follow_text_style"
+        android:text="全部订单"
+        android:gravity="center"
+        android:drawableRight="@mipmap/bg_next"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <View
+        android:id="@+id/order_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/main_grey"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAllOrder"/>
+    <TextView
+        android:id="@+id/tvCollected"
+        style="@style/mine_follow_text_style"
+        android:text="待付款"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableTop="@mipmap/order_unpay"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tvFollow"
+        app:layout_constraintTop_toBottomOf="@+id/order_line" />
+
+    <TextView
+        android:id="@+id/tvFollow"
+        style="@style/mine_follow_text_style"
+        android:text="待收货"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableTop="@mipmap/order_unrecieve"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/tvCollected"
+        app:layout_constraintRight_toLeftOf="@+id/tvFootprint"
+        app:layout_constraintTop_toBottomOf="@+id/order_line" />
+
+    <TextView
+        android:id="@+id/tvFootprint"
+        style="@style/mine_follow_text_style"
+        android:text="待发货"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableTop="@mipmap/order_unsend"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/tvFollow"
+        app:layout_constraintRight_toLeftOf="@+id/tvUnComment"
+        app:layout_constraintTop_toBottomOf="@+id/order_line" />
+    <TextView
+        android:id="@+id/tvUnComment"
+        style="@style/mine_follow_text_style"
+        android:text="待评价"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableTop="@mipmap/order_comment"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/tvFootprint"
+        app:layout_constraintRight_toRightOf="@+id/tvRedCard"
+        app:layout_constraintTop_toBottomOf="@+id/order_line" />
+    <TextView
+        android:id="@+id/tvRedCard"
+        style="@style/mine_follow_text_style"
+        android:text="退换/售后"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableTop="@mipmap/order_return"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/tvUnComment"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_line" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -29,7 +29,6 @@ class RetrofitFactory private constructor() {
         retrofit = Retrofit.Builder()
             .baseUrl(Constant.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(initOkHttpClient())
             .build()
     }
@@ -50,17 +49,15 @@ class RetrofitFactory private constructor() {
             .build()
     }
     private fun initLoggingIntercept(): Interceptor {
-        return HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                try {
-                    val text: String = URLDecoder.decode(message, "utf-8")
-                    Log.e("OKHttp-----", text)
-                } catch (e: UnsupportedEncodingException) {
-                    e.printStackTrace()
-                    Log.e("OKHttp-----", message)
-                }
+        return HttpLoggingInterceptor { message ->
+            try {
+                val text: String = URLDecoder.decode(message, "utf-8")
+                Log.e("OKHttp-----", text)
+            } catch (e: UnsupportedEncodingException) {
+                e.printStackTrace()
+                Log.e("OKHttp-----", message)
             }
-        }).apply {
+        }.apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
