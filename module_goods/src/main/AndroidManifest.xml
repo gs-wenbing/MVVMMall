@@ -3,7 +3,7 @@
     package="com.zwb.module_goods">
 
     <application>
-        <activity android:name=".activity.GoodsActivity">
+        <activity android:name=".activity.GoodsListActivity">
         </activity>
     </application>
 

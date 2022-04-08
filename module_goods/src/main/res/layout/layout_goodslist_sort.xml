@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_10">
+    <com.zwb.module_goods.view.CustomRadioButton
+        android:id="@+id/rbRecommend"
+        style="@style/goods_detail_tab"
+        android:drawableRight="@mipmap/down_arrow"
+        android:drawablePadding="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:checked="true"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp_14"
+        android:text="综合推荐" />
+
+    <RadioButton
+        android:id="@+id/rbSalesSort"
+        style="@style/goods_detail_tab"
+        android:textSize="@dimen/sp_14"
+        android:text="销量" />
+
+    <com.zwb.module_goods.view.CustomRadioButton
+        android:id="@+id/rbPriceSort"
+        style="@style/goods_detail_tab"
+        android:drawableRight="@mipmap/down_up_arrow"
+        android:drawablePadding="@dimen/dp_4"
+        android:textSize="@dimen/sp_14"
+        android:text="价格" />
+
+    <RadioButton
+        android:id="@+id/rbShops"
+        style="@style/goods_detail_tab"
+        android:textSize="@dimen/sp_14"
+        android:text="店铺" />
+
+
+</RadioGroup>
+

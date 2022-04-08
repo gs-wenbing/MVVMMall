@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:name=".GoodsApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.GoodsActivity">
+        <activity android:name=".activity.GoodsListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

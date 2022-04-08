@@ -1,4 +1,14 @@
 <resources>
 
-
+    <!--    商品详情-->
+    <style name="goods_detail_tab">
+        <item name="android:textColor">@drawable/goods_detail_tab_text_clocr</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
 </resources>

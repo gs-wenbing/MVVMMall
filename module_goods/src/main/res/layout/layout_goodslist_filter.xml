@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/tvFilter"
+        />
+    <TextView
+        android:id="@+id/tvFilter"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_14"
+        android:text="筛选"/>
+</RelativeLayout>
+

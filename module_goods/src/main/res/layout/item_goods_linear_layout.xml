@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_margin="@dimen/dp_4"
+    android:gravity="center_vertical"
+    android:background="@drawable/shape_white_background_selector"
+    android:orientation="horizontal">
+
+    <com.rishabhharit.roundedimageview.RoundedImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/goods_detai4"
+        app:cornerRadius="@dimen/dp_8"
+        app:roundedCorners="all" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/dp_10"
+        >
+        <TextView
+            android:id="@+id/tvGoodsName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/dp_2"
+            android:maxLines="2"
+            android:text="阿斯顿发斯蒂芬阿斯顿发斯蒂芬阿斯顿发斯蒂芬阿斯顿发斯蒂芬"
+            android:textColor="@color/grey_text"
+            android:textSize="@dimen/sp_13" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:text="店铺1.2万人购买过 | 店铺好评率99%"
+            android:textColor="@color/grey_light"
+            android:textSize="@dimen/sp_11" />
+
+        <TextView
+            android:id="@+id/tvGoodsPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="110"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_12"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="商品券满100减5"
+                android:textSize="@dimen/sp_10"
+                android:paddingLeft="@dimen/dp_6"
+                android:paddingRight="@dimen/dp_6"
+                android:textColor="@color/colorPrimary"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingBottom="@dimen/dp_2"
+                android:background="@drawable/shape_grey_background"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="包邮"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_6"
+                android:paddingRight="@dimen/dp_6"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingBottom="@dimen/dp_2"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@drawable/shape_grey_background"
+                android:textSize="@dimen/sp_10"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:text="莎啦啦瓜批专营店  上海"
+            android:textColor="@color/grey_light"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/small_next"
+            android:drawablePadding="@dimen/dp_6"
+            android:textSize="@dimen/sp_11" />
+    </LinearLayout>
+</LinearLayout>

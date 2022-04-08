@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+    <com.zwb.module_goods.view.CustomView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        />
+<!--    <ImageView-->
+<!--        android:layout_width="@dimen/dp_40"-->
+<!--        android:layout_height="@dimen/dp_40"-->
+<!--        android:background="@drawable/shape_grey_background"-->
+<!--        android:src="@mipmap/input_voice"/>-->
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="@color/main_grey"/>-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layoutVoiceHint"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/deep_white"-->
+<!--        android:gravity="center">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:drawableLeft="@mipmap/voice"-->
+<!--            android:drawablePadding="@dimen/dp_10"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="@dimen/sp_13"-->
+<!--            android:text="说出您想搜索的宝贝"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+</LinearLayout>
