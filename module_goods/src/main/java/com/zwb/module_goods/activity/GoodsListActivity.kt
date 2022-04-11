@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zwb.lib_base.mvvm.v.BaseActivity
 import com.zwb.lib_base.utils.StatusBarUtil
@@ -20,7 +21,12 @@ import com.zwb.module_goods.fragment.SearchSimilarFragment
 import kotlinx.android.synthetic.main.activity_goods.*
 import kotlinx.android.synthetic.main.layout_search_toolbar.*
 
+@Route(path = RoutePath.Goods.PAGE_GOODS_LIST)
 class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
+
+    @Autowired(name = RoutePath.Goods.PARAMS_SEARCH_KEY)
+    lateinit var searchKey: String
+
     private var mLastIndex: Int = -1
     private val mFragmentMap:MutableMap<Int, Fragment> = HashMap()
     // 当前显示的 fragment
@@ -80,9 +86,8 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
 //        }
     }
     override fun initRequestData() {
-        val searchKey= intent.getStringExtra(SearchKey)
         if(!TextUtils.isEmpty(searchKey)){
-            mViewModel.mSearchKey.value = intent.getStringExtra(SearchKey)
+            mViewModel.mSearchKey.value = searchKey
             mViewModel.mSearchStatus.value = SearchStatus_GOODS
         }else{
             mViewModel.mSearchStatus.value = SearchStatus_RECORD

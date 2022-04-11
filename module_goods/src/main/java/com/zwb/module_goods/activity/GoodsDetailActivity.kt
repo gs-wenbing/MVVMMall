@@ -42,10 +42,11 @@ import kotlinx.android.synthetic.main.layout_goodsdetail_goods.*
 import kotlinx.android.synthetic.main.layout_goodsdetail_toolbar.*
 import kotlin.math.min
 
+@Route(path = RoutePath.Goods.PAGE_GOODS_DETAIL)
 class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewModel>() {
     override val mViewModel by viewModels<GoodsViewModel>()
 
-    @Autowired
+    @Autowired(name = RoutePath.Goods.PARAMS_GOODS_NAME)
     lateinit var goodsName: String
 
     private var mScrollY = 0
@@ -313,7 +314,7 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
         fun launch(activity: FragmentActivity, goodsName: String) =
             activity.apply {
                 val intent = Intent(this, GoodsDetailActivity::class.java)
-                intent.putExtra("goodsName", goodsName)
+                intent.putExtra("goods_name", goodsName)
                 startActivity(intent)
             }
     }

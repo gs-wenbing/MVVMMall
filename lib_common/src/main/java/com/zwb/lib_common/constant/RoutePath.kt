@@ -34,6 +34,13 @@ object RoutePath{
     object Goods{
         private const val GOODS = "/goods"
 
+        const val PAGE_GOODS_LIST = "$GOODS/GoodsListActivity"
+        const val PARAMS_SEARCH_KEY = "search_key"
+
+        const val PAGE_GOODS_DETAIL = "$GOODS/GoodsDetailActivity"
+        const val PARAMS_GOODS_NAME = "goods_name"
+
+
         const val SERVICE_GOODS = "$GOODS/goods_service"
 
     }
