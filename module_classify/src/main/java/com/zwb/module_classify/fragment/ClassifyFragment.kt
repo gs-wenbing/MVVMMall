@@ -5,12 +5,14 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
+import com.zwb.lib_common.bean.GoodsEntity
+import com.zwb.lib_common.constant.RoutePath
+import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.module_classify.ClassifyViewModel
 import com.zwb.module_classify.adapter.ClassifyPAdapter
 import com.zwb.module_classify.databinding.FragmentClassifyBinding
 import kotlinx.android.synthetic.main.layout_home_toolbar.*
 
-@Route(path = "/classify/ClassifyFragment")
 class ClassifyFragment:BaseFragment<FragmentClassifyBinding,ClassifyViewModel>() {
 
     lateinit var mPAdapter: ClassifyPAdapter
@@ -21,7 +23,9 @@ class ClassifyFragment:BaseFragment<FragmentClassifyBinding,ClassifyViewModel>()
         StatusBarUtil.immersive(activity)
         StatusBarUtil.setPaddingSmart(activity, toolbar)
         StatusBarUtil.darkMode(requireActivity(),false)
-//        textSearch.setOnClickListener { SearchGoodsActivity.launch(requireActivity(),"") }
+        textSearch.setOnClickListener {
+            GoodsServiceWrap.instance.startGoodsList(requireActivity(),"")
+        }
         mPAdapter = ClassifyPAdapter(null)
         mBinding.rvLeft.adapter = mPAdapter
         mPAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener{

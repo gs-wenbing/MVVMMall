@@ -1,10 +1,9 @@
 package com.zwb.module_classify.fragment
 
-import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zwb.lib_base.mvvm.v.BaseFragment
+import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.module_classify.ClassifyViewModel
 import com.zwb.module_classify.adapter.ClassifyRightAdapter
 import com.zwb.module_classify.bean.ClassifySectionEntity
@@ -24,8 +23,7 @@ class ClassifyFragmentRight : BaseFragment<FragmentClassifyRightBinding,Classify
         mPAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as ClassifySectionEntity
             if(!item.isHeader){
-//                SearchGoodsActivity.launch(requireActivity(),
-//                    (adapter.getItem(position) as ClassifySectionEntity).t.goodsClassName)
+                GoodsServiceWrap.instance.startGoodsList(requireActivity(),(adapter.getItem(position) as ClassifySectionEntity).t.goodsClassName)
             }
         }
     }

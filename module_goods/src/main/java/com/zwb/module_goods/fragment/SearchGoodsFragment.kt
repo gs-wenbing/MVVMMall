@@ -13,6 +13,7 @@ import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_common.bean.GoodsEntity
 import com.zwb.module_goods.GoodsViewModel
 import com.zwb.module_goods.R
+import com.zwb.module_goods.activity.GoodsDetailActivity
 import com.zwb.module_goods.adapter.GoodsAttrFilterAdapter
 import com.zwb.module_goods.adapter.GoodsListAdapter
 import com.zwb.module_goods.bean.GoodsAttrFilterEntity
@@ -150,7 +151,7 @@ class SearchGoodsFragment:BaseFragment<FragmentSearchGoodsBinding,GoodsViewModel
 
     private fun setRecyclerViewListener(){
         mAdapter.setOnItemClickListener { adapter, _, position ->
-//            GoodsDetailActivity.launch(requireActivity(), (adapter.getItem(position) as GoodsEntity).goodsName)
+            GoodsDetailActivity.launch(requireActivity(), (adapter.getItem(position) as GoodsEntity).goodsName)
         }
         mAdapter.setOnItemChildClickListener { _, view, _ ->
             when {

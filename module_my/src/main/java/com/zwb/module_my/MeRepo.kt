@@ -7,9 +7,9 @@ import com.zwb.lib_base.net.RetrofitFactory
 import com.zwb.lib_base.net.State
 import com.zwb.lib_common.bean.GoodsEntity
 
-class MyRepo(private val loadState: MutableLiveData<State>):BaseRepository() {
+class MeRepo(private val loadState: MutableLiveData<State>):BaseRepository() {
     private val apiService by lazy {
-        RetrofitFactory.instance.getService(MyApi::class.java, MyApi.BASE_URL)
+        RetrofitFactory.instance.getService(MeApi::class.java, MeApi.BASE_URL)
     }
     suspend fun loadSeckillGoodsCo(): List<GoodsEntity> {
         return apiService.getSeckillGoodsList().dataConvert(loadState)

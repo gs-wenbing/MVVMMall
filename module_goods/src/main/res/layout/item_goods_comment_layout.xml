@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/dp_6"
+    android:padding="@dimen/dp_16">
+
+    <ImageView
+        android:id="@+id/ivCommentHeader"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvCommentUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_32"
+        android:text="2***K"
+        android:textColor="@color/grey_text"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tvCommentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="2020-20-15"
+        android:textColor="@color/grey_light"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tvComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivCommentHeader"
+        android:layout_marginTop="@dimen/dp_6"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/dp_6"
+        android:text="框中必须有一个是bai选中的,如果你想选择之后又取消du,那么要使用CheckBox来实现改zhi变它的状态"
+        android:textColor="@color/grey_text"
+        android:textSize="@dimen/sp_14" />
+    <TextView
+        android:id="@+id/tvLookMore"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvComment"
+        android:paddingTop="@dimen/dp_6"
+        android:paddingBottom="@dimen/dp_6"
+        android:text="查看"
+        android:textSize="@dimen/sp_12"
+        android:textStyle="bold"
+        android:textColor="@color/mainBlue"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/picRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLookMore"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:overScrollMode="never"/>
+    <LinearLayout
+        android:id="@+id/layoutShopReply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/picRecyclerView"
+        android:background="@color/main_grey"
+        android:padding="@dimen/dp_6"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="bold"
+            android:drawablePadding="@dimen/dp_6"
+            android:drawableLeft="@mipmap/iv_reply"
+            android:text="掌柜回复"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/dp_6"
+            android:textSize="@dimen/sp_12"
+            android:text="超级意外 巨好穿 舒适 脚瞬间被解放了 太好了 感谢京东安踏 意外惊喜 这个季节也适合 柔软舒适 走起路来轻飘飘 等618给老妈来一双 粉嫩嫩嫩的 "/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvReplyNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@+id/layoutShopReply"
+        android:layout_toLeftOf="@+id/tvStarNum"
+        android:layout_marginRight="@dimen/dp_16"
+        android:drawablePadding="@dimen/dp_6"
+        android:drawableRight="@mipmap/iv_reply"
+        android:text="23"/>
+    <TextView
+        android:id="@+id/tvStarNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_6"
+        android:layout_below="@+id/layoutShopReply"
+        android:drawableRight="@mipmap/iv_star"
+        android:text="23"/>
+
+</RelativeLayout>

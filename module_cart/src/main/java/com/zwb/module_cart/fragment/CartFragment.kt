@@ -16,6 +16,8 @@ import com.google.android.material.chip.ChipGroup
 import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_base.utils.UIUtils
+import com.zwb.lib_common.constant.RoutePath
+import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.module_cart.CartViewModel
 import com.zwb.module_cart.R
 import com.zwb.module_cart.adapter.CartAdapter
@@ -28,7 +30,7 @@ import com.zwb.module_cart.view.FixedHeightBottomSheetDialog
 import kotlinx.android.synthetic.main.dialog_cart_attr_layout.view.*
 import kotlinx.android.synthetic.main.layout_cart_attr.view.*
 import kotlinx.android.synthetic.main.layout_cart_toolbar.*
-@Route(path = "/cart/cartFragment")
+
 class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
     //所有商品，包括购物车、推荐商品
     private var mCartMultiList:MutableList<MultiItemEntity> = ArrayList()
@@ -83,10 +85,10 @@ class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
             }
         }
         mAdapter.setOnItemClickListener { adapter, _, position ->
-//            val cartGoods = adapter.getItem(position) as CartLikeGoodsEntity
-//            if(cartGoods.itemType==GRID_DATA){
-//                GoodsDetailActivity.launch(requireActivity(),cartGoods.goodsName)
-//            }
+            val cartGoods = adapter.getItem(position) as CartLikeGoodsEntity
+            if(cartGoods.itemType==GRID_DATA){
+                GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),cartGoods.goodsName)
+            }
         }
     }
     override fun onHiddenChanged(hidden: Boolean) {
@@ -133,7 +135,7 @@ class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
      * 跳转到商品详情
      */
     private fun toGoodsDetail(goodsEntity: CartGoodsEntity) {
-//        GoodsDetailActivity.launch(requireActivity(),goodsEntity.goodsName)
+        GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),goodsEntity.goodsName)
     }
 
     /**

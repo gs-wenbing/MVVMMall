@@ -5,9 +5,9 @@ import com.zwb.lib_base.ktx.initiateRequest
 import com.zwb.lib_base.mvvm.vm.BaseViewModel
 import com.zwb.lib_common.bean.GoodsEntity
 
-class MyViewModel:BaseViewModel() {
+class MeViewModel:BaseViewModel() {
     private val repository by lazy {
-        MyRepo(loadState)
+        MeRepo(loadState)
     }
 
     var mSeckillGoods: MutableLiveData<List<GoodsEntity>> = MutableLiveData()

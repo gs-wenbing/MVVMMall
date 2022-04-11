@@ -8,6 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zwb.lib_base.mvvm.v.BaseActivity
+import com.zwb.lib_common.constant.RoutePath
+import com.zwb.lib_common.service.cart.wrap.CartServiceWrap
+import com.zwb.lib_common.service.classify.wrap.ClassifyServiceWrap
+import com.zwb.lib_common.service.home.wrap.HomeServiceWrap
+import com.zwb.lib_common.service.me.wrap.MeServiceWrap
 import com.zwb.module_home.R
 import com.zwb.mvvm_mall.databinding.ActivityHomeTabBinding
 
@@ -84,10 +89,10 @@ class HomeTabActivity:BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
         var fragment: Fragment? = mFragmentSparseArray.get(index)
         if (fragment == null) {
             when (index) {
-                HOME -> fragment = ARouter.getInstance().build("/home/HomeFragment").navigation() as Fragment
-                CLASSIFY -> fragment = ARouter.getInstance().build("/classify/ClassifyFragment").navigation() as Fragment
-                CART -> fragment = ARouter.getInstance().build("/cart/cartFragment").navigation() as Fragment
-                MINE -> fragment = ARouter.getInstance().build("/my/MyFragment").navigation() as Fragment
+                HOME -> fragment = HomeServiceWrap.instance.getFragment()
+                CLASSIFY -> fragment = ClassifyServiceWrap.instance.getFragment()
+                CART -> fragment = CartServiceWrap.instance.getFragment()
+                MINE -> fragment = MeServiceWrap.instance.getFragment()
             }
             mFragmentSparseArray.put(index, fragment)
         }

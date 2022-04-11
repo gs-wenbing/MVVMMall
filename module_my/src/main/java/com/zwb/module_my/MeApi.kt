@@ -4,7 +4,7 @@ import com.zwb.lib_base.net.BaseResponse
 import com.zwb.lib_common.bean.GoodsEntity
 import retrofit2.http.GET
 
-interface MyApi{
+interface MeApi{
 
 
 

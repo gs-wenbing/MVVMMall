@@ -7,8 +7,10 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.zwb.lib_base.mvvm.v.BaseActivity
 import com.zwb.lib_base.utils.StatusBarUtil
+import com.zwb.lib_common.constant.RoutePath
 import com.zwb.module_goods.GoodsViewModel
 import com.zwb.module_goods.R
 import com.zwb.module_goods.databinding.ActivityGoodsBinding
@@ -189,10 +191,10 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
         const val SearchStatus_GOODS=1003
         const val SearchKey="search_key"
 
-        fun launch(activity: FragmentActivity, keyValue:String) =
+        fun launch(activity: FragmentActivity, searchKey:String) =
             activity.apply {
                 val intent = Intent(this, GoodsListActivity::class.java)
-                intent.putExtra(SearchKey,keyValue)
+                intent.putExtra(SearchKey,searchKey)
                 startActivity(intent)
             }
     }

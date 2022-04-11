@@ -11,18 +11,21 @@ import com.youth.banner.util.BannerUtils
 import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_base.utils.UIUtils
+import com.zwb.lib_common.bean.GoodsEntity
+import com.zwb.lib_common.constant.RoutePath
+import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.lib_common.view.PersistentStaggeredGridLayoutManager
-import com.zwb.module_my.MyViewModel
+import com.zwb.module_my.MeViewModel
 import com.zwb.module_my.R
 import com.zwb.module_my.adapter.HomeGoodsAdapter
-import com.zwb.module_my.databinding.FragmentMyBinding
-import kotlinx.android.synthetic.main.fragment_my.*
+import com.zwb.module_my.databinding.FragmentMeBinding
+import kotlinx.android.synthetic.main.fragment_me.*
 import kotlinx.android.synthetic.main.layout_mine_header_frame.*
 import kotlinx.android.synthetic.main.layout_mine_vip_frame.*
 import kotlin.math.min
 
-@Route(path = "/my/MyFragment")
-class MyFragment:BaseFragment<FragmentMyBinding, MyViewModel>() {
+
+class MeFragment:BaseFragment<FragmentMeBinding, MeViewModel>() {
 
 
     private var mOffset = 0
@@ -31,9 +34,9 @@ class MyFragment:BaseFragment<FragmentMyBinding, MyViewModel>() {
 
     lateinit var mAdapter: HomeGoodsAdapter
 
-    override val mViewModel by viewModels<MyViewModel>()
+    override val mViewModel by viewModels<MeViewModel>()
 
-    override fun FragmentMyBinding.initView() {
+    override fun FragmentMeBinding.initView() {
         StatusBarUtil.immersive(activity)
         StatusBarUtil.setPaddingSmart(activity, toolbar)
         StatusBarUtil.darkMode(requireActivity(),false)
@@ -81,8 +84,7 @@ class MyFragment:BaseFragment<FragmentMyBinding, MyViewModel>() {
         mineRecyclerView.layoutManager = PersistentStaggeredGridLayoutManager(2)
         mineRecyclerView.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, _, position ->
-//            GoodsDetailActivity.launch(requireActivity(),
-//                (adapter.getItem(position) as GoodsEntity).goodsName)
+            GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),(adapter.getItem(position) as GoodsEntity).goodsName)
         }
     }
     private fun setViewStyle() {

@@ -3,12 +3,15 @@ package com.zwb.module_home.fragment
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.youth.banner.indicator.CircleIndicator
 import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
+import com.zwb.lib_common.bean.GoodsEntity
+import com.zwb.lib_common.constant.RoutePath
+import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.module_home.HomeApi
 import com.zwb.module_home.HomeViewModel
 import com.zwb.module_home.R
@@ -21,7 +24,7 @@ import com.zwb.module_home.databinding.HomeFragmentHomeBinding
 import com.zwb.module_home.view.SyncScrollHelper
 import kotlinx.android.synthetic.main.home_layout_home_header.view.*
 import kotlinx.android.synthetic.main.home_layout_home_item.view.*
-@Route(path = "/home/HomeFragment")
+
 class HomeFragment:BaseFragment<HomeFragmentHomeBinding,HomeViewModel>() {
 
     private lateinit var mHeaderView: View
@@ -35,11 +38,13 @@ class HomeFragment:BaseFragment<HomeFragmentHomeBinding,HomeViewModel>() {
     override fun HomeFragmentHomeBinding.initView() {
         StatusBarUtil.immersive(requireActivity())
         StatusBarUtil.setPaddingSmart(requireActivity(), mainToolbar)
-//        mBinding.mainSearchLayout.setOnClickListener { SearchGoodsActivity.launch(mActivity,"") }
+        mBinding.mainSearchLayout.setOnClickListener {
+            GoodsServiceWrap.instance.startGoodsList(requireActivity(),"")
+        }
         listAdapter = HomeListAdapter(requireActivity(),arrayOf(1).asList().toMutableList())
         mBinding.mainRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
         mBinding.mainRecyclerView.adapter = listAdapter
-//
+
         mHeaderView = LayoutInflater.from(context).inflate(R.layout.home_layout_home_header, null)
         listAdapter.addHeaderView(mHeaderView)
 
@@ -53,16 +58,15 @@ class HomeFragment:BaseFragment<HomeFragmentHomeBinding,HomeViewModel>() {
             LinearLayoutManager.HORIZONTAL,false)
         mHeaderView.horizontalRecyclerview.adapter = mHAdapter
 
-//        mHAdapter.setOnItemClickListener { adapter, _, position ->
-//            GoodsDetailActivity.launch(requireActivity(),
-//                (adapter.getItem(position) as GoodsEntity).goodsName)
-//        }
-//
+        mHAdapter.setOnItemClickListener { adapter, _, position ->
+            GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),(adapter.getItem(position) as GoodsEntity).goodsName)
+        }
+
         val syncScrollHelper = SyncScrollHelper(this@HomeFragment)
         syncScrollHelper.initLayout()
         syncScrollHelper.syncRecyclerViewScroll(mainRecyclerView)
         syncScrollHelper.syncRefreshPullDown(mainRefreshLayout)
-//
+
         mainRefreshLayout.setOnRefreshListener {
             initRequestData()
         }

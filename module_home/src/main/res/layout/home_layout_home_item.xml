@@ -23,7 +23,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         indicator:normalColor="#c5c5c5"
-        indicator:selectedColor="@color/mainRed"
+        indicator:selectedColor="@color/colorPrimary"
          />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
