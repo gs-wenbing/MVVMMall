@@ -25,7 +25,7 @@ suspend fun startPolling(intervals: Long, block: () -> Unit) {
             emit(0)
         }
     }
-        .catch { Log.e("flow", "startPolling: $it") }
+        .catch { LogUtils.e("flow", "startPolling: $it") }
         .flowOn(Dispatchers.Main)
         .collect { block.invoke() }
 }
@@ -45,24 +45,6 @@ fun aRouterJump(routerUrl: String) {
     ARouter.getInstance().build(routerUrl).navigation()
 }
 
-/**************************************************************************************************/
-/**
- * toast
- * @param msg String 文案
- * @param duration Int 时间
- */
-fun toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-    ToastUtils.showToast(msg, duration)
-}
-
-/**
- * toast
- * @param msgId Int String资源ID
- * @param duration Int 时间
- */
-fun toast(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
-    ToastUtils.showToast(msgId, duration)
-}
 /**************************************************************************************************/
 /**
  * 获取App版本号

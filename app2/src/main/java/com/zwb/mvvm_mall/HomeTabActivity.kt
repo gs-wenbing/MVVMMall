@@ -8,14 +8,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zwb.lib_base.mvvm.v.BaseActivity
+import com.zwb.lib_base.utils.EventBusRegister
+import com.zwb.lib_base.utils.SpUtils
+import com.zwb.lib_common.bean.StringEvent
 import com.zwb.lib_common.constant.RoutePath
+import com.zwb.lib_common.constant.SpKey
 import com.zwb.lib_common.service.cart.wrap.CartServiceWrap
 import com.zwb.lib_common.service.classify.wrap.ClassifyServiceWrap
 import com.zwb.lib_common.service.home.wrap.HomeServiceWrap
 import com.zwb.lib_common.service.me.wrap.MeServiceWrap
 import com.zwb.module_home.R
 import com.zwb.mvvm_mall.databinding.ActivityHomeTabBinding
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
+@EventBusRegister
 class HomeTabActivity:BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
 
     private var mLastIndex: Int = -1
@@ -42,12 +49,31 @@ class HomeTabActivity:BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.menu_cart -> {
-                    switchFragment(CART)
-                    return@setOnNavigationItemSelectedListener true
+                    val isLogin = SpUtils.getBoolean(SpKey.IS_LOGIN, false)
+                    if(isLogin == true){
+                        switchFragment(CART)
+                        return@setOnNavigationItemSelectedListener true
+                    }else{
+                        ARouter.getInstance()
+                            .build(RoutePath.Login.PAGE_LOGIN)
+                            .withString(RoutePath.PATH, RoutePath.Cart.FRAGMENT_CART)
+                            .navigation()
+                        return@setOnNavigationItemSelectedListener false
+                    }
                 }
                 R.id.menu_mine -> {
-                    switchFragment(MINE)
-                    return@setOnNavigationItemSelectedListener true
+                    val isLogin = SpUtils.getBoolean(SpKey.IS_LOGIN, false)
+                    if(isLogin == true){
+                        switchFragment(MINE)
+                        return@setOnNavigationItemSelectedListener true
+                    }else{
+                        ARouter.getInstance()
+                            .build(RoutePath.Login.PAGE_LOGIN)
+                            .withString(RoutePath.PATH, RoutePath.Me.FRAGMENT_ME)
+                            .navigation()
+                        return@setOnNavigationItemSelectedListener false
+                    }
+
                 }
                 else -> return@setOnNavigationItemSelectedListener false
             }
@@ -81,7 +107,7 @@ class HomeTabActivity:BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
                 transaction.add(R.id.content, mCurrentFragment!!, index.toString())
             }
         }
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
         mLastIndex = index
     }
 
@@ -98,6 +124,16 @@ class HomeTabActivity:BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
         }
         return fragment!!
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEventSwitchTab(event: StringEvent){
+        when (event.event) {
+            StringEvent.Event.SWITCH_HOME -> mBinding.navView.selectedItemId = R.id.menu_home
+            StringEvent.Event.SWITCH_CART -> mBinding.navView.selectedItemId = R.id.menu_cart
+            StringEvent.Event.SWITCH_ME -> mBinding.navView.selectedItemId = R.id.menu_mine
+        }
+    }
+
     override fun initObserve() {
     }
 

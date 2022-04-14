@@ -1,6 +1,6 @@
-include ':module_oder'
+include ':module_order'
 include ':module_goods'
-include ':module_my'
+include ':module_me'
 include ':module_classify'
 include ':module_cart'
 include ':module_home'

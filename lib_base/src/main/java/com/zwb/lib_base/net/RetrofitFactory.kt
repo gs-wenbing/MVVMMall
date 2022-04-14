@@ -1,5 +1,6 @@
 package com.zwb.lib_base.net
 import android.util.Log
+import com.zwb.lib_base.utils.LogUtils
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -45,10 +46,10 @@ class RetrofitFactory private constructor() {
         return HttpLoggingInterceptor { message ->
             try {
                 val text: String = URLDecoder.decode(message, "utf-8")
-                Log.e("OKHttp-----", text)
+                LogUtils.e("OKHttp-----", text)
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()
-                Log.e("OKHttp-----", message)
+                LogUtils.e("OKHttp-----", message)
             }
         }.apply {
             level = HttpLoggingInterceptor.Level.BODY

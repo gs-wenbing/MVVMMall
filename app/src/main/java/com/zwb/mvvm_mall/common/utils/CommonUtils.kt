@@ -10,8 +10,4 @@ object CommonUtils{
         return (t.javaClass.genericSuperclass as ParameterizedType)
             .actualTypeArguments[0] as Class<T>
     }
-
-    fun showToast(context: Context,string:String ){
-        Toast.makeText(context,string,Toast.LENGTH_SHORT).show()
-    }
 }

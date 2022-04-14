@@ -4,13 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.youth.banner.indicator.CircleIndicator
 import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_common.bean.GoodsEntity
-import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.module_home.HomeApi
 import com.zwb.module_home.HomeViewModel
@@ -37,24 +34,24 @@ class HomeFragment:BaseFragment<HomeFragmentHomeBinding,HomeViewModel>() {
 
     override fun HomeFragmentHomeBinding.initView() {
         StatusBarUtil.immersive(requireActivity())
-        StatusBarUtil.setPaddingSmart(requireActivity(), mainToolbar)
+        StatusBarUtil.setPaddingSmart(requireContext(), mainToolbar)
         mBinding.mainSearchLayout.setOnClickListener {
             GoodsServiceWrap.instance.startGoodsList(requireActivity(),"")
         }
-        listAdapter = HomeListAdapter(requireActivity(),arrayOf(1).asList().toMutableList())
-        mBinding.mainRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        listAdapter = HomeListAdapter(this@HomeFragment,arrayOf(1).asList().toMutableList())
+        mBinding.mainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         mBinding.mainRecyclerView.adapter = listAdapter
 
         mHeaderView = LayoutInflater.from(context).inflate(R.layout.home_layout_home_header, null)
         listAdapter.addHeaderView(mHeaderView)
 
         mHeaderView.home_menu_viewpager2.offscreenPageLimit = 2
-        mHeaderView.home_menu_viewpager2.adapter = MenuPagerAdapter(requireActivity())
+        mHeaderView.home_menu_viewpager2.adapter = MenuPagerAdapter(this@HomeFragment)
         mHeaderView.home_menu_indicator.setViewPager2(mHeaderView.home_menu_viewpager2, 2)
 
         mHAdapter = HomeHorizontalGoodsAdapter(null,R.layout.item_goods_small_layout)
         mHAdapter.setPriceSize(14)
-        mHeaderView.horizontalRecyclerview.layoutManager = LinearLayoutManager(activity,
+        mHeaderView.horizontalRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
             LinearLayoutManager.HORIZONTAL,false)
         mHeaderView.horizontalRecyclerview.adapter = mHAdapter
 

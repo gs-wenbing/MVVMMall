@@ -13,7 +13,7 @@ import com.zwb.module_home.databinding.HomeFragmentPageListBinding
 
 class HomePageGoodsFragment1 : BaseFragment<HomeFragmentPageListBinding, HomeViewModel>(){
 
-    var mAdapter = PagerListAdapter(R.layout.item_goods_big_layout, null)
+    private var mAdapter = PagerListAdapter(R.layout.item_goods_big_layout, null)
 
     override val mViewModel by viewModels<HomeViewModel>()
 
@@ -33,4 +33,5 @@ class HomePageGoodsFragment1 : BaseFragment<HomeFragmentPageListBinding, HomeVie
             mAdapter.setNewData(it.toMutableList())
         })
     }
+
 }

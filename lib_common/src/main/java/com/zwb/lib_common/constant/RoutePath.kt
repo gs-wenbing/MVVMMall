@@ -7,6 +7,14 @@ package com.zwb.lib_common.constant
  * @Remark: 路由地址
  */
 object RoutePath{
+
+    const val PATH = "path"
+
+    object Login{
+        private const val LOGIN = "/login"
+        const val PAGE_LOGIN = "$LOGIN/LoginActivity"
+    }
+
     object Home{
         private const val HOME = "/home"
         const val FRAGMENT_HOME = "$HOME/HomeFragment"
@@ -33,16 +41,16 @@ object RoutePath{
 
     object Goods{
         private const val GOODS = "/goods"
-
         const val PAGE_GOODS_LIST = "$GOODS/GoodsListActivity"
-        const val PARAMS_SEARCH_KEY = "search_key"
-
         const val PAGE_GOODS_DETAIL = "$GOODS/GoodsDetailActivity"
-        const val PARAMS_GOODS_NAME = "goods_name"
-
-
         const val SERVICE_GOODS = "$GOODS/goods_service"
+    }
 
+    object Order{
+        private const val ORDER = "/order"
+        const val PAGE_ORDER_LIST = "$ORDER/OrderListActivity"
+        const val PAGE_ORDER_DETAIL = "$ORDER/OrderDetailActivity"
+        const val SERVICE_ORDER = "$ORDER/order_service"
     }
 
 }

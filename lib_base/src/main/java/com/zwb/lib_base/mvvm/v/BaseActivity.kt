@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.Window
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.launcher.ARouter
@@ -34,8 +35,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(mBinding.root)
-        // ARouter 依赖注入
-        ARouter.getInstance().inject(this)
+
         // 注册EventBus
         if (javaClass.isAnnotationPresent(EventBusRegister::class.java)) EventBusUtils.register(this)
 
@@ -80,7 +80,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
      * @return Unit
      */
     override fun networkConnectChange(isConnected: Boolean) {
-        toast(if (isConnected) "网络已连接" else "网络已断开")
+        Toast.makeText(this,if (isConnected) "网络已连接" else "网络已断开", Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {

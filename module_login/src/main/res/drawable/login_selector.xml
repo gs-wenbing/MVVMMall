@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- <item android:drawable="@drawable/wo" android:state_focused="true"/>
+    <item android:drawable="@drawable/wp"/> -->
+    <item android:drawable="@drawable/login_line_focuse_shape" android:state_focused="true"/>
+    <item android:drawable="@drawable/login_line_normal_shape"/>
+
+
+</selector>

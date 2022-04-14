@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,6 +14,8 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.android.material.chip.ChipGroup
+import com.zwb.lib_base.ktx.gone
+import com.zwb.lib_base.ktx.visible
 import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_base.utils.UIUtils
@@ -23,6 +26,7 @@ import com.zwb.module_cart.R
 import com.zwb.module_cart.adapter.CartAdapter
 import com.zwb.module_cart.adapter.CartAdapter.Companion.GRID_DATA
 import com.zwb.module_cart.adapter.CartAdapter.Companion.LINEAR_DATA
+import com.zwb.module_cart.adapter.CartAdapter.Companion.NO_DATA
 import com.zwb.module_cart.adapter.CartAdapter.Companion.STRING_DATA
 import com.zwb.module_cart.baen.*
 import com.zwb.module_cart.databinding.CartFragmentBinding
@@ -59,6 +63,7 @@ class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
             override fun getSpanSize(position: Int): Int {
                 val multiItem = mCartMultiList[position]
                 return when (multiItem.itemType) {
+                    NO_DATA -> 2//占两格
                     STRING_DATA -> 2//占两格
                     LINEAR_DATA -> 2//占两格
                     GRID_DATA -> 1//占1格
@@ -82,6 +87,7 @@ class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
                 R.id.ivReduce -> updateCartNum(adapter.getItem(position) as CartGoodsEntity,0,position)
                 R.id.ivPlus -> updateCartNum(adapter.getItem(position) as CartGoodsEntity,1,position)
                 R.id.tvGoodsModel -> showBottomSheetDialog(adapter.getItem(position) as CartGoodsEntity,position)
+                R.id.tvToCart -> Toast.makeText(requireContext(),"去逛逛",Toast.LENGTH_LONG).show()
             }
         }
         mAdapter.setOnItemClickListener { adapter, _, position ->
@@ -105,6 +111,11 @@ class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
     override fun initObserve() {
         mViewModel.mCartGoodsData.observe(this, {
             it?.let {
+                if(it.isNotEmpty()){
+                    mBinding.rlCartBottom.visible()
+                }else{
+                    mCartMultiList.add(CartEmptyEntity(""))
+                }
                 mCartMultiList.addAll(it)
                 mAdapter.setNewData(mCartMultiList)
             }

@@ -6,4 +6,5 @@ import com.alibaba.android.arouter.facade.template.IProvider
 
 interface IHomeService: IProvider {
     fun getFragment():Fragment
+
 }

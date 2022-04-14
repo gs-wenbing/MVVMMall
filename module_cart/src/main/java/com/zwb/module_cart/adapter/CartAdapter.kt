@@ -21,6 +21,7 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
 
 
     init {
+        addItemType(NO_DATA, R.layout.item_cart_empty_layout)
         addItemType(STRING_DATA, R.layout.item_cart_dividing_layout)
         addItemType(LINEAR_DATA, R.layout.item_cart_linear_layout)
         addItemType(GRID_DATA, R.layout.item_cart_goods_layout)
@@ -28,6 +29,11 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
 
     override fun convert(helper: BaseViewHolder, item: MultiItemEntity?) {
         when (helper.itemViewType) {
+            NO_DATA -> {
+                item?.let {
+                    helper.addOnClickListener(R.id.tvToCart)
+                }
+            }
             STRING_DATA -> {
                 item?.let {
                     val cartDividing = it as CartDividingEntity
@@ -119,9 +125,10 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
         )
     }
     companion object{
-        const val STRING_DATA = 0
-        const val LINEAR_DATA = 1
-        const val GRID_DATA = 2
+        const val NO_DATA = 0
+        const val STRING_DATA = 1
+        const val LINEAR_DATA = 2
+        const val GRID_DATA = 3
     }
 
 }

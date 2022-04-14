@@ -27,6 +27,7 @@
         android:paddingLeft="@dimen/dp_8"
         android:paddingTop="@dimen/dp_4"
         android:paddingBottom="@dimen/dp_4"
+        android:visibility="gone"
         android:background="@color/white">
         <LinearLayout
             android:id="@+id/llCheckAll"

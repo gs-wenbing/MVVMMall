@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import com.youth.banner.util.BannerUtils
+import com.zwb.lib_base.utils.LogUtils
 import com.zwb.mvvm_mall.R
 import com.zwb.mvvm_mall.base.view.BaseVMFragment
 import com.zwb.mvvm_mall.bean.GoodsEntity
@@ -60,7 +61,7 @@ class MineFragment : BaseVMFragment<MineViewModel>(){
                     mScrollY = min(h, scrollY)
                     barLayout.alpha = 1f * mScrollY / h
                     toolbar.setBackgroundColor(255 * mScrollY / h shl 24 or color)
-                    Log.e("scrollY==",scrollY.toString())
+                    LogUtils.e("scrollY==",scrollY.toString())
                     ivHeader.translationY = (mOffset - scrollY).toFloat()
                 }
                 lastScrollY = scrollY

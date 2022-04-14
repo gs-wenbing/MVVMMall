@@ -74,7 +74,7 @@ class ViewPagerIndicator @JvmOverloads constructor(
             var startX = 0f
             for (index in 0..dotsCount) {
                 val realIndex = viewPager2!!.currentItem % dotsCount
-                var thisWidth = if (index == realIndex) {
+                val thisWidth = if (index == realIndex) {
                     paint.color = selectedColor
                     largerWidth
                 } else {

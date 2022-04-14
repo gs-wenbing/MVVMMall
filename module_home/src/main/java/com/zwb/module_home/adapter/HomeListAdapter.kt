@@ -4,13 +4,15 @@ import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zwb.module_home.R
+import com.zwb.module_home.fragment.HomePageGoodsFragment1
 
-class HomeListAdapter(var activity:FragmentActivity,data: MutableList<Any>?) :
+class HomeListAdapter(var fragment: Fragment, data: MutableList<Any>?) :
     BaseQuickAdapter<Any, BaseViewHolder>(R.layout.home_item_main_tabs, data) {
 
     private val tabList = ArrayList<TextView>()
@@ -18,7 +20,17 @@ class HomeListAdapter(var activity:FragmentActivity,data: MutableList<Any>?) :
     override fun convert(helper: BaseViewHolder, item: Any?) {
         val mainViewPager = helper.getView<ViewPager2>(R.id.mainViewPager)
         mainViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        mainViewPager.adapter = PagerAdapter(activity)
+        val fragmentList = ArrayList<Class<*>>()
+        fragmentList.add(HomePageGoodsFragment1::class.java)
+        fragmentList.add(HomePageGoodsFragment1::class.java)
+        fragmentList.add(HomePageGoodsFragment1::class.java)
+        fragmentList.add(HomePageGoodsFragment1::class.java)
+        fragmentList.add(HomePageGoodsFragment1::class.java)
+        mainViewPager.adapter = PagerAdapter(fragmentList,fragment)
+        //不让他上下滚动了
+//        mainViewPager.isUserInputEnabled = false
+        //防止内存泄露
+        mainViewPager.offscreenPageLimit = 1
         val tabClickListener = View.OnClickListener {
             val index = tabList.indexOf(it)
             mainViewPager.currentItem = index

@@ -50,8 +50,9 @@ dependencies {
     implementation project(path: ':module_home')
     implementation project(path: ':module_classify')
     implementation project(path: ':module_cart')
-    implementation project(path: ':module_my')
+    implementation project(path: ':module_me')
     implementation project(path: ':module_goods')
+    implementation project(path: ':module_order')
 //    implementation project(path: ':lib_base')
 
 //    kapt GitHub.ARouteCompiler

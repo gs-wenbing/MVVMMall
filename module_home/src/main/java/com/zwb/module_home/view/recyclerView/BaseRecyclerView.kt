@@ -23,7 +23,7 @@ open class BaseRecyclerView @JvmOverloads constructor(
         // 1. mViewFlinger对象获取
         val viewFlingField = RecyclerView::class.java.getDeclaredField("mViewFlinger")
         viewFlingField.isAccessible = true
-        var viewFlingObj = viewFlingField.get(this)
+        val viewFlingObj = viewFlingField.get(this)
 
         // 2. overScroller对象获取
         val overScrollerFiled = viewFlingObj.javaClass.getDeclaredField("mOverScroller")
@@ -52,4 +52,5 @@ open class BaseRecyclerView @JvmOverloads constructor(
         this.overScroller.forceFinished(true)
         velocityYField.set(scrollerYObj, 0)
     }
+
 }

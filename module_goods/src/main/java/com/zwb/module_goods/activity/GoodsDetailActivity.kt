@@ -24,6 +24,7 @@ import com.youth.banner.listener.OnPageChangeListener
 import com.zwb.lib_base.mvvm.v.BaseActivity
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_base.utils.UIUtils
+import com.zwb.lib_common.constant.Constants
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.view.PersistentStaggeredGridLayoutManager
 import com.zwb.module_goods.GoodsViewModel
@@ -46,7 +47,7 @@ import kotlin.math.min
 class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewModel>() {
     override val mViewModel by viewModels<GoodsViewModel>()
 
-    @Autowired(name = RoutePath.Goods.PARAMS_GOODS_NAME)
+    @Autowired(name = Constants.Goods.PARAMS_GOODS_NAME)
     lateinit var goodsName: String
 
     private var mScrollY = 0
@@ -57,7 +58,7 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
     private var mCommentFragment: GoodsCommentFragment? = null
 
     override fun ActivityGoodsDetailBinding.initView() {
-        ARouter.getInstance().inject(this)
+        ARouter.getInstance().inject(this@GoodsDetailActivity)
         StatusBarUtil.immersive(this@GoodsDetailActivity)
         StatusBarUtil.setPaddingSmart(this@GoodsDetailActivity, toolbar)
         ivBack.setOnClickListener {
