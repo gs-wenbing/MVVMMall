@@ -13,10 +13,10 @@ class CartViewModel:BaseViewModel() {
     var mCartGoodsData: MutableLiveData<List<MultiItemEntity>> = MutableLiveData()
     var mCartLikeGoodsData: MutableLiveData<List<MultiItemEntity>> = MutableLiveData()
 
-    fun loadCartGoodsData(key:String){
+    fun loadCartGoodsData(){
         initiateRequest({
-            mCartGoodsData.value =  ArrayList<CartGoodsEntity>()//repo.getCartList(key)
-            mCartLikeGoodsData.value =  repo.getCartLikeGoods(key)
-        }, loadState,key)
+            mCartGoodsData.value =  repo.getCartList(CartApi.CART_URL)
+            mCartLikeGoodsData.value =  repo.getCartLikeGoods(CartApi.CART_LIKE_URL)
+        }, loadState, CartApi.CART_URL)
     }
 }

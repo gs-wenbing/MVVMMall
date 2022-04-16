@@ -1,5 +1,6 @@
 package com.zwb.lib_base.mvvm.v
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import com.zwb.lib_base.utils.EventBusUtils
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(),
     FrameView<VB> {
 
+    lateinit var mContext: Context
     /**
      * 私有的 ViewBinding 此写法来自 Google Android 官方
      */
@@ -29,6 +31,11 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(),
     protected val mBinding get() = _binding!!
 
     protected abstract val mViewModel: VM
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -109,13 +109,13 @@ class CartFragment : BaseVMFragment<CartViewModel> (){
         mViewModel.loadCartGoodsData(Constant.URL_CARTS)
     }
     override fun initDataObserver() {
-        mViewModel.mCartGoodsData.observe(this, Observer {
+        mViewModel.mCartGoodsData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 mCartMultiList.addAll(it)
                 mAdapter.setNewData(mCartMultiList)
             }
         })
-        mViewModel.mCartLikeGoodsData.observe(this, Observer {
+        mViewModel.mCartLikeGoodsData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 mCartMultiList.add(CartDividingEntity(mContext.getString(R.string.cart_like)))
                 mCartMultiList.addAll(it)

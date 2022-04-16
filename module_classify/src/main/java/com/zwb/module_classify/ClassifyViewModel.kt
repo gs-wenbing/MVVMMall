@@ -15,10 +15,10 @@ class ClassifyViewModel:BaseViewModel() {
     var mCurrClassify: MutableLiveData<ClassifyEntity> = MutableLiveData()
 
 
-    fun loadClassifyCo(key:String) {
+    fun loadClassifyCo() {
         initiateRequest({
-            mClassifyData.value = repo.loadClassifyCo(key)
-        }, loadState)
+            mClassifyData.value = repo.loadClassifyCo(ClassifyApi.CLASS_URL)
+        }, loadState, ClassifyApi.CLASS_URL)
     }
 
     fun loadRightClassify(classify: ClassifyEntity) {

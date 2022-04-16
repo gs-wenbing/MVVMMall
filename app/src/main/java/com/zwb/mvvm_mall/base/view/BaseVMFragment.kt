@@ -35,7 +35,7 @@ abstract class BaseVMFragment<VM : BaseViewModel<*>> : BaseFragment(),BaseView {
 
     override fun initView() {
         super.initView()
-        mViewModel.loadState.observe(this, observer)
+        mViewModel.loadState.observe(viewLifecycleOwner, observer)
         initDataObserver()
     }
 
@@ -105,11 +105,12 @@ abstract class BaseVMFragment<VM : BaseViewModel<*>> : BaseFragment(),BaseView {
     private val observer by lazy {
         Observer<State> {
             it?.let {
-                when {
-                    it.code == StateType.SUCCESS -> showSuccess(it.urlKey)
-                    it.code == StateType.ERROR -> showError("网络异常",it.urlKey)
-                    it.code == StateType.NETWORK_ERROR -> showError("网络异常",it.urlKey)
-                    it.code == StateType.EMPTY -> showEmpty(it.urlKey)
+                when (it.code) {
+                    StateType.SUCCESS -> showSuccess(it.urlKey)
+                    StateType.ERROR -> showError("网络异常",it.urlKey)
+                    StateType.NETWORK_ERROR -> showError("网络异常",it.urlKey)
+                    StateType.EMPTY -> showEmpty(it.urlKey)
+                    else -> showEmpty(it.urlKey)
                 }
             }
         }

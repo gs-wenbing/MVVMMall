@@ -38,7 +38,7 @@ class HomePageGoodsFragment : BaseVMFragment<HomeViewModel>(){
 
     override fun initDataObserver() {
         super.initDataObserver()
-        mViewModel.mBoutiqueGoods.observe(this, Observer {
+        mViewModel.mBoutiqueGoods.observe(viewLifecycleOwner, Observer {
             showSuccess(Constant.COMMON_KEY)
             mAdapter.setNewData(it.toMutableList())
         })

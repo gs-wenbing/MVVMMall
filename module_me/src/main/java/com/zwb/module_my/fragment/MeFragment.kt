@@ -9,23 +9,28 @@ import androidx.fragment.app.viewModels
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.youth.banner.util.BannerUtils
 import com.zwb.lib_base.mvvm.v.BaseFragment
-import com.zwb.lib_base.utils.StatusBarUtil
-import com.zwb.lib_base.utils.UIUtils
+import com.zwb.lib_base.utils.*
 import com.zwb.lib_common.bean.GoodsEntity
+import com.zwb.lib_common.constant.Constants
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
+import com.zwb.lib_common.service.me.wrap.MeServiceWrap
+import com.zwb.lib_common.service.order.wrap.OrderServiceWrap
 import com.zwb.lib_common.view.PersistentStaggeredGridLayoutManager
 import com.zwb.module_my.MeViewModel
 import com.zwb.module_my.R
+import com.zwb.module_my.activity.SettingActivity
 import com.zwb.module_my.adapter.HomeGoodsAdapter
 import com.zwb.module_my.databinding.FragmentMeBinding
 import kotlinx.android.synthetic.main.fragment_me.*
 import kotlinx.android.synthetic.main.layout_mine_header_frame.*
+import kotlinx.android.synthetic.main.layout_mine_order_frame.*
 import kotlinx.android.synthetic.main.layout_mine_vip_frame.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import kotlin.math.min
 
-
-class MeFragment:BaseFragment<FragmentMeBinding, MeViewModel>() {
+class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
 
 
     private var mOffset = 0
@@ -41,11 +46,11 @@ class MeFragment:BaseFragment<FragmentMeBinding, MeViewModel>() {
         StatusBarUtil.setPaddingSmart(activity, toolbar)
         StatusBarUtil.darkMode(requireActivity(),false)
 
-        toolbarAvatar.post {
-            BannerUtils.setBannerRound(toolbarAvatar, toolbarAvatar.height.toFloat())
-            BannerUtils.setBannerRound(ivAvatar, ivAvatar.height.toFloat())
-            BannerUtils.setBannerRound(llCard, 30f)
-        }
+//        toolbarAvatar.post {
+//            BannerUtils.setBannerRound(toolbarAvatar, toolbarAvatar.height.toFloat())
+//            BannerUtils.setBannerRound(ivAvatar, ivAvatar.height.toFloat())
+//            BannerUtils.setBannerRound(llCard, 30f)
+//        }
 
         barLayout.alpha = 0f
         toolbar.setBackgroundColor(0)
@@ -64,16 +69,16 @@ class MeFragment:BaseFragment<FragmentMeBinding, MeViewModel>() {
                     mScrollY = min(h, scrollY)
                     barLayout.alpha = 1f * mScrollY / h
                     toolbar.setBackgroundColor(255 * mScrollY / h shl 24 or color)
-                    Log.e("scrollY==",scrollY.toString())
+                    LogUtils.e("scrollY==",scrollY.toString())
                     ivHeader.translationY = (mOffset - scrollY).toFloat()
                 }
                 lastScrollY = scrollY
                 if (scrollY == 0) {
-                    ivMenu.setImageResource(R.mipmap.setting_white)
+                    ivSetting.setImageResource(R.mipmap.setting_white)
                     ivFriend.setImageResource(R.mipmap.iv_friend_white)
                     StatusBarUtil.darkMode(requireActivity(),false)
                 } else {
-                    ivMenu.setImageResource(R.mipmap.setting_black)
+                    ivSetting.setImageResource(R.mipmap.setting_black)
                     ivFriend.setImageResource(R.mipmap.iv_friend_black)
                     StatusBarUtil.darkMode(requireActivity(),true)
                 }
@@ -85,6 +90,14 @@ class MeFragment:BaseFragment<FragmentMeBinding, MeViewModel>() {
         mineRecyclerView.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, _, position ->
             GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),(adapter.getItem(position) as GoodsEntity).goodsName)
+        }
+
+        tvAllOrder.setOnClickListener {
+            OrderServiceWrap.instance.startOrderList(requireActivity(), Constants.Order.ORDER_ALL)
+        }
+
+        ivSetting.setOnClickListener {
+            SettingActivity.launch(requireActivity())
         }
     }
     private fun setViewStyle() {
@@ -152,7 +165,7 @@ class MeFragment:BaseFragment<FragmentMeBinding, MeViewModel>() {
         }
     }
     override fun initObserve() {
-        mViewModel.mSeckillGoods.observe(this, {
+        mViewModel.mSeckillGoods.observe(viewLifecycleOwner, {
             mAdapter.setNewData(it.toMutableList())
         })
     }

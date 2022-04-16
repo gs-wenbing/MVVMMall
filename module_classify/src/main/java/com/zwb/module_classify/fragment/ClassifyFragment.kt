@@ -1,19 +1,17 @@
 package com.zwb.module_classify.fragment
 
 import androidx.fragment.app.activityViewModels
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
-import com.zwb.lib_common.bean.GoodsEntity
-import com.zwb.lib_common.constant.RoutePath
+import com.zwb.lib_common.base.BaseVMFragment
 import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
+import com.zwb.module_classify.ClassifyApi
 import com.zwb.module_classify.ClassifyViewModel
 import com.zwb.module_classify.adapter.ClassifyPAdapter
 import com.zwb.module_classify.databinding.FragmentClassifyBinding
 import kotlinx.android.synthetic.main.layout_home_toolbar.*
 
-class ClassifyFragment:BaseFragment<FragmentClassifyBinding,ClassifyViewModel>() {
+class ClassifyFragment : BaseVMFragment<FragmentClassifyBinding, ClassifyViewModel>() {
 
     lateinit var mPAdapter: ClassifyPAdapter
 
@@ -39,10 +37,11 @@ class ClassifyFragment:BaseFragment<FragmentClassifyBinding,ClassifyViewModel>()
             }
             mPAdapter.notifyDataSetChanged()
         }
+        setDefaultLoad(layoutContent, ClassifyApi.CLASS_URL)
     }
 
     override fun initObserve() {
-        mViewModel.mClassifyData.observe(this, { response ->
+        mViewModel.mClassifyData.observe(viewLifecycleOwner, { response ->
             response?.let {
                 it[0].isSelected = true
                 mPAdapter.setNewData(it.toMutableList())
@@ -52,6 +51,6 @@ class ClassifyFragment:BaseFragment<FragmentClassifyBinding,ClassifyViewModel>()
     }
 
     override fun initRequestData() {
-        mViewModel.loadClassifyCo("Constant.URL_GOODS_CLASS")
+        mViewModel.loadClassifyCo()
     }
 }

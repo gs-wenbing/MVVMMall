@@ -158,7 +158,7 @@ class MineFragment : BaseVMFragment<MineViewModel>(){
     }
 
     override fun initDataObserver() {
-        mViewModel.mSeckillGoods.observe(this, Observer {
+        mViewModel.mSeckillGoods.observe(viewLifecycleOwner, Observer {
             mAdapter.setNewData(it.toMutableList())
         })
     }

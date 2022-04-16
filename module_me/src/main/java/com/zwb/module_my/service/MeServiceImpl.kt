@@ -9,6 +9,7 @@ import com.zwb.module_my.fragment.MeFragment
 
 @Route(path = RoutePath.Me.SERVICE_ME)
 class MeServiceImpl:IMeService {
+
     override fun getFragment(): Fragment {
         return MeFragment()
     }

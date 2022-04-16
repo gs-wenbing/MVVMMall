@@ -1,5 +1,6 @@
 package com.zwb.module_cart.fragment
 
+import android.os.Handler
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.view.Gravity
@@ -10,17 +11,15 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.android.material.chip.ChipGroup
-import com.zwb.lib_base.ktx.gone
 import com.zwb.lib_base.ktx.visible
-import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_base.utils.UIUtils
-import com.zwb.lib_common.constant.RoutePath
+import com.zwb.lib_common.base.BaseVMFragment
 import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
+import com.zwb.module_cart.CartApi
 import com.zwb.module_cart.CartViewModel
 import com.zwb.module_cart.R
 import com.zwb.module_cart.adapter.CartAdapter
@@ -35,7 +34,7 @@ import kotlinx.android.synthetic.main.dialog_cart_attr_layout.view.*
 import kotlinx.android.synthetic.main.layout_cart_attr.view.*
 import kotlinx.android.synthetic.main.layout_cart_toolbar.*
 
-class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
+class CartFragment: BaseVMFragment<CartFragmentBinding, CartViewModel>() {
     //所有商品，包括购物车、推荐商品
     private var mCartMultiList:MutableList<MultiItemEntity> = ArrayList()
 
@@ -96,6 +95,7 @@ class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
                 GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),cartGoods.goodsName)
             }
         }
+        setDefaultLoad(rvCart, CartApi.CART_URL)
     }
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
@@ -105,11 +105,15 @@ class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
     }
 
     override fun initRequestData() {
-        mViewModel.loadCartGoodsData("Constant.URL_CARTS")
+        //模拟加载效果
+        Handler().postDelayed({
+            mViewModel.loadCartGoodsData()
+        }, 2000)
+
     }
 
     override fun initObserve() {
-        mViewModel.mCartGoodsData.observe(this, {
+        mViewModel.mCartGoodsData.observe(viewLifecycleOwner, {
             it?.let {
                 if(it.isNotEmpty()){
                     mBinding.rlCartBottom.visible()
@@ -120,7 +124,7 @@ class CartFragment:BaseFragment<CartFragmentBinding,CartViewModel>() {
                 mAdapter.setNewData(mCartMultiList)
             }
         })
-        mViewModel.mCartLikeGoodsData.observe(this, {
+        mViewModel.mCartLikeGoodsData.observe(viewLifecycleOwner, {
             it?.let {
                 mCartMultiList.add(CartDividingEntity(getString(R.string.cart_like)))
                 mCartMultiList.addAll(it)

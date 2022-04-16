@@ -133,13 +133,13 @@
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/ivMenu"
+                android:layout_toLeftOf="@+id/ivSetting"
                 android:padding="@dimen/dp_2"
                 android:layout_marginRight="@dimen/dp_10"
                 android:src="@mipmap/iv_friend_white" />
 
             <ImageView
-                android:id="@+id/ivMenu"
+                android:id="@+id/ivSetting"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
                 android:layout_alignParentRight="true"

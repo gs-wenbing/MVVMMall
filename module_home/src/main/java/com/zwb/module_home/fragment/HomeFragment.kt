@@ -1,12 +1,16 @@
 package com.zwb.module_home.fragment
 
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.kingja.loadsir.core.LoadService
 import com.youth.banner.indicator.CircleIndicator
-import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
+import com.zwb.lib_common.base.BaseVMFragment
 import com.zwb.lib_common.bean.GoodsEntity
 import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.module_home.HomeApi
@@ -15,14 +19,13 @@ import com.zwb.module_home.R
 import com.zwb.module_home.adapter.BannerImageAdapter
 import com.zwb.module_home.adapter.HomeHorizontalGoodsAdapter
 import com.zwb.module_home.adapter.HomeListAdapter
-import com.zwb.module_home.adapter.MenuPagerAdapter
 import com.zwb.module_home.bean.BannerEntity
 import com.zwb.module_home.databinding.HomeFragmentHomeBinding
 import com.zwb.module_home.view.SyncScrollHelper
 import kotlinx.android.synthetic.main.home_layout_home_header.view.*
 import kotlinx.android.synthetic.main.home_layout_home_item.view.*
 
-class HomeFragment:BaseFragment<HomeFragmentHomeBinding,HomeViewModel>() {
+class HomeFragment: BaseVMFragment<HomeFragmentHomeBinding, HomeViewModel>() {
 
     private lateinit var mHeaderView: View
     private lateinit var listAdapter: HomeListAdapter
@@ -46,7 +49,16 @@ class HomeFragment:BaseFragment<HomeFragmentHomeBinding,HomeViewModel>() {
         listAdapter.addHeaderView(mHeaderView)
 
         mHeaderView.home_menu_viewpager2.offscreenPageLimit = 2
-        mHeaderView.home_menu_viewpager2.adapter = MenuPagerAdapter(this@HomeFragment)
+        mHeaderView.home_menu_viewpager2.adapter = object : FragmentStateAdapter(this@HomeFragment){
+
+            override fun getItemCount(): Int = 2
+
+            override fun createFragment(position: Int): Fragment {
+                val menuGridFragment = MenuGridFragment()
+                menuGridFragment.page = position
+                return menuGridFragment
+            }
+        }
         mHeaderView.home_menu_indicator.setViewPager2(mHeaderView.home_menu_viewpager2, 2)
 
         mHAdapter = HomeHorizontalGoodsAdapter(null,R.layout.item_goods_small_layout)
@@ -67,7 +79,12 @@ class HomeFragment:BaseFragment<HomeFragmentHomeBinding,HomeViewModel>() {
         mainRefreshLayout.setOnRefreshListener {
             initRequestData()
         }
+
+        setDefaultLoad(mHeaderView.mBanner, HomeApi.BANNER_URL)
+
+        setPlaceHolderLoad(mHeaderView.horizontalRecyclerview, R.layout.layout_placeholder_home_h_veiw, HomeApi.SECKILL_URL)
     }
+
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
@@ -79,10 +96,10 @@ class HomeFragment:BaseFragment<HomeFragmentHomeBinding,HomeViewModel>() {
     }
 
     override fun initRequestData() {
-        mViewModel.loadBannerCo(HomeApi.BASE_URL).observe(this, {
+        mViewModel.loadBannerCo().observe(viewLifecycleOwner, {
             setBannerData(it)
         })
-        mViewModel.loadSeckillGoodsData().observe(this,{
+        mViewModel.loadSeckillGoodsData().observe(viewLifecycleOwner,{
             mHAdapter.setNewData(it)
             mBinding.mainRefreshLayout.finishRefresh()
         })

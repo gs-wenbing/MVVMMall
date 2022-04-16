@@ -29,7 +29,7 @@ class ClassifyFragmentRight : BaseFragment<FragmentClassifyRightBinding,Classify
     }
 
     override fun initObserve() {
-        mViewModel.mCurrClassify.observe(this, { response->
+        mViewModel.mCurrClassify.observe(viewLifecycleOwner, { response->
             response?.let {
                 mViewModel.loadRightClassify(it)
             }

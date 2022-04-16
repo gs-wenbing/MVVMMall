@@ -86,10 +86,10 @@ class HomeFragment : BaseVMFragment<HomeViewModel>(){
     }
 
     override fun initDataObserver() {
-        mViewModel.mBannerData.observe(this, Observer {
+        mViewModel.mBannerData.observe(viewLifecycleOwner, Observer {
             setBannerData(it)
         })
-        mViewModel.mSeckillGoods.observe(this, Observer {
+        mViewModel.mSeckillGoods.observe(viewLifecycleOwner, Observer {
             showSuccess(Constant.COMMON_KEY)
             mHAdapter.setNewData(it)
             mainRefreshLayout.finishRefresh()

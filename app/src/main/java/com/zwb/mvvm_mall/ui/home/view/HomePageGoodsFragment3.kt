@@ -37,7 +37,7 @@ class HomePageGoodsFragment3 : BaseVMFragment<HomeViewModel>(){
 
     override fun initDataObserver() {
         super.initDataObserver()
-        mViewModel.mRecyclerGoods3.observe(this, Observer {
+        mViewModel.mRecyclerGoods3.observe(viewLifecycleOwner, Observer {
             showSuccess(Constant.COMMON_KEY)
             mAdapter.setNewData(it.toMutableList())
         })

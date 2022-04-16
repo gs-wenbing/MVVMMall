@@ -10,12 +10,15 @@
         android:supportsRtl="true"
         android:name=".MeApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".MeActivity">
+        <activity android:name=".activity.MeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.SettingActivity">
+
         </activity>
     </application>
 

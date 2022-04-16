@@ -7,4 +7,4 @@ package com.zwb.lib_base.net
  * Time: 16:04
  */
 
-open class BaseResponse<T>(var data: T, var result: Int = -1, var errorMsg: String = "")
+open class BaseResponse<T>(var data: T, var errorCode: Int = -1, var errorMsg: String = "")

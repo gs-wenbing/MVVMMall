@@ -51,7 +51,7 @@ class ClassifyFragment : BaseVMFragment<ClassifyViewModel>() {
 
     override fun initDataObserver() {
         super.initDataObserver()
-        mViewModel.mClassifyData.observe(this, Observer { response->
+        mViewModel.mClassifyData.observe(viewLifecycleOwner, Observer { response->
             response?.let {
                 it[0].isSelected = true
                 mPAdapter.setNewData(it.toMutableList())

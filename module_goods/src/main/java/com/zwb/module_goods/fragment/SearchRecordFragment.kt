@@ -46,13 +46,13 @@ class SearchRecordFragment: BaseFragment<FragmentSearchRecordBinding, GoodsViewM
     }
 
     override fun initObserve() {
-        mViewModel.mSearchTagsData.observe(this, {
+        mViewModel.mSearchTagsData.observe(viewLifecycleOwner, {
             it?.let {
                 setSearchTagView(mHeaderView.flowLayout, it)
                 setSearchTagView(mHeaderView.flowLayout2, it)
             }
         })
-        mViewModel.mSearchHotData.observe(this, {
+        mViewModel.mSearchHotData.observe(viewLifecycleOwner, {
             mAdapter.setNewData(it)
         })
     }

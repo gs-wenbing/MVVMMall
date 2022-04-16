@@ -19,7 +19,7 @@ class GoodsCommentFragment : BaseFragment<FragmentGoodsCommentBinding,GoodsViewM
     }
 
     override fun initObserve() {
-        mViewModel.mCommentList.observe(this, Observer {
+        mViewModel.mCommentList.observe(viewLifecycleOwner, Observer {
             rvComment.layoutManager = LinearLayoutManager(requireActivity())
             rvComment.adapter = CommentAdapter(it.toMutableList())
         })

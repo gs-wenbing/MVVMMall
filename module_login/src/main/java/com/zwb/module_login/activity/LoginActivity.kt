@@ -1,6 +1,7 @@
 package com.zwb.module_login.activity
 
 import android.content.Intent
+import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
@@ -12,6 +13,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.zwb.lib_base.mvvm.v.BaseActivity
 import com.zwb.lib_base.utils.EventBusUtils
 import com.zwb.lib_base.utils.SpUtils
+import com.zwb.lib_common.base.BaseVMActivity
 import com.zwb.lib_common.bean.StringEvent
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.constant.SpKey
@@ -22,7 +24,7 @@ import com.zwb.module_login.fragment.RegisterFragment
 
 
 @Route(path = RoutePath.Login.PAGE_LOGIN)
-class LoginActivity:BaseActivity<LoginActivityLoginBinding, LoginViewModel>(), View.OnFocusChangeListener {
+class LoginActivity: BaseVMActivity<LoginActivityLoginBinding, LoginViewModel>(), View.OnFocusChangeListener {
 
     override val mViewModel by viewModels<LoginViewModel>()
 
@@ -45,18 +47,22 @@ class LoginActivity:BaseActivity<LoginActivityLoginBinding, LoginViewModel>(), V
             val sign2 = mBinding.editUsername.text.isNotEmpty()
             val sign3 = mBinding.editPassword.text.isNotEmpty()
             if (sign2 and sign3) {
-                SpUtils.put(SpKey.IS_LOGIN, true)
-                Toast.makeText(applicationContext,"登录成功",Toast.LENGTH_LONG).show()
-                if (!TextUtils.isEmpty(path)) {
-                    when(path){
-                        RoutePath.Cart.FRAGMENT_CART -> EventBusUtils.postEvent(StringEvent(StringEvent.Event.SWITCH_CART))
-                        RoutePath.Me.FRAGMENT_ME -> EventBusUtils.postEvent(StringEvent(StringEvent.Event.SWITCH_ME))
-                        else -> ARouter.getInstance().build(path)
-                            .with(intent.extras)
-                            .navigation()
+                showLoading()
+                Handler().postDelayed({
+                    SpUtils.put(SpKey.IS_LOGIN, true)
+                    if (!TextUtils.isEmpty(path)) {
+                        when(path){
+                            RoutePath.Cart.FRAGMENT_CART -> EventBusUtils.postEvent(StringEvent(StringEvent.Event.SWITCH_CART))
+                            RoutePath.Me.FRAGMENT_ME -> EventBusUtils.postEvent(StringEvent(StringEvent.Event.SWITCH_ME))
+                            else -> ARouter.getInstance().build(path)
+                                .with(intent.extras)
+                                .navigation()
+                        }
                     }
-                }
-                finish()
+                    Toast.makeText(applicationContext,"登录成功",Toast.LENGTH_LONG).show()
+                    dismissLoading()
+                    finish()
+                }, 2000)
             } else {
                 Toast.makeText(applicationContext,"用户名或密码为空",Toast.LENGTH_LONG).show()
             }

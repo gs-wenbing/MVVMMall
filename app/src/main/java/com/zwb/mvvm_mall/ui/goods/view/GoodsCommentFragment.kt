@@ -27,7 +27,7 @@ class GoodsCommentFragment : BaseVMFragment<GoodsViewModel>() {
 
     override fun initDataObserver() {
         super.initDataObserver()
-        mViewModel.mCommentList.observe(this, Observer {
+        mViewModel.mCommentList.observe(viewLifecycleOwner, Observer {
             rvComment.layoutManager = LinearLayoutManager(mActivity)
             rvComment.adapter = CommentAdapter(it.toMutableList())
         })

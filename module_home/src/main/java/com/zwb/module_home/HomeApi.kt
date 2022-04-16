@@ -9,26 +9,27 @@ import retrofit2.http.GET
 interface HomeApi{
 
 
-    @GET("$PROJECT/banner/json")
+    @GET(BANNER_URL)
     suspend fun loadBannerCo(): BaseResponse<List<BannerEntity>>
 
-    @GET("$PROJECT/home/getGoodsClass")
-    suspend fun getGoodsClassCo() : BaseResponse<List<ClassifyEntity>>
 
-    @GET("$PROJECT/home/getSeckillGoodsList")
+    @GET(SECKILL_URL)
     suspend fun getSeckillGoodsList() : BaseResponse<List<GoodsEntity>>
 
     /**
      * 精品列表
      */
-    @GET("$PROJECT/home/getBoutiqueGoodsList")
+    @GET(BOUTIQUE_URL)
     suspend fun getBoutiqueGoodsList() : BaseResponse<List<GoodsEntity>>
 
 
 
     companion object {
         const val BASE_URL = "https://mockapi.eolink.com/"
-        const val PROJECT = "/JiPqtefd9325e3466dc720a8c0ad3364c4f791e227debcd"
+        private const val PROJECT = "/JiPqtefd9325e3466dc720a8c0ad3364c4f791e227debcd"
+        const val BANNER_URL = "$PROJECT/banner/json"
+        const val SECKILL_URL = "$PROJECT/home/getSeckillGoodsList"
+        const val BOUTIQUE_URL = "$PROJECT/home/getBoutiqueGoodsList"
     }
 
 }

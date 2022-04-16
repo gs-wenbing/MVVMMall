@@ -7,6 +7,7 @@ import com.zwb.lib_base.net.RetrofitFactory
 import com.zwb.lib_base.net.State
 import com.zwb.lib_common.bean.GoodsEntity
 import com.zwb.module_home.bean.BannerEntity
+import kotlinx.coroutines.flow.Flow
 
 class HomeRepository(private val loadState: MutableLiveData<State>):BaseRepository() {
 
@@ -14,15 +15,15 @@ class HomeRepository(private val loadState: MutableLiveData<State>):BaseReposito
         RetrofitFactory.instance.getService(HomeApi::class.java, HomeApi.BASE_URL)
     }
 
-    suspend fun loadBannerCo(): List<BannerEntity> {
-        return apiService.loadBannerCo().dataConvert(loadState)
+    suspend fun loadBannerCo(key: String): List<BannerEntity> {
+        return apiService.loadBannerCo().dataConvert(loadState, key)
     }
 
-    suspend fun loadSeckillGoodsCo(): List<GoodsEntity> {
-        return apiService.getSeckillGoodsList().dataConvert(loadState)
+    suspend fun loadSeckillGoodsCo(key: String): List<GoodsEntity> {
+        return apiService.getSeckillGoodsList().dataConvert(loadState, key)
     }
 
-    suspend fun loadBoutiqueGoodsCo(): List<GoodsEntity> {
-        return apiService.getBoutiqueGoodsList().dataConvert(loadState)
+    suspend fun loadBoutiqueGoodsCo(key: String): List<GoodsEntity> {
+        return apiService.getBoutiqueGoodsList().dataConvert(loadState, key)
     }
 }

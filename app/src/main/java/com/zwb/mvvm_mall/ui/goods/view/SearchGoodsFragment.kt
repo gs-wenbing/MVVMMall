@@ -74,7 +74,7 @@ class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
     }
     override fun initDataObserver() {
         super.initDataObserver()
-        mViewModel.mSeckillGoods.observe(this, Observer {
+        mViewModel.mSeckillGoods.observe(viewLifecycleOwner, Observer {
             if(!isLoadMore){
                 showSuccess(Constant.COMMON_KEY)
                 mGoodsList = it.toMutableList()
@@ -83,11 +83,11 @@ class SearchGoodsFragment :BaseVMFragment<GoodsViewModel>(){
             }
             mAdapter.setNewData(mGoodsList)
         })
-        mViewModel.mFilterAttrs.observe(this, Observer {
+        mViewModel.mFilterAttrs.observe(viewLifecycleOwner, Observer {
             mAttrFilterAdapter.setNewData(it.toMutableList())
         })
 
-        mViewModel.mSearchKey.observe(this, Observer {
+        mViewModel.mSearchKey.observe(viewLifecycleOwner, Observer {
             loadData()
         })
     }

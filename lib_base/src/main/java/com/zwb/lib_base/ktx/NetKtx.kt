@@ -17,20 +17,23 @@ import kotlinx.coroutines.launch
 
 fun <T> BaseResponse<T>.dataConvert(
     loadState: MutableLiveData<State>,
-    urlKey:String = ""
+    urlKey: String = ""
 ): T {
-    return when (result) {
+    return when (errorCode) {
         0 -> {
             if (data is List<*>) {
                 if ((data as List<*>).isEmpty()) {
-                    loadState.postValue(State(StateType.EMPTY,urlKey))
+                    loadState.value = State(StateType.EMPTY, urlKey)
+                } else {
+                    loadState.value = State(StateType.SUCCESS, urlKey)
                 }
+            } else {
+                loadState.value = State(StateType.SUCCESS, urlKey)
             }
-            loadState.postValue(State(StateType.SUCCESS,urlKey))
             data
         }
         else -> {
-            loadState.postValue(State(StateType.ERROR,urlKey, message = errorMsg))
+            loadState.postValue(State(StateType.ERROR, urlKey, message = errorMsg))
             data
         }
     }
@@ -40,7 +43,7 @@ fun <T> BaseResponse<T>.dataConvert(
 fun BaseViewModel.initiateRequest(
     block: suspend () -> Unit,
     loadState: MutableLiveData<State>,
-    urlKey:String=""
+    urlKey: String = ""
 ) {
     viewModelScope.launch {
         runCatching {

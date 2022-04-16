@@ -8,6 +8,10 @@ import androidx.activity.viewModels
 import com.zwb.lib_base.mvvm.v.BaseActivity
 import com.zwb.mvvm_mall.databinding.ActivitySplashBinding
 
+/**
+ * 启动页
+ * 可以在这里面加载初始化的数据
+ */
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override val mViewModel by viewModels<SplashViewModel>()
 

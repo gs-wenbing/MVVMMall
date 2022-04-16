@@ -55,7 +55,7 @@ class SearchGoodsFragment:BaseFragment<FragmentSearchGoodsBinding,GoodsViewModel
     }
 
     override fun initObserve() {
-        mViewModel.mSeckillGoods.observe(this, {
+        mViewModel.mSeckillGoods.observe(viewLifecycleOwner, {
             if (!isLoadMore) {
                 mGoodsList = it.toMutableList()
             } else {
@@ -63,11 +63,11 @@ class SearchGoodsFragment:BaseFragment<FragmentSearchGoodsBinding,GoodsViewModel
             }
             mAdapter.setNewData(mGoodsList)
         })
-        mViewModel.mFilterAttrs.observe(this, {
+        mViewModel.mFilterAttrs.observe(viewLifecycleOwner, {
             mAttrFilterAdapter.setNewData(it.toMutableList())
         })
 
-        mViewModel.mSearchKey.observe(this, {
+        mViewModel.mSearchKey.observe(viewLifecycleOwner, {
             initRequestData()
         })
     }

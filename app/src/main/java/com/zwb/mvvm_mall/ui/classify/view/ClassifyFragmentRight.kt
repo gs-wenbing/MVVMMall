@@ -39,12 +39,12 @@ class ClassifyFragmentRight : BaseVMFragment<ClassifyViewModel>() {
 
     override fun initDataObserver() {
         super.initDataObserver()
-        mViewModel.mCurrClassify.observe(this, Observer { response->
+        mViewModel.mCurrClassify.observe(viewLifecycleOwner, Observer { response->
             response?.let {
                 mViewModel.loadRightClassify(it)
             }
         })
-        mViewModel.mClassifyRightData.observe(this, Observer { response->
+        mViewModel.mClassifyRightData.observe(viewLifecycleOwner, Observer { response->
             response?.let {
                 mPAdapter.setNewData(it.toMutableList())
             }

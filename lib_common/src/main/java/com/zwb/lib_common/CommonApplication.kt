@@ -6,6 +6,7 @@ import android.content.Context
 import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.auto.service.AutoService
+import com.kingja.loadsir.core.LoadSir
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
@@ -16,6 +17,9 @@ import com.zwb.lib_base.utils.ProcessUtils
 import com.zwb.lib_base.utils.SpUtils
 import com.zwb.lib_base.utils.VersionStatus
 import com.zwb.lib_base.utils.network.NetworkStateClient
+import com.zwb.lib_common.callback.EmptyCallback
+import com.zwb.lib_common.callback.ErrorCallback
+import com.zwb.lib_common.callback.LoadingCallback
 
 @AutoService(ApplicationLifecycle::class)
 class CommonApplication : ApplicationLifecycle {
@@ -57,6 +61,7 @@ class CommonApplication : ApplicationLifecycle {
             list.add { initMMKV() }
             list.add { initARouter() }
             list.add { initNetworkStateClient() }
+            list.add { initLoadSir() }
         }
         list.add { initTencentBugly() }
         return list
@@ -69,6 +74,20 @@ class CommonApplication : ApplicationLifecycle {
         initX5WebViewCore()
     }
 
+
+    /**
+     * 初始化网络状态监听客户端
+     * @return Unit
+     */
+    private fun initLoadSir(): String {
+        LoadSir.beginBuilder()
+            .addCallback(ErrorCallback())
+            .addCallback(EmptyCallback())
+            .addCallback(LoadingCallback())
+            .setDefaultCallback(LoadingCallback::class.java)
+            .commit()
+        return "LoadSir -->> init complete"
+    }
     /**
      * 初始化网络状态监听客户端
      * @return Unit

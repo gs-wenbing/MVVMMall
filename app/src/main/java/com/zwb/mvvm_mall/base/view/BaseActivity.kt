@@ -3,8 +3,6 @@ package com.zwb.mvvm_mall.base.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.kingja.loadsir.core.LoadService
-import com.kingja.loadsir.core.LoadSir
 import com.zwb.mvvm_mall.MyApplication
 import com.zwb.mvvm_mall.base.vm.SharedViewModel
 

@@ -1,7 +1,9 @@
-package com.zwb.module_my
+package com.zwb.module_my.activity
 
 import androidx.activity.viewModels
 import com.zwb.lib_base.mvvm.v.BaseActivity
+import com.zwb.module_my.MeViewModel
+import com.zwb.module_my.R
 import com.zwb.module_my.databinding.ActivityMeBinding
 import com.zwb.module_my.fragment.MeFragment
 
