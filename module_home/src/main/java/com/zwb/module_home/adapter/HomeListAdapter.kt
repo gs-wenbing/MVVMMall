@@ -5,11 +5,11 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.zwb.lib_base.mvvm.v.BaseFragmentStateAdapter
 import com.zwb.module_home.R
 import com.zwb.module_home.fragment.HomePageGoodsFragment1
 
@@ -21,20 +21,20 @@ class HomeListAdapter(var fragment: Fragment, data: MutableList<Any>?) :
     override fun convert(helper: BaseViewHolder, item: Any?) {
         val mainViewPager = helper.getView<ViewPager2>(R.id.mainViewPager)
         mainViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        val fragmentList = ArrayList<Class<*>>()
+        val fragmentList: MutableList<Class<*>> = mutableListOf()
         fragmentList.add(HomePageGoodsFragment1::class.java)
         fragmentList.add(HomePageGoodsFragment1::class.java)
         fragmentList.add(HomePageGoodsFragment1::class.java)
         fragmentList.add(HomePageGoodsFragment1::class.java)
         fragmentList.add(HomePageGoodsFragment1::class.java)
-        mainViewPager.adapter = object : FragmentStateAdapter(fragment){
+        mainViewPager.adapter = object : FragmentStateAdapter(fragment) {
 
             override fun getItemCount(): Int = fragmentList.size
 
             override fun createFragment(position: Int): Fragment {
                 return try {
                     fragmentList[position].newInstance() as Fragment;
-                } catch (e:Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                     Fragment()
                 }
@@ -63,6 +63,7 @@ class HomeListAdapter(var fragment: Fragment, data: MutableList<Any>?) :
         })
         onTabChanged(0)
     }
+
     private fun onTabChanged(position: Int) {
         val num = tabList.size
         for (i in 0 until num) {
@@ -78,6 +79,7 @@ class HomeListAdapter(var fragment: Fragment, data: MutableList<Any>?) :
             }
         }
     }
+
     companion object {
         private val COLOR_TAB_NORMAL by lazy { Color.parseColor("#333333") }
         private val COLOR_TAB_SELECTED by lazy { Color.parseColor("#ff0000") }

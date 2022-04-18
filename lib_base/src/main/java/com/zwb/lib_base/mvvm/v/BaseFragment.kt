@@ -2,6 +2,7 @@ package com.zwb.lib_base.mvvm.v
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.zwb.lib_base.mvvm.vm.BaseViewModel
 import com.zwb.lib_base.utils.BindingReflex
 import com.zwb.lib_base.utils.EventBusRegister
 import com.zwb.lib_base.utils.EventBusUtils
+import kotlin.system.measureTimeMillis
 
 /**
  * Fragment基类
@@ -48,14 +50,30 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // ARouter 依赖注入
-        ARouter.getInstance().inject(this)
-        // 注册EventBus
-        if (javaClass.isAnnotationPresent(EventBusRegister::class.java)) EventBusUtils.register(this)
+        val aRouterTimes = measureTimeMillis {
+            // ARouter 依赖注入
+            ARouter.getInstance().inject(this)
+        }
+        Log.d("$javaClass==fragment", "init: ARouter : $aRouterTimes ms")
 
-        _binding?.initView()
-        initObserve()
-        initRequestData()
+        val eventBusTimes = measureTimeMillis {
+            // 注册EventBus
+            if (javaClass.isAnnotationPresent(EventBusRegister::class.java)) EventBusUtils.register(this)
+        }
+        Log.d("$javaClass==fragment", "init: EventBus : $eventBusTimes ms")
+
+        val initViewTimes = measureTimeMillis {
+            _binding?.initView()
+        }
+        Log.d("$javaClass==fragment", "init: initView : $initViewTimes ms")
+
+
+        val initDataTimes = measureTimeMillis {
+            initObserve()
+            initRequestData()
+        }
+        Log.d("$javaClass==fragment", "init: initData : $initDataTimes ms")
+
     }
 
     override fun onDestroyView() {

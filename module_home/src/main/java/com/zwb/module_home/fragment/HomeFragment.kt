@@ -1,13 +1,10 @@
 package com.zwb.module_home.fragment
 
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.kingja.loadsir.core.LoadService
+import androidx.recyclerview.widget.*
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.youth.banner.indicator.CircleIndicator
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_common.base.BaseVMFragment
@@ -17,20 +14,25 @@ import com.zwb.module_home.HomeApi
 import com.zwb.module_home.HomeViewModel
 import com.zwb.module_home.R
 import com.zwb.module_home.adapter.BannerImageAdapter
-import com.zwb.module_home.adapter.HomeHorizontalGoodsAdapter
 import com.zwb.module_home.adapter.HomeListAdapter
+import com.zwb.module_home.adapter.MenuGridAdapter
+import com.zwb.module_home.adapter.SeckillGoodsAdapter
 import com.zwb.module_home.bean.BannerEntity
+import com.zwb.module_home.bean.SeckillGoodsEntity
+import com.zwb.module_home.bean.SeckillMoreEntity
 import com.zwb.module_home.databinding.HomeFragmentHomeBinding
 import com.zwb.module_home.view.SyncScrollHelper
+import kotlinx.android.synthetic.main.home_fragment_menu_grid.*
 import kotlinx.android.synthetic.main.home_layout_home_header.view.*
 import kotlinx.android.synthetic.main.home_layout_home_item.view.*
 
-class HomeFragment: BaseVMFragment<HomeFragmentHomeBinding, HomeViewModel>() {
+class HomeFragment : BaseVMFragment<HomeFragmentHomeBinding, HomeViewModel>() {
 
     private lateinit var mHeaderView: View
     private lateinit var listAdapter: HomeListAdapter
+
     //横向RecyclerView的adapter
-    lateinit var mHAdapter: HomeHorizontalGoodsAdapter
+    lateinit var mHAdapter: SeckillGoodsAdapter
 
 
     override val mViewModel by viewModels<HomeViewModel>()
@@ -39,36 +41,51 @@ class HomeFragment: BaseVMFragment<HomeFragmentHomeBinding, HomeViewModel>() {
         StatusBarUtil.immersive(requireActivity())
         StatusBarUtil.setPaddingSmart(requireContext(), mainToolbar)
         mBinding.mainSearchLayout.setOnClickListener {
-            GoodsServiceWrap.instance.startGoodsList(requireActivity(),"")
+            GoodsServiceWrap.instance.startGoodsList(requireActivity(), "")
         }
-        listAdapter = HomeListAdapter(this@HomeFragment,arrayOf(1).asList().toMutableList())
+        listAdapter = HomeListAdapter(this@HomeFragment, arrayOf(1).asList().toMutableList())
         mBinding.mainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         mBinding.mainRecyclerView.adapter = listAdapter
 
         mHeaderView = LayoutInflater.from(context).inflate(R.layout.home_layout_home_header, null)
         listAdapter.addHeaderView(mHeaderView)
-
-        mHeaderView.home_menu_viewpager2.offscreenPageLimit = 2
-        mHeaderView.home_menu_viewpager2.adapter = object : FragmentStateAdapter(this@HomeFragment){
-
-            override fun getItemCount(): Int = 2
-
-            override fun createFragment(position: Int): Fragment {
-                val menuGridFragment = MenuGridFragment()
-                menuGridFragment.page = position
-                return menuGridFragment
-            }
-        }
-        mHeaderView.home_menu_indicator.setViewPager2(mHeaderView.home_menu_viewpager2, 2)
-
-        mHAdapter = HomeHorizontalGoodsAdapter(null,R.layout.item_goods_small_layout)
-        mHAdapter.setPriceSize(14)
-        mHeaderView.horizontalRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
-            LinearLayoutManager.HORIZONTAL,false)
+        mHeaderView.rvMenu.layoutManager =
+            GridLayoutManager(requireActivity(), 2, LinearLayoutManager.HORIZONTAL, false)
+        mHeaderView.rvMenu.adapter = MenuGridAdapter(requireActivity())
+        mHeaderView.hIndicator.bindRecyclerView(mHeaderView.rvMenu)
+//        mHeaderView.rvMenu.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                //整体的总宽度，注意是整体，包括在显示区域之外的
+//                //滚动条表示的总范围
+//                var range = 0;
+//                val temp = mHeaderView.rvMenu.computeHorizontalScrollRange()
+//                if (temp > range) {
+//                    range = temp
+//                }
+//                //滑块的偏移量
+//                val offset = mHeaderView.rvMenu.computeHorizontalScrollOffset()
+//                //可视区域长度
+//                val extent = mHeaderView.rvMenu.computeHorizontalScrollExtent()
+//                //滑出部分在剩余范围的比例
+//                val proportion =  (offset * 1.0 / (range - extent))
+//                //计算滚动条宽度
+//                val transMaxRange = mHeaderView.rlIndicator.width - mHeaderView.viewLine.width
+//                //设置滚动条移动
+//                mHeaderView.viewLine.translationX = (transMaxRange * proportion).toFloat()
+//            }
+//        })
+        mHAdapter = SeckillGoodsAdapter(null)
+        mHeaderView.horizontalRecyclerview.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL, false
+        )
         mHeaderView.horizontalRecyclerview.adapter = mHAdapter
-
         mHAdapter.setOnItemClickListener { adapter, _, position ->
-            GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),(adapter.getItem(position) as GoodsEntity).goodsName)
+            GoodsServiceWrap.instance.startGoodsDetail(
+                requireActivity(),
+                (adapter.getItem(position) as GoodsEntity).goodsName
+            )
         }
 
         val syncScrollHelper = SyncScrollHelper(this@HomeFragment)
@@ -82,7 +99,11 @@ class HomeFragment: BaseVMFragment<HomeFragmentHomeBinding, HomeViewModel>() {
 
         setDefaultLoad(mHeaderView.mBanner, HomeApi.BANNER_URL)
 
-        setPlaceHolderLoad(mHeaderView.horizontalRecyclerview, R.layout.layout_placeholder_home_h_veiw, HomeApi.SECKILL_URL)
+        setPlaceHolderLoad(
+            mHeaderView.horizontalRecyclerview,
+            R.layout.layout_placeholder_home_h_veiw,
+            HomeApi.SECKILL_URL
+        )
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -91,6 +112,7 @@ class HomeFragment: BaseVMFragment<HomeFragmentHomeBinding, HomeViewModel>() {
 //            StatusBarUtil.darkMode(requireActivity(),false)
         }
     }
+
     override fun initObserve() {
 
     }
@@ -99,8 +121,12 @@ class HomeFragment: BaseVMFragment<HomeFragmentHomeBinding, HomeViewModel>() {
         mViewModel.loadBannerCo().observe(viewLifecycleOwner, {
             setBannerData(it)
         })
-        mViewModel.loadSeckillGoodsData().observe(viewLifecycleOwner,{
-            mHAdapter.setNewData(it)
+        mViewModel.loadSeckillGoodsData().observe(viewLifecycleOwner, {
+            val l: List<MultiItemEntity> = it.flatMap { goods ->
+                listOf(SeckillGoodsEntity(goods))
+            }
+            mHAdapter.setNewData(l.subList(0, 12))
+//            mHAdapter.addData(SeckillMoreEntity("查看更多"))
             mBinding.mainRefreshLayout.finishRefresh()
         })
     }
@@ -112,3 +138,4 @@ class HomeFragment: BaseVMFragment<HomeFragmentHomeBinding, HomeViewModel>() {
         mHeaderView.mBanner.setBannerRound2(20f)
     }
 }
+

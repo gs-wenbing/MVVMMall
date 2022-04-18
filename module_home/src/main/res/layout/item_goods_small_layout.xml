@@ -4,8 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:paddingLeft="@dimen/dp_2"
-    android:paddingRight="@dimen/dp_2"
     android:orientation="vertical">
     <com.rishabhharit.roundedimageview.RoundedImageView
         android:id="@+id/ivIcon"

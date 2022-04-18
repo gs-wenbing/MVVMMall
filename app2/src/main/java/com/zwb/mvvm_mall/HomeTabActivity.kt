@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 @EventBusRegister
-class HomeTabActivity:BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
+class HomeTabActivity: BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
 
     private var mLastIndex: Int = -1
     private val mFragmentSparseArray = SparseArray<Fragment>()

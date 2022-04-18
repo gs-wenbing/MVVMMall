@@ -18,9 +18,6 @@ class HomeServiceWrap {
         return service.getFragment()
     }
 
-    fun switchFragment(code:Int){
-
-    }
     companion object {
         val instance = Singleton.holder
         object Singleton {

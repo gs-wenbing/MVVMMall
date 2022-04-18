@@ -24,13 +24,15 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override fun ActivitySplashBinding.initView() {}
 
     override fun initObserve() {
-        timer.start()
+//        timer.start()
+        HomeTabActivity.launch(this@SplashActivity)
+        finish()
     }
 
     override fun initRequestData() {
 
     }
-    private var timer: CountDownTimer = object : CountDownTimer(5000, 1000) {
+    private var timer: CountDownTimer = object : CountDownTimer(3000, 1000) {
         @SuppressLint("SetTextI18n")
         override fun onTick(sin: Long) {
             mBinding.time.text = "" + sin / 1000 + " S"

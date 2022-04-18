@@ -14,11 +14,36 @@
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         app:layout_collapseParallaxMultiplier="0.7" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
+    <com.zwb.lib_common.view.HIndicators
+        android:id="@+id/hIndicator"
+        android:layout_width="20dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        app:normalColor = "#CBCFD7"
+        app:indicatorColor = "@color/colorPrimary"/>
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rlIndicator"-->
+<!--        android:layout_width="20dp"-->
+<!--        android:layout_height="3dp"-->
+<!--        android:layout_marginTop="6dp"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:background="@drawable/indicator_bg_normal">-->
+<!--        <View-->
+<!--            android:id="@+id/viewLine"-->
+<!--            android:layout_width="10dp"-->
+<!--            android:layout_height="3dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:background="@drawable/indicator_bg_select"/>-->
+<!--    </RelativeLayout>-->
 
-    <include layout="@layout/home_layout_home_item" />
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_10"
@@ -27,30 +52,25 @@
         android:background="@drawable/shape_white_background"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10"
+        android:orientation="vertical"
         >
         <TextView
             android:id="@+id/t"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:drawablePadding="@dimen/dp_10"
             android:drawableRight="@mipmap/bg_next"
             android:drawableLeft="@mipmap/icon_fire"
             android:text="限时抢购"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/sp_14"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="@dimen/sp_14" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/horizontalRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_10"
-            android:visibility="visible"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/t" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="@dimen/dp_10" />
+    </LinearLayout>
 </LinearLayout>
 
 

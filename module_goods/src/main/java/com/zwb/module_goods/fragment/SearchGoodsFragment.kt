@@ -154,8 +154,8 @@ class SearchGoodsFragment:BaseFragment<FragmentSearchGoodsBinding,GoodsViewModel
             GoodsDetailActivity.launch(requireActivity(), (adapter.getItem(position) as GoodsEntity).goodsName)
         }
         mAdapter.setOnItemChildClickListener { _, view, _ ->
-            when {
-                view.id == R.id.tvShop -> Toast.makeText(requireActivity(),"店铺", Toast.LENGTH_SHORT).show()
+            when (view.id) {
+                R.id.tvShop -> Toast.makeText(requireActivity(),"店铺", Toast.LENGTH_SHORT).show()
             }
         }
         mAdapter.setOnLoadMoreListener({

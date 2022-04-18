@@ -3,7 +3,6 @@ package com.zwb.module_home
 import com.zwb.lib_base.net.BaseResponse
 import com.zwb.lib_common.bean.GoodsEntity
 import com.zwb.module_home.bean.BannerEntity
-import com.zwb.module_home.bean.ClassifyEntity
 import retrofit2.http.GET
 
 interface HomeApi{

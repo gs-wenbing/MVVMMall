@@ -2,6 +2,9 @@ package com.zwb.lib_base
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Debug
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
@@ -14,10 +17,7 @@ import com.zwb.lib_base.utils.ProcessUtils
 import com.zwb.lib_base.utils.SpUtils
 import com.zwb.lib_base.utils.VersionStatus
 import com.zwb.lib_base.utils.network.NetworkStateClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
 open class BaseApplication : MultiDexApplication() {
@@ -44,7 +44,6 @@ open class BaseApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
         // 全局监听 Activity 生命周期
         registerActivityLifecycleCallbacks(ActivityLifecycleCallbacksImpl())
 
@@ -60,7 +59,6 @@ open class BaseApplication : MultiDexApplication() {
         mCoroutineScope.launch(Dispatchers.Default) {
             mLoadModuleProxy.initByBackstage()
         }
-
         // 前台初始化
         val allTimeMillis = measureTimeMillis {
             val depends = mLoadModuleProxy.initByFrontDesk()

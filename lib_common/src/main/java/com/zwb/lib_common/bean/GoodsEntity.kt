@@ -1,6 +1,6 @@
 package com.zwb.lib_common.bean
 
-data class GoodsEntity(var goodsID:Int,
+open class GoodsEntity(var goodsID:Int,
                        var goodsName:String,
                        var goodsModel:String,
                        var price:Double,
