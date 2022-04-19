@@ -7,8 +7,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.chip.ChipGroup
 import com.zwb.lib_base.mvvm.v.BaseFragment
+import com.zwb.lib_base.utils.BindingReflex
 import com.zwb.lib_base.utils.KeyBoardUtils
 import com.zwb.lib_base.utils.UIUtils
 import com.zwb.module_goods.GoodsViewModel
@@ -17,7 +19,7 @@ import com.zwb.module_goods.activity.GoodsListActivity
 import com.zwb.module_goods.adapter.SearchRecordAdapter
 import com.zwb.module_goods.bean.SearchTagEntity
 import com.zwb.module_goods.databinding.FragmentSearchRecordBinding
-import kotlinx.android.synthetic.main.layout_search_header.view.*
+import com.zwb.module_goods.databinding.LayoutSearchHeaderBinding
 
 class SearchRecordFragment: BaseFragment<FragmentSearchRecordBinding, GoodsViewModel>() {
 
@@ -25,15 +27,16 @@ class SearchRecordFragment: BaseFragment<FragmentSearchRecordBinding, GoodsViewM
 
     private lateinit var mAdapter: SearchRecordAdapter
 
-    private lateinit var mHeaderView: View
+    private lateinit var mHeaderBinding: LayoutSearchHeaderBinding
 
     override fun FragmentSearchRecordBinding.initView() {
-        mHeaderView = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_search_header, null)
+        mHeaderBinding = LayoutSearchHeaderBinding.inflate(layoutInflater)
+//        mHeaderView = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_search_header, null)
         mAdapter = SearchRecordAdapter(null)
-        rvSearch.layoutManager = LinearLayoutManager(requireActivity())
-        rvSearch.adapter = mAdapter
-        mAdapter.addHeaderView(mHeaderView)
-        rvSearch.setOnTouchListener { _, _ ->
+        mBinding.rvSearch.layoutManager = LinearLayoutManager(requireActivity())
+        mBinding.rvSearch.adapter = mAdapter
+        mAdapter.addHeaderView(mHeaderBinding.root)
+        mBinding.rvSearch.setOnTouchListener { _, _ ->
             KeyBoardUtils.hideInputForce(requireActivity())
             true
         }
@@ -48,8 +51,8 @@ class SearchRecordFragment: BaseFragment<FragmentSearchRecordBinding, GoodsViewM
     override fun initObserve() {
         mViewModel.mSearchTagsData.observe(viewLifecycleOwner, {
             it?.let {
-                setSearchTagView(mHeaderView.flowLayout, it)
-                setSearchTagView(mHeaderView.flowLayout2, it)
+                setSearchTagView(mHeaderBinding.flowLayout, it)
+                setSearchTagView(mHeaderBinding.flowLayout2, it)
             }
         })
         mViewModel.mSearchHotData.observe(viewLifecycleOwner, {

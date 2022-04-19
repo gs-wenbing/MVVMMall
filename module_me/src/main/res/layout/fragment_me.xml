@@ -26,8 +26,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include layout="@layout/layout_mine_header_frame"/>
-            <include layout="@layout/layout_mine_vip_frame"/>
+            <include
+                android:id="@+id/includeHeader"
+                layout="@layout/layout_me_header"/>
+            <include
+                android:id="@+id/includeVip"
+                layout="@layout/layout_me_vip"/>
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -39,8 +43,12 @@
                 android:layout_marginTop="-2dp"
                 android:background="@color/deep_white"
                 android:orientation="vertical">
-                <include layout="@layout/layout_mine_follow_frame"/>
-                <include layout="@layout/layout_mine_order_frame"/>
+                <include
+                    android:id="@+id/includeFollow"
+                    layout="@layout/layout_me_follow"/>
+                <include
+                    android:id="@+id/includeOrder"
+                    layout="@layout/layout_me_order"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

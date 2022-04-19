@@ -112,6 +112,7 @@ object GitHub {
     const val GSYVideoPlayer = "com.shuyu:GSYVideoPlayer:7.1.5"
     const val RoundedImageView = "com.rishabhharit.roundedimageview:RoundedImageView:0.8.4"
     const val Loadsir = "com.kingja.loadsir:loadsir:1.3.8"
+    const val SuperTextView = "com.github.lygttpod:SuperTextView:2.4.6"
 }
 
 /**

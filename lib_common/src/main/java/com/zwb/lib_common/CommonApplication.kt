@@ -3,7 +3,6 @@ package com.zwb.lib_common
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.os.Looper
 import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.auto.service.AutoService
@@ -18,9 +17,9 @@ import com.zwb.lib_base.utils.ProcessUtils
 import com.zwb.lib_base.utils.SpUtils
 import com.zwb.lib_base.utils.VersionStatus
 import com.zwb.lib_base.utils.network.NetworkStateClient
-import com.zwb.lib_common.callback.EmptyCallback
-import com.zwb.lib_common.callback.ErrorCallback
-import com.zwb.lib_common.callback.LoadingCallback
+import com.zwb.lib_base.utils.callback.EmptyCallback
+import com.zwb.lib_base.utils.callback.ErrorCallback
+import com.zwb.lib_base.utils.callback.LoadingCallback
 
 @AutoService(ApplicationLifecycle::class)
 class CommonApplication : ApplicationLifecycle {

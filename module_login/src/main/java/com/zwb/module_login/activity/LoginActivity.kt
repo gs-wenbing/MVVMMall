@@ -13,7 +13,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.zwb.lib_base.mvvm.v.BaseActivity
 import com.zwb.lib_base.utils.EventBusUtils
 import com.zwb.lib_base.utils.SpUtils
-import com.zwb.lib_common.base.BaseVMActivity
 import com.zwb.lib_common.bean.StringEvent
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.constant.SpKey
@@ -24,7 +23,7 @@ import com.zwb.module_login.fragment.RegisterFragment
 
 
 @Route(path = RoutePath.Login.PAGE_LOGIN)
-class LoginActivity: BaseVMActivity<LoginActivityLoginBinding, LoginViewModel>(), View.OnFocusChangeListener {
+class LoginActivity: BaseActivity<LoginActivityLoginBinding, LoginViewModel>(), View.OnFocusChangeListener {
 
     override val mViewModel by viewModels<LoginViewModel>()
 

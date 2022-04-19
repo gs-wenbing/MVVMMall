@@ -241,7 +241,7 @@
 
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recommendRecyclerView"
+        android:id="@+id/rvRecommend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_2"

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     >
     <com.youth.banner.Banner
-        android:id="@+id/detailBanner"
+        android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="460dp"
         app:layout_collapseMode="parallax"

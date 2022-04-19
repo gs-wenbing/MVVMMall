@@ -7,33 +7,30 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener
-import com.zwb.lib_base.ktx.*
+import com.zwb.lib_base.ktx.height
 import com.zwb.lib_base.utils.BarUtils
 import com.zwb.lib_base.utils.UIUtils
-import com.zwb.module_home.fragment.HomeFragment
+import com.zwb.module_home.databinding.HomeFragmentHomeBinding
 import com.zwb.module_home.view.recyclerView.ParentRecyclerView
-import kotlinx.android.synthetic.main.home_fragment_home.*
 
 /**
  * 首页滑动帮助类
  */
-class SyncScrollHelper(mainFragment: HomeFragment) {
+class SyncScrollHelper(binding: HomeFragmentHomeBinding) {
 
-    private val activity = mainFragment.requireActivity()
+    private val statusBarHeight = BarUtils.getStatusBarHeight()
+    private val toolbarHeight = UIUtils.dp2px(50f).toFloat()
+    private var screenHeight = UIUtils.getScreenWidth()//activity.getScreenHeight()
+    private var searchBarHeight = UIUtils.dp2px(46f).toFloat()
 
-    private val statusBarHeight = activity.getStatusBarHeight()
-    private val toolbarHeight = activity.dp2px(50f).toFloat()
-    private var screenHeight = activity.getScreenWidth()//activity.getScreenHeight()
-    private var searchBarHeight = activity.dp2px(46f).toFloat()
+    private val toolBarLayout = binding.mainToolbar
+    private val searchBarLayout = binding.mainSearchLayout
+    private val backIv1 = binding.mainBackImg1
+    private val backIv2 = binding.mainBackImg2
 
-    private val toolBarLayout = mainFragment.mainToolbar
-    private val searchBarLayout = mainFragment.mainSearchLayout
-    private val backIv1 = mainFragment.mainBackImg1
-    private val backIv2 = mainFragment.mainBackImg2
+    private val logoImageView = binding.mainTopLogo
 
-    private val logoImageView = mainFragment.mainTopLogo
-
-    private val floatAdLayout = mainFragment.homeFloatLayout
+    private val floatAdLayout = binding.homeFloatLayout
     private var floatAdClosed = false
 
     companion object {
@@ -42,14 +39,14 @@ class SyncScrollHelper(mainFragment: HomeFragment) {
     }
 
     init {
-        val recyclerView = mainFragment.mainRecyclerView
-        val stickyHeight = activity.dp2px(10f)
+        val recyclerView = binding.mainRecyclerView
+        val stickyHeight = UIUtils.dp2px(10f)
         recyclerView.setStickyHeight(stickyHeight)
 
-        mainFragment.homeFloatCloseBtn.setOnClickListener {
+        binding.homeFloatCloseBtn.setOnClickListener {
             floatAdClosed = true
             floatAdLayout.visibility = View.GONE
-            recyclerView.setStickyHeight(activity.dp2px(-40f))
+            recyclerView.setStickyHeight(UIUtils.dp2px(-40f))
         }
     }
 
@@ -74,7 +71,7 @@ class SyncScrollHelper(mainFragment: HomeFragment) {
         recyclerView.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val scrollY = recyclerView.computeVerticalScrollOffset()
-                val minTranslationY = statusBarHeight + activity.dp2px(9f).toFloat()
+                val minTranslationY = statusBarHeight + UIUtils.dp2px(9f).toFloat()
                 val maxTranslationY = statusBarHeight + toolbarHeight
                 val targetTranslationY = maxTranslationY - scrollY * 0.7f
 
@@ -101,7 +98,7 @@ class SyncScrollHelper(mainFragment: HomeFragment) {
                 }
 
                 // 3. 搜索框大小调整
-                val maxMarginRight = activity.dp2px(92f)
+                val maxMarginRight = UIUtils.dp2px(92f)
                 var progress = (1 - alpha) * 2f
                 if (progress > 1) {
                     progress = 1.0f
@@ -166,7 +163,7 @@ class SyncScrollHelper(mainFragment: HomeFragment) {
                 }
             }
         }
-        val h = (activity.getScreenHeight() - statusBarHeight - toolbarHeight - searchBarHeight-20).toInt()
+        val h = (UIUtils.getScreenHeight() - statusBarHeight - toolbarHeight - searchBarHeight-20).toInt()
         refreshLayout.height(h)
         refreshLayout.setOnMultiPurposeListener(purposeListener)
     }

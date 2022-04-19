@@ -4,11 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zwb.lib_base.ktx.width
 import com.zwb.lib_base.utils.UIUtils
 import com.zwb.module_home.R
-import kotlinx.android.synthetic.main.item_menu.view.*
 
 class MenuGridAdapter(context: Context) : RecyclerView.Adapter<MenuGridAdapter.MenuViewHolder>() {
 
@@ -75,8 +76,8 @@ class MenuGridAdapter(context: Context) : RecyclerView.Adapter<MenuGridAdapter.M
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
-        holder.itemView.item_menu_icon.setImageResource(menuIcons[position])
-        holder.itemView.item_menu_title.text = menuTitles[position]
+        holder.itemView.findViewById<ImageView>(R.id.item_menu_icon).setImageResource(menuIcons[position])
+        holder.itemView.findViewById<TextView>(R.id.item_menu_title).text = menuTitles[position]
     }
 
     override fun getItemCount(): Int = menuTitles.size

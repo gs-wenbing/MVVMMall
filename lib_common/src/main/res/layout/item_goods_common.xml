@@ -8,7 +8,6 @@
     android:paddingBottom="@dimen/dp_8"
     android:layout_margin="@dimen/dp_4"
     android:orientation="vertical">
-
     <com.rishabhharit.roundedimageview.RoundedImageView
         android:id="@+id/ivIcon"
         android:layout_width="match_parent"

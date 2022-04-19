@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/detailScrollView"
+        android:id="@+id/svDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
@@ -14,9 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include layout="@layout/layout_goodsdetail_goods"/>
-            <include layout="@layout/layout_goodsdetail_comment"/>
-            <include layout="@layout/layout_goodsdetail_detail"/>
+            <include
+                android:id="@+id/includeGoods"
+                layout="@layout/layout_goodsdetail_goods"/>
+            <include
+                android:id="@+id/includeComment"
+                layout="@layout/layout_goodsdetail_comment"/>
+            <include
+                android:id="@+id/includeDetail"
+                layout="@layout/layout_goodsdetail_detail"/>
             <TextView
                 android:id="@+id/tvRecommend"
                 android:layout_width="match_parent"
@@ -28,14 +34,16 @@
                 android:textColor="@color/grey_text"
                 android:textStyle="bold"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/detailRecyclerView"
+                android:id="@+id/rvDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_4"
                 android:overScrollMode="never"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-    <include layout="@layout/layout_goodsdetail_toolbar"/>
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/layout_goodsdetail_toolbar"/>
 
     <com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer
         android:id="@+id/mainPlayer"

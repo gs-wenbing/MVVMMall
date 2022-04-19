@@ -2,16 +2,15 @@ package com.zwb.module_classify.fragment
 
 import androidx.fragment.app.activityViewModels
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
-import com.zwb.lib_common.base.BaseVMFragment
 import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.module_classify.ClassifyApi
 import com.zwb.module_classify.ClassifyViewModel
 import com.zwb.module_classify.adapter.ClassifyPAdapter
 import com.zwb.module_classify.databinding.FragmentClassifyBinding
-import kotlinx.android.synthetic.main.layout_home_toolbar.*
 
-class ClassifyFragment : BaseVMFragment<FragmentClassifyBinding, ClassifyViewModel>() {
+class ClassifyFragment : BaseFragment<FragmentClassifyBinding, ClassifyViewModel>() {
 
     lateinit var mPAdapter: ClassifyPAdapter
 
@@ -19,9 +18,9 @@ class ClassifyFragment : BaseVMFragment<FragmentClassifyBinding, ClassifyViewMod
 
     override fun FragmentClassifyBinding.initView() {
         StatusBarUtil.immersive(activity)
-        StatusBarUtil.setPaddingSmart(activity, toolbar)
+        StatusBarUtil.setPaddingSmart(activity, mBinding.includeToolbar.toolbar)
         StatusBarUtil.darkMode(requireActivity(),false)
-        textSearch.setOnClickListener {
+        mBinding.includeToolbar.textSearch.setOnClickListener {
             GoodsServiceWrap.instance.startGoodsList(requireActivity(),"")
         }
         mPAdapter = ClassifyPAdapter(null)
@@ -37,7 +36,7 @@ class ClassifyFragment : BaseVMFragment<FragmentClassifyBinding, ClassifyViewMod
             }
             mPAdapter.notifyDataSetChanged()
         }
-        setDefaultLoad(layoutContent, ClassifyApi.CLASS_URL)
+        setDefaultLoad(mBinding.layoutContent, ClassifyApi.CLASS_URL)
     }
 
     override fun initObserve() {

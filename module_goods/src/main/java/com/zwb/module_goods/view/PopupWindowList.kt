@@ -3,7 +3,6 @@ package com.zwb.module_goods.view
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.fragment.app.FragmentActivity
@@ -14,14 +13,14 @@ import com.zwb.lib_base.ktx.getScreenHeight
 import com.zwb.lib_base.ktx.getScreenWidth
 import com.zwb.module_goods.R
 import com.zwb.module_goods.bean.GoodsAttrFilterEntity
-import kotlinx.android.synthetic.main.popup_list.view.*
+import com.zwb.module_goods.databinding.PopupListBinding
 
 
 class PopupWindowList(var activity:FragmentActivity): PopupWindow(){
     private lateinit var mAdapter:PopupAdapter
     //Popup弹出后 mDimView变暗
-    var mDimView: ViewGroup? = null
-
+    private var mDimView: ViewGroup? = null
+    private lateinit var mBinding: PopupListBinding
     private var mOnPopupListener: OnPopupListener? = null
 
     init {
@@ -38,19 +37,20 @@ class PopupWindowList(var activity:FragmentActivity): PopupWindow(){
     }
 
     private fun initView() {
-        contentView = LayoutInflater.from(activity).inflate(R.layout.popup_list, null)
-        contentView.recyclerview.layoutManager = GridLayoutManager(activity,2)
+        mBinding = PopupListBinding.inflate(activity.layoutInflater)
+        contentView = mBinding.root
+        mBinding.recyclerview.layoutManager = GridLayoutManager(activity,2)
         mAdapter = PopupAdapter(null)
-        contentView.recyclerview.adapter = mAdapter
+        mBinding.recyclerview.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, _, position ->
             val goodsAttrFilter = adapter.data[position] as GoodsAttrFilterEntity
             goodsAttrFilter.isSelected = !goodsAttrFilter.isSelected
             adapter.notifyDataSetChanged()
         }
-        contentView.tvReset.setOnClickListener {
+        mBinding.tvReset.setOnClickListener {
             mOnPopupListener?.onReset()
         }
-        contentView.tvConfirm.setOnClickListener {
+        mBinding.tvConfirm.setOnClickListener {
             val selects = ArrayList<GoodsAttrFilterEntity>()
             mAdapter.data.forEach {
                 if(it.isSelected){

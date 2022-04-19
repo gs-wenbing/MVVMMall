@@ -40,6 +40,7 @@ dependencies {
     api GitHub.AutoService
     api GitHub.AutoSize
     api GitHub.MMKV
+    api GitHub.SuperTextView
 
     api SDK.TencentBugly
     api SDK.TencentBuglyNative

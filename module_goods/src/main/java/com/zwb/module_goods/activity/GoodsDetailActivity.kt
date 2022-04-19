@@ -2,9 +2,7 @@ package com.zwb.module_goods.activity
 
 import android.content.Intent
 import android.graphics.Typeface
-import android.os.Bundle
 import android.view.KeyEvent
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -21,6 +19,8 @@ import com.bumptech.glide.Glide
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer
 import com.youth.banner.listener.OnPageChangeListener
+import com.zwb.lib_base.ktx.gone
+import com.zwb.lib_base.ktx.visible
 import com.zwb.lib_base.mvvm.v.BaseActivity
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_base.utils.UIUtils
@@ -36,11 +36,6 @@ import com.zwb.module_goods.bean.GoodsBannerEntity
 import com.zwb.module_goods.databinding.ActivityGoodsDetailBinding
 import com.zwb.module_goods.fragment.GoodsCommentFragment
 import com.zwb.module_goods.view.NumIndicator
-import kotlinx.android.synthetic.main.activity_goods_detail.*
-import kotlinx.android.synthetic.main.layout_goodsdetail_comment.*
-import kotlinx.android.synthetic.main.layout_goodsdetail_detail.*
-import kotlinx.android.synthetic.main.layout_goodsdetail_goods.*
-import kotlinx.android.synthetic.main.layout_goodsdetail_toolbar.*
 import kotlin.math.min
 
 @Route(path = RoutePath.Goods.PAGE_GOODS_DETAIL)
@@ -60,17 +55,17 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
     override fun ActivityGoodsDetailBinding.initView() {
         ARouter.getInstance().inject(this@GoodsDetailActivity)
         StatusBarUtil.immersive(this@GoodsDetailActivity)
-        StatusBarUtil.setPaddingSmart(this@GoodsDetailActivity, toolbar)
-        ivBack.setOnClickListener {
+        StatusBarUtil.setPaddingSmart(this@GoodsDetailActivity, mBinding.includeToolbar.toolbar)
+        mBinding.includeToolbar.ivBack.setOnClickListener {
             if(mCommentFragment!=null && mCommentFragment!!.isAdded){
                 closeCommentFragment()
             }else{
                 finish()
             }
         }
-        tvGoodsName.text = goodsName
-        radioTabs.alpha = 0f
-        toolbar.setBackgroundColor(0)
+        mBinding.includeGoods.tvGoodsName.text = goodsName
+        mBinding.includeToolbar.radioTabs.alpha = 0f
+        mBinding.includeToolbar.toolbar.setBackgroundColor(0)
 
         initBannerData()
         initListener()
@@ -79,11 +74,11 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
 
     override fun initObserve() {
         mViewModel.mSeckillGoods.observe(this, Observer {
-            detailRecyclerView.layoutManager = PersistentStaggeredGridLayoutManager(2)
-            detailRecyclerView.adapter = HomeGoodsAdapter(it.toMutableList())
+            mBinding.rvDetail.layoutManager = PersistentStaggeredGridLayoutManager(2)
+            mBinding.rvDetail.adapter = HomeGoodsAdapter(it.toMutableList())
 
-            recommendRecyclerView.layoutManager = GridLayoutManager(this, 3)
-            recommendRecyclerView.adapter = HomeGoodsAdapter(
+            mBinding.includeComment.rvRecommend.layoutManager = GridLayoutManager(this, 3)
+            mBinding.includeComment.rvRecommend.adapter = HomeGoodsAdapter(
                 it.toMutableList().subList(0, 6),
                 R.layout.item_round_goods_layout
             )
@@ -99,7 +94,7 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
     }
 
     private fun initListener(){
-        detailScrollView.setOnScrollChangeListener(object :
+        mBinding.svDetail.setOnScrollChangeListener(object :
             NestedScrollView.OnScrollChangeListener {
             var h = UIUtils.dp2px(170f)
             var color =
@@ -114,10 +109,10 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
             ) {
                 if (lastScrollY < h) {
                     mScrollY = min(h, scrollY)
-                    radioTabs.alpha = 1f * mScrollY / h
-                    toolbar.setBackgroundColor(255 * mScrollY / h shl 24 or color)
+                    mBinding.includeToolbar.radioTabs.alpha = 1f * mScrollY / h
+                    mBinding.includeToolbar.toolbar.setBackgroundColor(255 * mScrollY / h shl 24 or color)
                 }
-//                if (lastScrollY>detailBanner.height+toolbar.height) {
+//                if (lastScrollY>mBinding.includeGoods.banner.height+toolbar.height) {
 //                    if(bannerPlayer?.isInPlayingState!!){
 //                        mainPlayer.visibility = View.VISIBLE
 //                        mainPlayer.setUp("https://vod.300hu.com/4c1f7a6atransbjngwcloud1oss/444b0379221736599300878337/v.f30.mp4?dockingId=8f3e428b-c281-4f33-9395-85c40b1fd12b1", true, null)
@@ -134,59 +129,61 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
 //                }
                 lastScrollY = scrollY
                 if (scrollY == 0) {
-                    ivShare.setImageResource(R.mipmap.iv_share_white)
-                    ivShare.setBackgroundResource(R.drawable.round_black_background)
-                    ivMessage.setImageResource(R.mipmap.iv_message_white)
-                    ivMessage.setBackgroundResource(R.drawable.round_black_background)
-                    ivBack.setImageResource(R.mipmap.iv_back_white)
-                    ivBack.setBackgroundResource(R.drawable.round_black_background)
+                    mBinding.includeToolbar.ivShare.setImageResource(R.mipmap.iv_share_white)
+                    mBinding.includeToolbar.ivShare.setBackgroundResource(R.drawable.round_black_background)
+                    mBinding.includeToolbar.ivMessage.setImageResource(R.mipmap.iv_message_white)
+                    mBinding.includeToolbar.ivMessage.setBackgroundResource(R.drawable.round_black_background)
+                    mBinding.includeToolbar.ivBack.setImageResource(R.mipmap.iv_back_white)
+                    mBinding.includeToolbar.ivBack.setBackgroundResource(R.drawable.round_black_background)
                     StatusBarUtil.darkMode(this@GoodsDetailActivity, false)
                 } else {
-                    ivShare.setImageResource(R.mipmap.iv_share_black)
-                    ivShare.setBackgroundResource(0)
-                    ivMessage.setImageResource(R.mipmap.iv_message_black)
-                    ivMessage.setBackgroundResource(0)
-                    ivBack.setImageResource(R.mipmap.iv_back_black)
-                    ivBack.setBackgroundResource(0)
+                    mBinding.includeToolbar.ivShare.setImageResource(R.mipmap.iv_share_black)
+                    mBinding.includeToolbar.ivShare.setBackgroundResource(0)
+                    mBinding.includeToolbar.ivMessage.setImageResource(R.mipmap.iv_message_black)
+                    mBinding.includeToolbar.ivMessage.setBackgroundResource(0)
+                    mBinding.includeToolbar.ivBack.setImageResource(R.mipmap.iv_back_black)
+                    mBinding.includeToolbar.ivBack.setBackgroundResource(0)
                     StatusBarUtil.darkMode(this@GoodsDetailActivity, true)
                 }
                 when {
-                    lastScrollY + 500 < layoutComment.top -> {
-                        radioTabs.check(R.id.rbGoods)
-                        setRadioButtonStyle(rbGoods)
+                    lastScrollY + 500 < mBinding.includeComment.layoutComment.top -> {
+                        mBinding.includeToolbar.radioTabs.check(R.id.rbGoods)
+                        setRadioButtonStyle(mBinding.includeToolbar.rbGoods)
                     }
-                    lastScrollY + toolbar.height > layoutComment.top && lastScrollY + toolbar.height < layoutDetail.top -> {
-                        radioTabs.check(R.id.rbComment)
-                        setRadioButtonStyle(rbComment)
+                    lastScrollY + mBinding.includeToolbar.toolbar.height > mBinding.includeComment.layoutComment.top
+                            && lastScrollY + mBinding.includeToolbar.toolbar.height < mBinding.includeDetail.layoutDetail.top -> {
+                        mBinding.includeToolbar.radioTabs.check(R.id.rbComment)
+                        setRadioButtonStyle(mBinding.includeToolbar.rbComment)
                     }
-                    lastScrollY + toolbar.height > layoutDetail.top && lastScrollY + toolbar.height < tvRecommend.top -> {
-                        radioTabs.check(R.id.rbDetail)
-                        setRadioButtonStyle(rbDetail)
+                    lastScrollY + mBinding.includeToolbar.toolbar.height > mBinding.includeDetail.layoutDetail.top 
+                            && lastScrollY + mBinding.includeToolbar.toolbar.height < mBinding.tvRecommend.top -> {
+                        mBinding.includeToolbar.radioTabs.check(R.id.rbDetail)
+                        setRadioButtonStyle(mBinding.includeToolbar.rbDetail)
                     }
-                    lastScrollY + toolbar.height > tvRecommend.top -> {
-                        radioTabs.check(R.id.rbRecommend)
-                        setRadioButtonStyle(rbRecommend)
+                    lastScrollY + mBinding.includeToolbar.toolbar.height > mBinding.tvRecommend.top -> {
+                        mBinding.includeToolbar.radioTabs.check(R.id.rbRecommend)
+                        setRadioButtonStyle(mBinding.includeToolbar.rbRecommend)
                     }
                 }
             }
         })
-        rbGoods.setOnClickListener {
-            detailScrollView.scrollTo(0, layoutGoods.top - toolbar.height)
-            setRadioButtonStyle(rbGoods)
+        mBinding.includeToolbar.rbGoods.setOnClickListener {
+            mBinding.svDetail.scrollTo(0, mBinding.includeGoods.layoutGoods.top - mBinding.includeToolbar.toolbar.height)
+            setRadioButtonStyle(mBinding.includeToolbar.rbGoods)
         }
-        rbComment.setOnClickListener {
-            detailScrollView.scrollTo(0, layoutComment.top - toolbar.height)
-            setRadioButtonStyle(rbComment)
+        mBinding.includeToolbar.rbComment.setOnClickListener {
+            mBinding.svDetail.scrollTo(0, mBinding.includeComment.layoutComment.top - mBinding.includeToolbar.toolbar.height)
+            setRadioButtonStyle(mBinding.includeToolbar.rbComment)
         }
-        rbDetail.setOnClickListener {
-            detailScrollView.scrollTo(0, layoutDetail.top - toolbar.height)
-            setRadioButtonStyle(rbDetail)
+        mBinding.includeToolbar.rbDetail.setOnClickListener {
+            mBinding.svDetail.scrollTo(0, mBinding.includeDetail.layoutDetail.top - mBinding.includeToolbar.toolbar.height)
+            setRadioButtonStyle(mBinding.includeToolbar.rbDetail)
         }
-        rbRecommend.setOnClickListener {
-            detailScrollView.scrollTo(0, tvRecommend.top - toolbar.height)
-            setRadioButtonStyle(rbRecommend)
+        mBinding.includeToolbar.rbRecommend.setOnClickListener {
+            mBinding.svDetail.scrollTo(0, mBinding.tvRecommend.top - mBinding.includeToolbar.toolbar.height)
+            setRadioButtonStyle(mBinding.includeToolbar.rbRecommend)
         }
-        tvSeeAllComment.setOnClickListener {
+        mBinding.includeComment.tvSeeAllComment.setOnClickListener {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.setCustomAnimations(
                 R.anim.push_left_in,
@@ -195,14 +192,14 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
             mCommentFragment = GoodsCommentFragment.newInstance(10)
             transaction.add(R.id.frameComment, mCommentFragment!!)
             transaction.commit()
-            tvTitleComment.visibility  = View.VISIBLE
-            radioTabs.visibility  = View.GONE
+            mBinding.includeToolbar.tvTitleComment.visible()
+            mBinding.includeToolbar.radioTabs.gone()
         }
     }
 
     private fun closeCommentFragment(){
-        tvTitleComment.visibility  = View.GONE
-        radioTabs.visibility  = View.VISIBLE
+        mBinding.includeToolbar.tvTitleComment.gone()
+        mBinding.includeToolbar.radioTabs.visible()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setCustomAnimations(
             R.anim.push_left_in,
@@ -213,14 +210,14 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
     }
 
     private fun setRadioButtonStyle(selectedRB: RadioButton){
-        rbGoods.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-        rbGoods.setCompoundDrawables(null, null, null, null)
-        rbComment.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-        rbComment.setCompoundDrawables(null, null, null, null)
-        rbDetail.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-        rbDetail.setCompoundDrawables(null, null, null, null)
-        rbRecommend.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
-        rbRecommend.setCompoundDrawables(null, null, null, null)
+        mBinding.includeToolbar.rbGoods.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        mBinding.includeToolbar.rbGoods.setCompoundDrawables(null, null, null, null)
+        mBinding.includeToolbar.rbComment.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        mBinding.includeToolbar.rbComment.setCompoundDrawables(null, null, null, null)
+        mBinding.includeToolbar.rbDetail.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        mBinding.includeToolbar.rbDetail.setCompoundDrawables(null, null, null, null)
+        mBinding.includeToolbar.rbRecommend.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        mBinding.includeToolbar.rbRecommend.setCompoundDrawables(null, null, null, null)
 
         // 使用代码设置drawableTop
         val drawable = resources.getDrawable(R.mipmap.red_o_line)
@@ -232,11 +229,11 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
     }
 
     private fun initBannerData() {
-        detailBanner.addBannerLifecycleObserver(this)
-        detailBanner.indicator = NumIndicator(this)
-        detailBanner.isAutoLoop(false)
-        detailBanner.adapter = GoodsBannerAdapter(this, GoodsBannerEntity.getTestData())
-        detailBanner.addOnPageChangeListener(object : OnPageChangeListener {
+        mBinding.includeGoods.banner.addBannerLifecycleObserver(this)
+        mBinding.includeGoods.banner.indicator = NumIndicator(this)
+        mBinding.includeGoods.banner.isAutoLoop(false)
+        mBinding.includeGoods.banner.adapter = GoodsBannerAdapter(this, GoodsBannerEntity.getTestData())
+        mBinding.includeGoods.banner.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -246,7 +243,7 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
                 positionOffsetPixels: Int
             ) {
                 if (bannerPlayer == null) {
-                    val viewHolder = detailBanner.adapter.viewHolder
+                    val viewHolder = mBinding.includeGoods.banner.adapter.viewHolder
                     if (viewHolder is GoodsBannerAdapter.VideoHolder) {
                         bannerPlayer = viewHolder.player
                     }
@@ -260,10 +257,10 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
     }
 
     private fun setCommentData(list: List<CommentEntity>){
-        Glide.with(this).load(list[0].userIcon).into(ivCommentHeader)
-        tvCommentUser.text = list[0].userName
-        tvCommentDate.text = list[0].date
-        tvComment.text = list[0].context
+        Glide.with(this).load(list[0].userIcon).into(mBinding.includeComment.ivCommentHeader)
+        mBinding.includeComment.tvCommentUser.text = list[0].userName
+        mBinding.includeComment.tvCommentDate.text = list[0].date
+        mBinding.includeComment.tvComment.text = list[0].context
 
         val lp = LinearLayout.LayoutParams(
             (UIUtils.getScreenWidth() - UIUtils.dp2px(32f)) / 4,
@@ -276,7 +273,7 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
             val image = ImageView(this)
             image.layoutParams = lp
             Glide.with(this).load(it.url).into(image)
-            layoutPics.addView(image)
+            mBinding.includeComment.layoutPics.addView(image)
         }
 
     }

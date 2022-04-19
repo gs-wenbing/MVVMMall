@@ -21,26 +21,32 @@
                 app:layout_scrollFlags="scroll|enterAlways">
 
                 <include
-                    android:id="@+id/layoutSort"
-                    layout="@layout/layout_goodslist_sort" />
+                    android:id="@+id/includeSort"
+                    layout="@layout/layout_goods_list_sort" />
             </LinearLayout>
 
             <include
-                android:id="@+id/layoutFilter"
-                layout="@layout/layout_goodslist_filter" />
+                android:id="@+id/includeFilter"
+                layout="@layout/layout_goods_list_filter" />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listRecyclerView"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:paddingLeft="@dimen/dp_4"
-            android:paddingRight="@dimen/dp_4"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
+            android:orientation="vertical"
+            app:srlReboundDuration="600"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:paddingLeft="@dimen/dp_4"
+                android:paddingRight="@dimen/dp_4">
+            </androidx.recyclerview.widget.RecyclerView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/actionButton"
             android:layout_width="wrap_content"

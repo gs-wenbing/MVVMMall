@@ -18,8 +18,8 @@ class ClassifyFragmentRight : BaseFragment<FragmentClassifyRightBinding,Classify
 
     override fun FragmentClassifyRightBinding.initView() {
         mPAdapter = ClassifyRightAdapter(null)
-        rvRight.layoutManager = GridLayoutManager(activity,3)
-        rvRight.adapter = mPAdapter
+        mBinding.rvRight.layoutManager = GridLayoutManager(requireContext(),3)
+        mBinding.rvRight.adapter = mPAdapter
         mPAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as ClassifySectionEntity
             if(!item.isHeader){

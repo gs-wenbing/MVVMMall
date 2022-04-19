@@ -8,7 +8,6 @@ import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.module_goods.GoodsViewModel
 import com.zwb.module_goods.adapter.CommentAdapter
 import com.zwb.module_goods.databinding.FragmentGoodsCommentBinding
-import kotlinx.android.synthetic.main.fragment_goods_comment.*
 
 
 class GoodsCommentFragment : BaseFragment<FragmentGoodsCommentBinding,GoodsViewModel>() {
@@ -20,8 +19,8 @@ class GoodsCommentFragment : BaseFragment<FragmentGoodsCommentBinding,GoodsViewM
 
     override fun initObserve() {
         mViewModel.mCommentList.observe(viewLifecycleOwner, Observer {
-            rvComment.layoutManager = LinearLayoutManager(requireActivity())
-            rvComment.adapter = CommentAdapter(it.toMutableList())
+            mBinding.rvComment.layoutManager = LinearLayoutManager(requireActivity())
+            mBinding.rvComment.adapter = CommentAdapter(it.toMutableList())
         })
     }
 

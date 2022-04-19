@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="80dp"
     android:gravity="center"
     android:orientation="vertical">
 
     <ProgressBar
-        android:indeterminateTintMode="src_atop"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
         android:indeterminateTint="@color/colorPrimary"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="wrap_content" />
+        android:indeterminateTintMode="src_atop" />
 
 </LinearLayout>

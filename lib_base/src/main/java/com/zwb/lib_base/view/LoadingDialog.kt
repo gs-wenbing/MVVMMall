@@ -1,4 +1,4 @@
-package com.zwb.lib_common.view
+package com.zwb.lib_base.view
 
 import android.app.Activity
 import android.app.Dialog
@@ -6,7 +6,7 @@ import android.content.Context
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
-import com.zwb.lib_common.R
+import com.zwb.lib_base.R
 
 class LoadingDialog(context: Context, canNotCancel: Boolean) : Dialog(
     context,

@@ -5,7 +5,7 @@ import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.module_oder.OrderViewModel
 import com.zwb.module_oder.databinding.FragmentOrderBinding
 
-class OrderFragment:BaseFragment<FragmentOrderBinding,OrderViewModel>() {
+class OrderFragment : BaseFragment<FragmentOrderBinding, OrderViewModel>() {
     override val mViewModel by viewModels<OrderViewModel>()
 
     override fun FragmentOrderBinding.initView() {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_top_background"
+    android:layout_marginRight="@dimen/dp_10"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginTop="@dimen/dp_6"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.allen.library.SuperTextView
+        android:id="@+id/txtItem"
+        android:layout_height="@dimen/dp_46"
+        android:layout_width="wrap_content"
+        app:sUseRipple="false"
+        app:sLeftTextString="充值中心"
+        app:sLeftTextSize="@dimen/sp_14"
+        app:sLeftIconRes="@mipmap/iv_shop"
+        app:sLeftTvDrawableRight="@mipmap/small_next"
+        app:sTextViewDrawablePadding="0dp"
+        app:sRightTextString="充值成功"
+        app:sRightTextColor="@color/colorPrimary"
+        app:sRightTextSize="@dimen/sp_13"
+        />
+</LinearLayout>

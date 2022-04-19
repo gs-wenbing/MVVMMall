@@ -60,7 +60,7 @@
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/plus"/>
+            android:src="@mipmap/round_close"/>
     </RelativeLayout>
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"

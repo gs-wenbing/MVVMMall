@@ -4,7 +4,6 @@ import android.os.Handler
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -15,9 +14,9 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.android.material.chip.ChipGroup
 import com.zwb.lib_base.ktx.visible
+import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_base.utils.UIUtils
-import com.zwb.lib_common.base.BaseVMFragment
 import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.module_cart.CartApi
 import com.zwb.module_cart.CartViewModel
@@ -29,12 +28,11 @@ import com.zwb.module_cart.adapter.CartAdapter.Companion.NO_DATA
 import com.zwb.module_cart.adapter.CartAdapter.Companion.STRING_DATA
 import com.zwb.module_cart.baen.*
 import com.zwb.module_cart.databinding.CartFragmentBinding
+import com.zwb.module_cart.databinding.DialogCartAttrBinding
+import com.zwb.module_cart.databinding.LayoutCartAttrBinding
 import com.zwb.module_cart.view.FixedHeightBottomSheetDialog
-import kotlinx.android.synthetic.main.dialog_cart_attr_layout.view.*
-import kotlinx.android.synthetic.main.layout_cart_attr.view.*
-import kotlinx.android.synthetic.main.layout_cart_toolbar.*
 
-class CartFragment: BaseVMFragment<CartFragmentBinding, CartViewModel>() {
+class CartFragment: BaseFragment<CartFragmentBinding, CartViewModel>() {
     //所有商品，包括购物车、推荐商品
     private var mCartMultiList:MutableList<MultiItemEntity> = ArrayList()
 
@@ -50,13 +48,13 @@ class CartFragment: BaseVMFragment<CartFragmentBinding, CartViewModel>() {
 
     override fun CartFragmentBinding.initView() {
         StatusBarUtil.immersive(requireActivity())
-        StatusBarUtil.setPaddingSmart(requireActivity(), toolbar)
+        StatusBarUtil.setPaddingSmart(requireActivity(), mBinding.includeToolbar.toolbar)
         StatusBarUtil.darkMode(requireActivity(),true)
 
         val layoutManager = GridLayoutManager(requireContext(), 2)
         mAdapter = CartAdapter(mCartMultiList)
-        rvCart.layoutManager = layoutManager
-        rvCart.adapter = mAdapter
+        mBinding.rvCart.layoutManager = layoutManager
+        mBinding.rvCart.adapter = mAdapter
 
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -75,7 +73,7 @@ class CartFragment: BaseVMFragment<CartFragmentBinding, CartViewModel>() {
             onCheckAllBoxClick()
         }
 
-        tvCartEdit.setOnClickListener{
+        mBinding.includeToolbar.tvCartEdit.setOnClickListener{
             onEditCart()
         }
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
@@ -95,7 +93,7 @@ class CartFragment: BaseVMFragment<CartFragmentBinding, CartViewModel>() {
                 GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),cartGoods.goodsName)
             }
         }
-        setDefaultLoad(rvCart, CartApi.CART_URL)
+        setDefaultLoad(mBinding.rvCart, CartApi.CART_URL)
     }
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
@@ -134,13 +132,13 @@ class CartFragment: BaseVMFragment<CartFragmentBinding, CartViewModel>() {
     }
 
     private fun onEditCart(){
-        if(tvCartEdit.text.toString() == getString(R.string.edit)){
-            tvCartEdit.text = getString(R.string.finish)
+        if(mBinding.includeToolbar.tvCartEdit.text.toString() == getString(R.string.edit)){
+            mBinding.includeToolbar.tvCartEdit.text = getString(R.string.finish)
             mBinding.llAllMoney.visibility = View.GONE
             mBinding.tvCartSubmit.visibility = View.GONE
             mBinding.llDelete.visibility = View.VISIBLE
         }else{
-            tvCartEdit.text = getString(R.string.edit)
+            mBinding.includeToolbar.tvCartEdit.text = getString(R.string.edit)
             mBinding.llAllMoney.visibility = View.VISIBLE
             mBinding.tvCartSubmit.visibility = View.VISIBLE
             mBinding.llDelete.visibility = View.GONE
@@ -266,37 +264,37 @@ class CartFragment: BaseVMFragment<CartFragmentBinding, CartViewModel>() {
      */
     private fun showBottomSheetDialog(cartGoods:CartGoodsEntity,position:Int){
         attrMap.clear()
-        val dialogContainer = LayoutInflater.from(requireActivity()).inflate(R.layout.dialog_cart_attr_layout,null)
+        val dialogBinding = DialogCartAttrBinding.inflate(layoutInflater)
         cartGoods.modelList.forEach {
-            val attrLayout = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_cart_attr,null)
-            attrLayout.tvAttrTitle.text = it.attrTitle
-            dialogContainer.llAttrContainer.addView(attrLayout)
-            setAttrTagView(attrLayout.flowLayout,it.attrList,it.attrTitle)
+            val attrBinding = LayoutCartAttrBinding.inflate(layoutInflater)
+            attrBinding.tvAttrTitle.text = it.attrTitle
+            dialogBinding.llAttrContainer.addView(attrBinding.root)
+            setAttrTagView(attrBinding.flowLayout,it.attrList,it.attrTitle)
         }
 
         cartGoods.serviceList.forEach {
-            val attrLayout = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_cart_attr,null)
-            attrLayout.tvAttrTitle.text = it.securityTitle
-            dialogContainer.llAttrContainer.addView(attrLayout)
-            setServiceTagView(attrLayout.flowLayout,it.securityList,it.securityTitle)
+            val attrBinding = LayoutCartAttrBinding.inflate(layoutInflater)
+            attrBinding.tvAttrTitle.text = it.securityTitle
+            dialogBinding.llAttrContainer.addView(attrBinding.root)
+            setServiceTagView(attrBinding.flowLayout,it.securityList,it.securityTitle)
         }
 
-        Glide.with(requireActivity()).load(cartGoods.picURL).into(dialogContainer.ivIcon)
+        Glide.with(requireActivity()).load(cartGoods.picURL).into(dialogBinding.ivIcon)
         val price = String.format(getString(R.string.price),cartGoods.price.toString())
-        dialogContainer.tvGoodsPrice.text = UIUtils.setTextViewContentStyle(price,
+        dialogBinding.tvGoodsPrice.text = UIUtils.setTextViewContentStyle(price,
             AbsoluteSizeSpan(UIUtils.dp2px(18f)),
             ForegroundColorSpan(ContextCompat.getColor(requireActivity(),R.color.colorPrimary)),
             2,price.indexOf(".")+1
         )
-        dialogContainer.tvStock.text = String.format(getString(R.string.stock),cartGoods.stock.toString())
-        dialogContainer.tvGoodsModel.text = String.format(getString(R.string.selected),cartGoods.goodsModel)
-        tempDialogGoodsModel = dialogContainer.tvGoodsModel
+        dialogBinding.tvStock.text = String.format(getString(R.string.stock),cartGoods.stock.toString())
+        dialogBinding.tvGoodsModel.text = String.format(getString(R.string.selected),cartGoods.goodsModel)
+        tempDialogGoodsModel = dialogBinding.tvGoodsModel
 
         val bottomSheetDialog = FixedHeightBottomSheetDialog(requireActivity(),R.style.BottomSheetDialog,UIUtils.getScreenHeight()*5/6)
-        bottomSheetDialog.setContentView(dialogContainer)
+        bottomSheetDialog.setContentView(dialogBinding.root)
         bottomSheetDialog.show()
-        dialogContainer.ivClose.setOnClickListener { bottomSheetDialog.dismiss() }
-        dialogContainer.llConfirm.setOnClickListener {
+        dialogBinding.ivClose.setOnClickListener { bottomSheetDialog.dismiss() }
+        dialogBinding.llConfirm.setOnClickListener {
             mCartMultiList.forEach {
                 if (it is CartGoodsEntity && it.goodsID==cartGoods.goodsID){
                     it.goodsModel = attrMap.values.toString()

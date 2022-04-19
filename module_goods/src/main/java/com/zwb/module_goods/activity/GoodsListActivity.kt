@@ -4,13 +4,17 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.zwb.lib_base.ktx.gone
+import com.zwb.lib_base.ktx.visible
 import com.zwb.lib_base.mvvm.v.BaseActivity
+import com.zwb.lib_base.utils.KeyBoardUtils
 import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_common.constant.Constants
 import com.zwb.lib_common.constant.RoutePath
@@ -20,8 +24,6 @@ import com.zwb.module_goods.databinding.ActivityGoodsBinding
 import com.zwb.module_goods.fragment.SearchGoodsFragment
 import com.zwb.module_goods.fragment.SearchRecordFragment
 import com.zwb.module_goods.fragment.SearchSimilarFragment
-import kotlinx.android.synthetic.main.activity_goods.*
-import kotlinx.android.synthetic.main.layout_search_toolbar.*
 
 @Route(path = RoutePath.Goods.PAGE_GOODS_LIST)
 class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
@@ -30,7 +32,8 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
     lateinit var searchKey: String
 
     private var mLastIndex: Int = -1
-    private val mFragmentMap:MutableMap<Int, Fragment> = HashMap()
+    private val mFragmentMap: MutableMap<Int, Fragment> = HashMap()
+
     // 当前显示的 fragment
     private var mCurrentFragment: Fragment? = null
     private var mLastFragment: Fragment? = null
@@ -39,25 +42,25 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
 
     override fun ActivityGoodsBinding.initView() {
         ARouter.getInstance().inject(this@GoodsListActivity)
-        StatusBarUtil.darkMode(this@GoodsListActivity,true)
-        tvSearch.visibility = View.VISIBLE
-        ivRight.visibility = View.GONE
+        StatusBarUtil.darkMode(this@GoodsListActivity, true)
+        mBinding.includeToolbar.tvSearch.visibility = View.VISIBLE
+        mBinding.includeToolbar.ivRight.visibility = View.GONE
 
         //处理返回键逻辑
-        ivBack.setOnClickListener {
-            if(mCurrentFragment is SearchGoodsFragment){
+        mBinding.includeToolbar.ivBack.setOnClickListener {
+            if (mCurrentFragment is SearchGoodsFragment) {
                 switchFragment(SEARCH_RECORD)
                 setEditFocus()
-            }else{
+            } else {
                 finish()
             }
         }
 
         //点击输入框
-        textSearch.setOnTouchListener { _, event ->
+        mBinding.includeToolbar.textSearch.setOnTouchListener { _, event ->
             event?.let {
-                if(it.action == MotionEvent.ACTION_UP)
-                    if(mCurrentFragment is SearchGoodsFragment){
+                if (it.action == MotionEvent.ACTION_UP)
+                    if (mCurrentFragment is SearchGoodsFragment) {
                         mViewModel.mSearchStatus.value = SearchStatus_SIMILAR
                         setEditFocus()
                     }
@@ -66,33 +69,36 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
         }
 
         //点击搜索按钮
-        tvSearch.setOnClickListener {
-            var searchKey = textSearch.hint.toString()
-            if(textSearch.text!=null && !TextUtils.isEmpty(textSearch.text.toString())){
-                searchKey = textSearch.text.toString()
+        mBinding.includeToolbar.tvSearch.setOnClickListener {
+            var searchKey = mBinding.includeToolbar.textSearch.hint.toString()
+            if (mBinding.includeToolbar.textSearch.text != null
+                && !TextUtils.isEmpty(mBinding.includeToolbar.textSearch.text.toString())
+            ) {
+                searchKey = mBinding.includeToolbar.textSearch.text.toString()
             }
             mViewModel.mSearchKey.value = searchKey
             mViewModel.mSearchStatus.value = SearchStatus_GOODS
             clearFocus()
         }
-        ivRight.setOnClickListener {
-            if(mFragmentMap[SEARCH_GOODS]!=null){
-                (mFragmentMap[SEARCH_GOODS] as SearchGoodsFragment).switchList(ivRight)
+        mBinding.includeToolbar.ivRight.setOnClickListener {
+            if (mFragmentMap[SEARCH_GOODS] != null) {
+                (mFragmentMap[SEARCH_GOODS] as SearchGoodsFragment).switchList(mBinding.includeToolbar.ivRight)
             }
         }
-        ivDelete.setOnClickListener {
+        mBinding.includeToolbar.ivDelete.setOnClickListener {
             mViewModel.mSearchKey.value = ""
             mViewModel.mSearchStatus.value = SearchStatus_RECORD
         }
-//        layoutVoice.setOnClickListener {
-//            Toast.makeText(this@GoodsListActivity,"语音", Toast.LENGTH_SHORT).show()
-//        }
+        mBinding.viewVoice.setOnClickListener {
+            Toast.makeText(this@GoodsListActivity, "语音", Toast.LENGTH_SHORT).show()
+        }
     }
+
     override fun initRequestData() {
-        if(!TextUtils.isEmpty(searchKey)){
+        if (!TextUtils.isEmpty(searchKey)) {
             mViewModel.mSearchKey.value = searchKey
             mViewModel.mSearchStatus.value = SearchStatus_GOODS
-        }else{
+        } else {
             mViewModel.mSearchStatus.value = SearchStatus_RECORD
         }
     }
@@ -103,25 +109,25 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
                 SearchStatus_RECORD -> {//切换到搜索记录的fragment
                     switchFragment(SEARCH_RECORD)
                     setEditFocus()
-                    ivDelete.visibility = View.GONE
+                    mBinding.includeToolbar.ivDelete.visibility = View.GONE
                 }
                 SearchStatus_SIMILAR -> {//切换到搜索类似关键词的fragment
                     switchFragment(SEARCH_SIMILAR)
                     setEditFocus()
-                    ivDelete.visibility = View.VISIBLE
+                    mBinding.includeToolbar.ivDelete.visibility = View.VISIBLE
                 }
                 SearchStatus_GOODS -> {//切换到搜索商品列表的fragment
                     switchFragment(SEARCH_GOODS)
                     clearFocus()
-                    ivDelete.visibility = View.GONE
+                    mBinding.includeToolbar.ivDelete.visibility = View.GONE
                 }
             }
         })
 
         mViewModel.mSearchKey.observe(this, {
-            textSearch.setText(mViewModel.mSearchKey.value)
-            val b = textSearch.text
-            textSearch.setSelection(b.length)
+            mBinding.includeToolbar.textSearch.setText(mViewModel.mSearchKey.value)
+            val b = mBinding.includeToolbar.textSearch.text
+            mBinding.includeToolbar.textSearch.setSelection(b.length)
         })
     }
 
@@ -170,22 +176,22 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
         return fragment
     }
 
-    private fun setEditFocus(){
-        textSearch.isFocusable = true
-        textSearch.isFocusableInTouchMode = true
-        textSearch.requestFocus()
-        layoutVoice.visibility = View.VISIBLE
-        ivRight.visibility = View.GONE
-        tvSearch.visibility = View.VISIBLE
+    private fun setEditFocus() {
+        mBinding.includeToolbar.textSearch.isFocusable = true
+        mBinding.includeToolbar.textSearch.isFocusableInTouchMode = true
+        mBinding.includeToolbar.textSearch.requestFocus()
+        mBinding.viewVoice.visible()
+        mBinding.includeToolbar.ivRight.gone()
+        mBinding.includeToolbar.tvSearch.visible()
     }
 
-    private fun clearFocus(){
-//        KeyBoardUtils.hideInputForce(this)
-        textSearch.clearFocus()
-        textSearch.isFocusable = false
-        layoutVoice.visibility = View.GONE
-        ivRight.visibility = View.VISIBLE
-        tvSearch.visibility = View.GONE
+    private fun clearFocus() {
+        KeyBoardUtils.hideInputForce(this)
+        mBinding.includeToolbar.textSearch.clearFocus()
+        mBinding.includeToolbar.textSearch.isFocusable = false
+        mBinding.viewVoice.gone()
+        mBinding.includeToolbar.ivRight.visible()
+        mBinding.includeToolbar.tvSearch.gone()
     }
 
 
@@ -194,15 +200,15 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
         const val SEARCH_GOODS = 1
         const val SEARCH_SIMILAR = 2
 
-        const val SearchStatus_RECORD=1001
-        const val SearchStatus_SIMILAR=1002
-        const val SearchStatus_GOODS=1003
-        const val SearchKey="search_key"
+        const val SearchStatus_RECORD = 1001
+        const val SearchStatus_SIMILAR = 1002
+        const val SearchStatus_GOODS = 1003
+        const val SearchKey = "search_key"
 
-        fun launch(activity: FragmentActivity, searchKey:String) =
+        fun launch(activity: FragmentActivity, searchKey: String) =
             activity.apply {
                 val intent = Intent(this, GoodsListActivity::class.java)
-                intent.putExtra(SearchKey,searchKey)
+                intent.putExtra(SearchKey, searchKey)
                 startActivity(intent)
             }
     }

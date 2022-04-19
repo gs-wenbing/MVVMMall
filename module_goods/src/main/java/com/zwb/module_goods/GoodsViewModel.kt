@@ -1,8 +1,10 @@
 package com.zwb.module_goods
 
 import androidx.lifecycle.MutableLiveData
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zwb.lib_base.ktx.initiateRequest
 import com.zwb.lib_base.mvvm.vm.BaseViewModel
+import com.zwb.lib_base.utils.LogUtils
 import com.zwb.lib_common.bean.GoodsEntity
 import com.zwb.module_goods.bean.CommentEntity
 import com.zwb.module_goods.bean.GoodsAttrFilterEntity
@@ -37,6 +39,19 @@ class GoodsViewModel:BaseViewModel() {
         }, loadState)
     }
 
+    fun loadGoodsList(pageSize: Int, page: Int): MutableLiveData<List<GoodsEntity>> {
+        LogUtils.e(tag = "loadPage", "$pageSize===$page")
+        val goodsLiveData: MutableLiveData<List<GoodsEntity>> = MutableLiveData()
+        initiateRequest({
+            if(page >= 3){
+                goodsLiveData.value = mutableListOf()
+            }else{
+                goodsLiveData.value = repository.loadGoodsList()
+            }
+        }, loadState)
+        return goodsLiveData
+    }
+
     var mSeckillGoods:MutableLiveData<List<GoodsEntity>> = MutableLiveData()
     fun loadSeckillGoodsData(){
         initiateRequest({
@@ -44,10 +59,11 @@ class GoodsViewModel:BaseViewModel() {
         }, loadState)
     }
 
-    var mFilterAttrs:MutableLiveData<List<GoodsAttrFilterEntity>> = MutableLiveData()
-    fun loadFilterAttrsData(){
+    fun loadFilterAttrsData() : MutableLiveData<List<GoodsAttrFilterEntity>>{
+        val filterAttrsLiveData: MutableLiveData<List<GoodsAttrFilterEntity>> = MutableLiveData()
         initiateRequest({
-            mFilterAttrs.value = repository.getFilterAttrs()
+            filterAttrsLiveData.value = repository.getFilterAttrs()
         }, loadState)
+        return filterAttrsLiveData
     }
 }

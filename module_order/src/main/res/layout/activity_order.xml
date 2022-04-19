@@ -5,11 +5,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/frameContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        />
+    <include layout="@layout/layout_search_toolbar"/>
 
+    <RadioGroup
+        android:id="@+id/rgTabs"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="@dimen/dp_40"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rbAll"
+            style="@style/tab_style"
+            android:checked="true"
+            android:text="全部"/>
+        <RadioButton
+            android:id="@+id/rbNoPay"
+            style="@style/tab_style"
+            android:text="待付款"/>
+        <RadioButton
+            android:id="@+id/rbNoSend"
+            style="@style/tab_style"
+            android:text="待发货"/>
+        <RadioButton
+            android:id="@+id/rbNoReceive"
+            style="@style/tab_style"
+            android:text="待收货"/>
+        <RadioButton
+            android:id="@+id/rbNoComment"
+            style="@style/tab_style"
+            android:text="待评价"/>
+    </RadioGroup>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:srlReboundDuration="600"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

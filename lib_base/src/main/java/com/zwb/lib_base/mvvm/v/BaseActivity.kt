@@ -4,16 +4,27 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.launcher.ARouter
+import com.kingja.loadsir.callback.SuccessCallback
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 import com.zwb.lib_base.mvvm.vm.BaseViewModel
+import com.zwb.lib_base.net.State
+import com.zwb.lib_base.net.StateType
 import com.zwb.lib_base.utils.*
+import com.zwb.lib_base.utils.callback.EmptyCallback
+import com.zwb.lib_base.utils.callback.ErrorCallback
+import com.zwb.lib_base.utils.callback.PlaceHolderCallback
 import com.zwb.lib_base.utils.network.AutoRegisterNetListener
 import com.zwb.lib_base.utils.network.NetworkStateChangeListener
 import com.zwb.lib_base.utils.network.NetworkTypeEnum
+import com.zwb.lib_base.view.LoadingDialog
 import me.jessyan.autosize.AutoSizeCompat
 
 /**
@@ -31,13 +42,20 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
 
     protected abstract val mViewModel: VM
 
+    private var loadMap: HashMap<String, LoadService<*>> = HashMap()
+    private lateinit var mLoadingDialog: LoadingDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(mBinding.root)
+        ARouter.getInstance().inject(this)
 
         // 注册EventBus
         if (javaClass.isAnnotationPresent(EventBusRegister::class.java)) EventBusUtils.register(this)
+
+        mLoadingDialog = LoadingDialog(this, false)
+        mViewModel.loadState.observe(this, observer)
 
         setStatusBar()
         mBinding.initView()
@@ -90,6 +108,69 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         super.onDestroy()
         // 解决某些特定机型会触发的Android本身的Bug
         AndroidBugFixUtils().fixSoftInputLeaks(this)
+    }
+
+    fun setPlaceHolderLoad(view: View, resId:Int, key: String) {
+        if(loadMap[key] == null){
+            val loadSir = LoadSir.Builder()
+                .addCallback(PlaceHolderCallback(resId))
+                .addCallback(EmptyCallback())
+                .addCallback(ErrorCallback())
+                .setDefaultCallback(PlaceHolderCallback::class.java)
+                .build()
+            val loadService = loadSir.register(view) {
+                initRequestData()
+            }
+            loadMap[key] = loadService
+        }
+    }
+    fun setDefaultLoad(view: View, key: String) {
+        if(loadMap[key] == null){
+            val loadService = LoadSir.getDefault().register(view) {
+                initRequestData()
+            }
+            loadMap[key] = loadService!!
+        }
+    }
+
+    /**
+     * show 加载中
+     */
+    fun showLoading() {
+        mLoadingDialog.showDialog(this, false)
+    }
+
+    /**
+     * dismiss loading dialog
+     */
+    fun dismissLoading() {
+        mLoadingDialog.dismissDialog()
+    }
+
+    private fun showSuccess(key: String) {
+        loadMap.remove(key)?.showCallback(SuccessCallback::class.java)
+    }
+
+    private fun showEmpty(key: String) {
+        loadMap.remove(key)?.showCallback(EmptyCallback::class.java)
+    }
+
+    private fun showError(key: String) {
+        loadMap.remove(key)?.showCallback(ErrorCallback::class.java)
+    }
+
+    private val observer by lazy {
+        Observer<State> {
+            it?.let {
+                when (it.code) {
+                    StateType.SUCCESS -> showSuccess(it.urlKey)
+                    StateType.ERROR -> showError(it.urlKey)
+                    StateType.NETWORK_ERROR -> showError(it.urlKey)
+                    StateType.EMPTY -> showEmpty(it.urlKey)
+                    else -> showSuccess(it.urlKey)
+                }
+            }
+        }
     }
 
     override fun getResources(): Resources {
