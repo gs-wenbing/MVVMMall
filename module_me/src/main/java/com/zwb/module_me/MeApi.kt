@@ -1,4 +1,4 @@
-package com.zwb.module_my
+package com.zwb.module_me
 
 import com.zwb.lib_base.net.BaseResponse
 import com.zwb.lib_common.bean.GoodsEntity

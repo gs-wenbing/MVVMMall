@@ -1,4 +1,4 @@
-package com.zwb.module_my.activity
+package com.zwb.module_me.activity
 
 import android.content.Intent
 import androidx.activity.viewModels
@@ -8,8 +8,8 @@ import com.zwb.lib_base.utils.EventBusUtils
 import com.zwb.lib_base.utils.SpUtils
 import com.zwb.lib_common.bean.StringEvent
 import com.zwb.lib_common.constant.SpKey
-import com.zwb.module_my.MeViewModel
-import com.zwb.module_my.databinding.ActivitySettingBinding
+import com.zwb.module_me.MeViewModel
+import com.zwb.module_me.databinding.ActivitySettingBinding
 
 class SettingActivity: BaseActivity<ActivitySettingBinding, MeViewModel>() {
     override val mViewModel by viewModels<MeViewModel>()

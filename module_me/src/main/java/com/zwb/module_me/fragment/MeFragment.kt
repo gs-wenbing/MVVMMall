@@ -1,10 +1,11 @@
-package com.zwb.module_my.fragment
+package com.zwb.module_me.fragment
 
 import android.content.res.ColorStateList
 import android.text.style.AbsoluteSizeSpan
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
+import com.youth.banner.util.BannerUtils
 import com.zwb.lib_base.mvvm.v.BaseFragment
 import com.zwb.lib_base.utils.LogUtils
 import com.zwb.lib_base.utils.StatusBarUtil
@@ -14,11 +15,11 @@ import com.zwb.lib_common.constant.Constants
 import com.zwb.lib_common.service.goods.wrap.GoodsServiceWrap
 import com.zwb.lib_common.service.order.wrap.OrderServiceWrap
 import com.zwb.lib_common.view.PersistentStaggeredGridLayoutManager
-import com.zwb.module_my.MeViewModel
-import com.zwb.module_my.R
-import com.zwb.module_my.activity.SettingActivity
-import com.zwb.module_my.adapter.HomeGoodsAdapter
-import com.zwb.module_my.databinding.FragmentMeBinding
+import com.zwb.module_me.MeViewModel
+import com.zwb.module_me.R
+import com.zwb.module_me.activity.SettingActivity
+import com.zwb.module_me.adapter.HomeGoodsAdapter
+import com.zwb.module_me.databinding.FragmentMeBinding
 import kotlin.math.min
 
 class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
@@ -28,7 +29,7 @@ class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
     private var mScrollY = 0
     private var lastScrollY = 0
 
-    lateinit var mAdapter: HomeGoodsAdapter
+    private lateinit var mAdapter: HomeGoodsAdapter
 
     override val mViewModel by viewModels<MeViewModel>()
 
@@ -37,11 +38,10 @@ class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
         StatusBarUtil.setPaddingSmart(activity, mBinding.toolbar)
         StatusBarUtil.darkMode(requireActivity(),false)
 
-//        toolbarAvatar.post {
-//            BannerUtils.setBannerRound(toolbarAvatar, toolbarAvatar.height.toFloat())
-//            BannerUtils.setBannerRound(ivAvatar, ivAvatar.height.toFloat())
-//            BannerUtils.setBannerRound(llCard, 30f)
-//        }
+        this.toolbarAvatar.post {
+            BannerUtils.setBannerRound(mBinding.toolbarAvatar, mBinding.toolbarAvatar.height.toFloat())
+            BannerUtils.setBannerRound(mBinding.includeHeader.ivAvatar, mBinding.includeHeader.ivAvatar.height.toFloat())
+        }
 
         mBinding.barLayout.alpha = 0f
         mBinding.toolbar.setBackgroundColor(0)

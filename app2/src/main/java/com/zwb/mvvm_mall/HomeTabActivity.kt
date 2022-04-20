@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.zwb.lib_base.mvvm.v.BaseActivity
 import com.zwb.lib_base.utils.EventBusRegister
 import com.zwb.lib_base.utils.SpUtils
+import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_common.bean.StringEvent
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.constant.SpKey
@@ -80,6 +81,10 @@ class HomeTabActivity: BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
         }
     }
 
+    override fun setStatusBar() {
+        StatusBarUtil.immersive(this)
+        StatusBarUtil.darkMode(this,false)
+    }
     private fun switchFragment(index: Int) {
         val fragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()

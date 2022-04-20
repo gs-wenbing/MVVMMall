@@ -60,12 +60,12 @@ class CartAdapter(data: MutableList<MultiItemEntity>?) :
                     }else{
                         (helper.getView(R.id.ivCheck) as ImageView).setImageResource(R.mipmap.checkbox)
                     }
-                    helper.addOnClickListener(R.id.ivIcon)
-                    helper.addOnClickListener(R.id.tvGoodsName)
-                    helper.addOnClickListener(R.id.ivCheck)
-                    helper.addOnClickListener(R.id.tvGoodsModel)
-                    helper.addOnClickListener(R.id.ivReduce)
-                    helper.addOnClickListener(R.id.ivPlus)
+                    helper.addOnClickListener(R.id.ivIcon, R.id.tvGoodsName, R.id.ivCheck, R.id.tvGoodsModel, R.id.ivReduce, R.id.ivPlus)
+//                    helper.addOnClickListener(R.id.tvGoodsName)
+//                    helper.addOnClickListener(R.id.ivCheck)
+//                    helper.addOnClickListener(R.id.tvGoodsModel)
+//                    helper.addOnClickListener(R.id.ivReduce)
+//                    helper.addOnClickListener(R.id.ivPlus)
                 }
             }
             GRID_DATA -> {

@@ -1,12 +1,13 @@
 package com.zwb.module_oder.activity
 
-import android.os.Handler
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zwb.lib_base.utils.LogUtils
+import com.zwb.lib_base.utils.StatusBarUtil
 import com.zwb.lib_common.base.BaseListActivity
 import com.zwb.lib_common.constant.Constants
 import com.zwb.lib_common.constant.RoutePath
@@ -30,29 +31,49 @@ class OrderListActivity :
     var orderStatus: Int = 0
 
     override fun ActivityOrderBinding.initView() {
+
         LogUtils.e(msg = orderStatus.toString())
-        mBinding.rgTabs.setOnCheckedChangeListener { _, checkedId ->
+        this.rgTabs.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                mBinding.rbAll.id -> LogUtils.e(msg = "全部")
-                mBinding.rbNoPay.id -> LogUtils.e(msg = "未付款")
-                mBinding.rbNoSend.id -> LogUtils.e(msg = "未发货")
-                mBinding.rbNoReceive.id -> LogUtils.e(msg = "未收货")
-                mBinding.rbNoComment.id -> LogUtils.e(msg = "未评价")
+                this.rbAll.id -> LogUtils.e(msg = "全部")
+                this.rbNoPay.id -> LogUtils.e(msg = "未付款")
+                this.rbNoSend.id -> LogUtils.e(msg = "未发货")
+                this.rbNoReceive.id -> LogUtils.e(msg = "未收货")
+                this.rbNoComment.id -> LogUtils.e(msg = "未评价")
             }
         }
 
         mAdapter = OrderAdapter(mOrderMultiList)
-        mBinding.rvOrder.layoutManager = LinearLayoutManager(this@OrderListActivity)
-        mBinding.rvOrder.adapter = mAdapter
-        init(mAdapter, mBinding.rvOrder, mBinding.refreshLayout, this@OrderListActivity)
+        this.rvOrder.layoutManager = LinearLayoutManager(this@OrderListActivity)
+        this.rvOrder.adapter = mAdapter
+        init(mAdapter, this.rvOrder, this.refreshLayout, this@OrderListActivity)
+
+        mAdapter.setOnItemClickListener { adapter, _, position ->
+            if(adapter.getItemViewType(position) == OrderAdapter.TITLE){
+                Toast.makeText(this@OrderListActivity.applicationContext, "店铺", Toast.LENGTH_SHORT)
+                    .show()
+            }else if (adapter.getItemViewType(position) == OrderAdapter.DATA){
+                Toast.makeText(this@OrderListActivity.applicationContext, "详情", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when (view.id) {
+
+            }
+        }
+    }
+
+    override fun setStatusBar() {
+        super.setStatusBar()
+        StatusBarUtil.setPaddingSmart(this, mBinding.includeToolbar.toolbar)
     }
 
     override fun loadListData(action: Int, pageSize: Int, page: Int) {
-        Handler().postDelayed({
-            mViewModel.loadOrderList(pageSize, page).observe(this,{
-                loadCompleted(action, list = it)
-            })
-        },1000)
+        mViewModel.loadOrderList(pageSize, page, orderStatus).observe(this,{
+            loadCompleted(action, list = it)
+        })
     }
 
 }

@@ -3,7 +3,10 @@ package com.zwb.module_oder.bean
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zwb.module_oder.adapter.OrderAdapter
 
-class OrderOperateEntity(status:Int):OrderEntity(status), MultiItemEntity {
+data class OrderOperateEntity(
+    var orderStatus: Int,
+    var realPayAmt: Double
+) : MultiItemEntity {
 
     override fun getItemType(): Int {
         return OrderAdapter.OPERATE

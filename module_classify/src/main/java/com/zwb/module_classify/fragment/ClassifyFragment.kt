@@ -38,7 +38,12 @@ class ClassifyFragment : BaseFragment<FragmentClassifyBinding, ClassifyViewModel
         }
         setDefaultLoad(mBinding.layoutContent, ClassifyApi.CLASS_URL)
     }
-
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            StatusBarUtil.darkMode(requireActivity(),false)
+        }
+    }
     override fun initObserve() {
         mViewModel.mClassifyData.observe(viewLifecycleOwner, { response ->
             response?.let {

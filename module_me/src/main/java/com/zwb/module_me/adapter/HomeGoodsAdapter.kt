@@ -1,4 +1,4 @@
-package com.zwb.module_my.adapter
+package com.zwb.module_me.adapter
 
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.zwb.lib_base.ktx.dp2px
 import com.zwb.lib_base.utils.UIUtils
 import com.zwb.lib_common.bean.GoodsEntity
-import com.zwb.module_my.R
+import com.zwb.module_me.R
 
 class HomeGoodsAdapter(data: MutableList<GoodsEntity>?, resID:Int = R.layout.item_goods_common) :
     BaseQuickAdapter<GoodsEntity, BaseViewHolder>(resID, data) {

@@ -11,7 +11,7 @@
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_50"
         android:layout_marginLeft="@dimen/dp_6"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/home_yybj"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,6 +20,8 @@
         style="@style/mine_header_text_style"
         android:layout_marginTop="@dimen/dp_4"
         android:text="Zwb_234sfse3345"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/dp_16"
         app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
         app:layout_constraintTop_toTopOf="parent" />
 

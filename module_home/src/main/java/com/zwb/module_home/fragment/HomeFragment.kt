@@ -103,7 +103,7 @@ class HomeFragment : BaseFragment<HomeFragmentHomeBinding, HomeViewModel>() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-//            StatusBarUtil.darkMode(requireActivity(),false)
+            StatusBarUtil.darkMode(requireActivity(),false)
         }
     }
 

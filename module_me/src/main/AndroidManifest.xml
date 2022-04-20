@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zwb.module_my">
+    package="com.zwb.module_me">
 
     <application>
-        <activity android:name=".activity.MeActivity">
+        <activity android:name="com.zwb.module_me.activity.MeActivity">
 
         </activity>
-        <activity android:name=".activity.SettingActivity">
+        <activity android:name="com.zwb.module_me.activity.SettingActivity">
 
         </activity>
     </application>

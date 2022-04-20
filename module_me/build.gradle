@@ -5,6 +5,6 @@
 apply from: '../base_module.gradle'
 
 android {
-    resourcePrefix "my_"
+    resourcePrefix "me_"
 
 }

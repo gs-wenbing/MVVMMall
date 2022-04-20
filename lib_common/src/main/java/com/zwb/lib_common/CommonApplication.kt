@@ -152,11 +152,11 @@ class CommonApplication : ApplicationLifecycle {
      */
     private fun initTencentBugly(): String {
         // 第三个参数为SDK调试模式开关
-        CrashReport.initCrashReport(
-            BaseApplication.context,
-            BaseApplication.context.getString(R.string.BUGLY_APP_ID),
-            BuildConfig.VERSION_TYPE != VersionStatus.RELEASE
-        )
+//        CrashReport.initCrashReport(
+//            BaseApplication.context,
+//            BaseApplication.context.getString(R.string.BUGLY_APP_ID),
+//            BuildConfig.VERSION_TYPE != VersionStatus.RELEASE
+//        )
         return "Bugly -->> init complete"
     }
 }

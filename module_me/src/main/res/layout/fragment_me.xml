@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fl_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,8 +11,8 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
-        android:src="@mipmap/user_bg"
-        android:alpha="0.5"
+        android:src="@mipmap/header_background_top1"
+        android:alpha="0.8"
         app:layout_collapseMode="parallax" />
 
     <androidx.core.widget.NestedScrollView
@@ -123,7 +122,7 @@
                     android:id="@+id/toolbarAvatar"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/home_yybj" />
 
                 <TextView
                     android:id="@+id/toolbar_username"
@@ -132,6 +131,7 @@
                     android:layout_gravity="center"
                     android:maxLines="1"
                     android:text="Zwb_werq034534"
+                    android:layout_marginLeft="@dimen/dp_20"
                     android:textColor="@color/mainBlack"
                     android:textSize="@dimen/sp_16" />
             </LinearLayout>

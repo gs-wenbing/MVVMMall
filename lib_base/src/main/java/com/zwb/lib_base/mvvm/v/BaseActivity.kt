@@ -81,8 +81,8 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
      * @return Unit
      */
     open fun setStatusBar() {
-//        BarUtils.transparentStatusBar(this)
-//        BarUtils.setStatusBarLightMode(this, true)
+        StatusBarUtil.immersive(this)
+        StatusBarUtil.darkMode(this,true)
     }
 
     /**

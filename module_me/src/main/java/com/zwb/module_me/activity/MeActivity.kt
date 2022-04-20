@@ -1,11 +1,11 @@
-package com.zwb.module_my.activity
+package com.zwb.module_me.activity
 
 import androidx.activity.viewModels
 import com.zwb.lib_base.mvvm.v.BaseActivity
-import com.zwb.module_my.MeViewModel
-import com.zwb.module_my.R
-import com.zwb.module_my.databinding.ActivityMeBinding
-import com.zwb.module_my.fragment.MeFragment
+import com.zwb.module_me.MeViewModel
+import com.zwb.module_me.R
+import com.zwb.module_me.databinding.ActivityMeBinding
+import com.zwb.module_me.fragment.MeFragment
 
 class MeActivity : BaseActivity<ActivityMeBinding, MeViewModel>() {
 
@@ -13,7 +13,7 @@ class MeActivity : BaseActivity<ActivityMeBinding, MeViewModel>() {
 
     override fun ActivityMeBinding.initView() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.frameContent,MeFragment()).commit()
+        transaction.add(R.id.frameContent, MeFragment()).commit()
     }
 
     override fun initObserve() {

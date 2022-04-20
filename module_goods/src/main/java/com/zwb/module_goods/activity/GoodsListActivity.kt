@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.zwb.lib_base.ktx.getStatusBarHeight
 import com.zwb.lib_base.ktx.gone
 import com.zwb.lib_base.ktx.visible
 import com.zwb.lib_base.mvvm.v.BaseActivity
@@ -41,8 +42,6 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
     override val mViewModel by viewModels<GoodsViewModel>()
 
     override fun ActivityGoodsBinding.initView() {
-        ARouter.getInstance().inject(this@GoodsListActivity)
-        StatusBarUtil.darkMode(this@GoodsListActivity, true)
         mBinding.includeToolbar.tvSearch.visibility = View.VISIBLE
         mBinding.includeToolbar.ivRight.visibility = View.GONE
 
@@ -93,7 +92,11 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
             Toast.makeText(this@GoodsListActivity, "语音", Toast.LENGTH_SHORT).show()
         }
     }
-
+    override fun setStatusBar() {
+        super.setStatusBar()
+        StatusBarUtil.setPaddingSmart(this, mBinding.includeToolbar.toolbar)
+        StatusBarUtil.setMargin(this,mBinding.layoutContent)
+    }
     override fun initRequestData() {
         if (!TextUtils.isEmpty(searchKey)) {
             mViewModel.mSearchKey.value = searchKey
