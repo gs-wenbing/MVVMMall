@@ -6,7 +6,15 @@
     android:layout_marginRight="@dimen/dp_10"
     android:layout_marginLeft="@dimen/dp_10"
     android:layout_marginTop="@dimen/dp_6"
+    android:orientation="horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/ivCheck"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/dp_4"
+        android:paddingRight="@dimen/dp_8"
+        android:src="@mipmap/checkbox"/>
     <com.allen.library.SuperTextView
         android:id="@+id/txtItem"
         android:layout_height="@dimen/dp_46"
@@ -17,10 +25,12 @@
         app:sLeftIconRes="@mipmap/iv_shop"
         app:sLeftIconHeight="20dp"
         app:sLeftIconWidth="20dp"
+        app:sLeftIconMarginLeft="0dp"
         app:sLeftTvDrawableRight="@mipmap/small_next"
         app:sTextViewDrawablePadding="0dp"
         app:sRightTextString="充值成功"
         app:sRightTextColor="@color/colorPrimary"
         app:sRightTextSize="@dimen/sp_13"
+        app:sIsChecked="true"
         />
 </LinearLayout>

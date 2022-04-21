@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/includeToolbar"
@@ -13,6 +12,7 @@
         android:id="@+id/rgTabs"
         android:layout_width="match_parent"
         android:background="@color/white"
+        android:layout_below="@+id/includeToolbar"
         android:layout_height="@dimen/dp_40"
         android:orientation="horizontal">
         <RadioButton
@@ -41,6 +41,8 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/rgTabs"
+        android:layout_above="@+id/rlOrderBottom"
         android:orientation="vertical"
         app:srlReboundDuration="600"
         >
@@ -50,4 +52,23 @@
             android:layout_height="match_parent"
             android:overScrollMode="never"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rlOrderBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:paddingRight="@dimen/dp_14"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_4"
+        android:visibility="gone"
+        android:gravity="center_vertical|right"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvPaySubmit"
+            style="@style/common_solid_btn_style"
+            android:text="合并支付"/>
+    </LinearLayout>
+</RelativeLayout>

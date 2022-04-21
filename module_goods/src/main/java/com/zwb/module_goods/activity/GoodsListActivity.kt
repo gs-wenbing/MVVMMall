@@ -89,13 +89,14 @@ class GoodsListActivity : BaseActivity<ActivityGoodsBinding, GoodsViewModel>() {
             mViewModel.mSearchStatus.value = SearchStatus_RECORD
         }
         mBinding.viewVoice.setOnClickListener {
-            Toast.makeText(this@GoodsListActivity, "语音", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "语音", Toast.LENGTH_SHORT).show()
         }
     }
     override fun setStatusBar() {
-        super.setStatusBar()
-        StatusBarUtil.setPaddingSmart(this, mBinding.includeToolbar.toolbar)
-        StatusBarUtil.setMargin(this,mBinding.layoutContent)
+        StatusBarUtil.darkMode(this,true)
+//        super.setStatusBar()
+//        StatusBarUtil.setPaddingSmart(this, mBinding.includeToolbar.toolbar)
+//        StatusBarUtil.setMargin(this,mBinding.layoutContent)
     }
     override fun initRequestData() {
         if (!TextUtils.isEmpty(searchKey)) {

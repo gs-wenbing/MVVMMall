@@ -69,6 +69,7 @@ abstract class BaseListActivity<T, VB : ViewBinding, VM : BaseViewModel> : BaseA
         if(list.isNullOrEmpty()){
             if (action != ACTION_MORE) {
                 mAdapter.data.clear()
+                mAdapter.notifyDataSetChanged()
             }
             mAdapter.loadMoreEnd()
         }else{

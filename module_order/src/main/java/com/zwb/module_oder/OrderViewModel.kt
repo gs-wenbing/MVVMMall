@@ -1,13 +1,9 @@
 package com.zwb.module_oder
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zwb.lib_base.ktx.initiateRequest
 import com.zwb.lib_base.mvvm.vm.BaseViewModel
-import com.zwb.lib_common.bean.GoodsEntity
-import com.zwb.module_oder.bean.OrderEntity
-import com.zwb.module_oder.bean.OrderGoodsEntity
 import com.zwb.module_oder.bean.OrderOperateEntity
 import com.zwb.module_oder.bean.OrderTitleEntity
 
@@ -25,9 +21,9 @@ class OrderViewModel : BaseViewModel() {
             } else {
                 val orderList = repository.loadOrderList(pageSize, page, ordersStatus, OrderApi.ORDER_LIST_URL)
                 orderList.forEach { order ->
-                    list.add(OrderTitleEntity(order.shopID, order.shopName, order.shopIcon, order.orderStatus))
+                    list.add(OrderTitleEntity(order.id, order.shopID, order.shopName, order.shopIcon, order.orderStatus))
                     list.addAll(order.goodsList)
-                    list.add(OrderOperateEntity(order.orderStatus, order.goodsList.sumByDouble { it.price * it.num }))
+                    list.add(OrderOperateEntity(order.id, order.orderStatus, order.goodsList.sumByDouble { it.price * it.num }))
                 }
                 orderLiveData.value = list
             }

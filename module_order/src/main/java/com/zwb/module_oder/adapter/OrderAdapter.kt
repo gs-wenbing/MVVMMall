@@ -4,6 +4,8 @@ import android.graphics.Typeface
 import android.text.TextUtils
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
+import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.allen.library.SuperTextView
@@ -22,7 +24,10 @@ import com.zwb.module_oder.bean.OrderGoodsEntity
 import com.zwb.module_oder.bean.OrderOperateEntity
 import com.zwb.module_oder.bean.OrderTitleEntity
 
-class OrderAdapter(data: MutableList<MultiItemEntity>?) :
+class OrderAdapter(
+    data: MutableList<MultiItemEntity>?,
+    var tabStatus: Int = Constants.Order.ORDER_ALL
+) :
     BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(data) {
 
     init {
@@ -35,18 +40,33 @@ class OrderAdapter(data: MutableList<MultiItemEntity>?) :
         when (helper.itemViewType) {
             TITLE -> item?.let {
                 val orderTitle = it as OrderTitleEntity
+                val ivCheck = helper.getView<ImageView>(R.id.ivCheck)
+                when (tabStatus) {
+                    Constants.Order.ORDER_NOT_PAY -> {
+                        ivCheck.visible()
+                        if (orderTitle.isSelected) {
+                            ivCheck.setImageResource(R.mipmap.checkbox_checked)
+                        } else {
+                            ivCheck.setImageResource(R.mipmap.checkbox)
+                        }
+                    }
+                    else -> ivCheck.gone()
+                }
                 val txtItem = helper.getView<SuperTextView>(R.id.txtItem)
                 txtItem.setLeftString(orderTitle.shopName)
+                txtItem.leftTextView.id = R.id.order_shop
                 txtItem.leftTextView.setTypeface(null, Typeface.BOLD)
                 when (orderTitle.orderStatus) {
                     Constants.Order.ORDER_NOT_PAY -> txtItem.rightTextView.text = "等待买家付款"
                     Constants.Order.ORDER_CLOSE -> txtItem.rightTextView.text = "交易关闭"
-//                    Constants.Order.ORDER_NOT_SENT, Constants.Order.ORDER_NOT_RECEIVE, Constants.Order.ORDER_NOT_COMMENT
-//                    -> txtItem.rightTextView.text = "交易成功"
-                    else -> txtItem.rightTextView.text = "交易成功"
+                    Constants.Order.ORDER_NOT_SENT -> txtItem.rightTextView.text = "等待卖家发货"
+                    Constants.Order.ORDER_NOT_RECEIVE -> txtItem.rightTextView.text = "配送中"
+                    Constants.Order.ORDER_NOT_COMMENT,
+                    Constants.Order.ORDER_SUCCESS -> txtItem.rightTextView.text = "交易成功"
                 }
                 Glide.with(mContext).load(orderTitle.shopIcon).placeholder(R.mipmap.iv_shop)
                     .into(txtItem.leftIconIV)
+                helper.addOnClickListener(R.id.order_shop, R.id.ivCheck)
             }
             DATA -> item?.let {
                 val order = it as OrderGoodsEntity
@@ -92,22 +112,37 @@ class OrderAdapter(data: MutableList<MultiItemEntity>?) :
                         tvHandle2.visible()
                         tvHandle3.visible()
                     }
+                    Constants.Order.ORDER_NOT_SENT -> {
+                        tvHandle1.text = "提醒发货"
+                        tvHandle2.text = "加入购物车"
+                        tvHandle2.visible()
+                    }
+                    Constants.Order.ORDER_NOT_RECEIVE -> {
+                        tvHandle1.text = "查看物流"
+                        tvHandle2.text = "加入购物车"
+                        tvHandle2.visible()
+                    }
+                    Constants.Order.ORDER_NOT_COMMENT,
+                    Constants.Order.ORDER_SUCCESS -> {
+                        tvHandle1.text = "评价"
+                        tvHandle2.text = "查看物流"
+                        tvHandle3.text = "加入购物车"
+                        tvHandle2.visible()
+                        tvHandle3.visible()
+                    }
                     Constants.Order.ORDER_CLOSE -> {
                         tvHandle1.text = "加入购物车"
                         tvHandle2.text = "删除订单"
                         tvHandle2.visible()
                     }
-//                    Constants.Order.ORDER_NOT_SENT, Constants.Order.ORDER_NOT_RECEIVE, Constants.Order.ORDER_NOT_COMMENT
-                    else -> {
-                        tvHandle1.text = "查看物流"
-                        tvHandle2.text = "追加评论"
-                        tvHandle3.text = "加入购物车"
-                        tvHandle2.visible()
-                        tvHandle3.visible()
-                    }
+
                 }
             }
         }
+    }
+
+    fun setTab(t: Int) {
+        tabStatus = t
     }
 
     companion object {

@@ -20,6 +20,7 @@ object Constants {
         const val ORDER_NOT_SENT = 2
         const val ORDER_NOT_RECEIVE = 3
         const val ORDER_NOT_COMMENT = 4
+        const val ORDER_SUCCESS = 8
         const val ORDER_CLOSE = 9
     }
 

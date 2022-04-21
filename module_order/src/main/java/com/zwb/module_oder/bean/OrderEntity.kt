@@ -1,6 +1,7 @@
 package com.zwb.module_oder.bean
 
 data class OrderEntity(
+    var id: Long,
     var shopID: Long,
     var shopName: String,
     var shopIcon: String,

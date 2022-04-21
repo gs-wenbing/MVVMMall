@@ -3,84 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/shape_white_background"
     android:layout_marginLeft="@dimen/dp_10"
     android:layout_marginRight="@dimen/dp_10"
+    android:background="@drawable/shape_white_background"
     android:paddingTop="@dimen/dp_16"
     android:paddingBottom="@dimen/dp_16">
 
-    <TextView
-        android:id="@+id/tvCollectedValue"
-        style="@style/mine_follow_text_style"
-        android:text="12"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/tvFollowValue"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvFollowValue"
-        style="@style/mine_follow_text_style"
-        android:text="34"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvCollectedValue"
-        app:layout_constraintRight_toLeftOf="@+id/tvFootprintValue"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvFootprintValue"
-        style="@style/mine_follow_text_style"
-        android:text="23"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvFollowValue"
-        app:layout_constraintRight_toRightOf="@+id/tvRedCardValue"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvRedCardValue"
-        style="@style/mine_follow_text_style"
-        android:text="0"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvFootprintValue"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
+    <com.allen.library.SuperTextView
         android:id="@+id/tvCollected"
-        style="@style/mine_follow_text_style"
-        android:text="收藏夹"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/tvFollow"
-        app:layout_constraintTop_toBottomOf="@+id/tvCollectedValue" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:sCenterBottomTextSize="@dimen/sp_12"
+        app:sCenterBottomTextString="收藏夹"
+        app:sCenterSpaceHeight="@dimen/dp_2"
+        app:sCenterTopTextSize="@dimen/sp_12"
+        app:sCenterTopTextString="12"
+        app:sDividerLineType="none"
+        app:sUseShape="false" />
 
-    <TextView
+    <com.allen.library.SuperTextView
         android:id="@+id/tvFollow"
-        style="@style/mine_follow_text_style"
-        android:text="关注店铺"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@+id/tvCollected"
         app:layout_constraintRight_toLeftOf="@+id/tvFootprint"
-        app:layout_constraintTop_toBottomOf="@+id/tvFollowValue" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:sCenterBottomTextSize="@dimen/sp_12"
+        app:sCenterBottomTextString="关注店铺"
+        app:sCenterSpaceHeight="@dimen/dp_2"
+        app:sCenterTopTextSize="@dimen/sp_12"
+        app:sCenterTopTextString="12"
+        app:sDividerLineType="none"
+        app:sUseShape="false" />
 
-    <TextView
+    <com.allen.library.SuperTextView
         android:id="@+id/tvFootprint"
-        style="@style/mine_follow_text_style"
-        android:text="浏览足迹"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@+id/tvFollow"
-        app:layout_constraintRight_toRightOf="@+id/tvRedCard"
-        app:layout_constraintTop_toBottomOf="@+id/tvFootprintValue" />
+        app:layout_constraintRight_toLeftOf="@+id/tvCard"
+        app:layout_constraintTop_toTopOf="parent"
+        app:sCenterBottomTextSize="@dimen/sp_12"
+        app:sCenterBottomTextString="浏览足迹"
+        app:sCenterSpaceHeight="@dimen/dp_2"
+        app:sCenterTopTextSize="@dimen/sp_12"
+        app:sCenterTopTextString="12"
+        app:sDividerLineType="none"
+        app:sUseShape="false" />
 
-    <TextView
-        android:id="@+id/tvRedCard"
-        style="@style/mine_follow_text_style"
-        android:text="红包卡券"
+    <com.allen.library.SuperTextView
+        android:id="@+id/tvCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@+id/tvFootprint"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRedCardValue" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:sCenterBottomTextSize="@dimen/sp_12"
+        app:sCenterBottomTextString="红包卡券"
+        app:sCenterSpaceHeight="@dimen/dp_2"
+        app:sCenterTopTextSize="@dimen/sp_12"
+        app:sCenterTopTextString="12"
+        app:sDividerLineType="none"
+        app:sUseShape="false" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

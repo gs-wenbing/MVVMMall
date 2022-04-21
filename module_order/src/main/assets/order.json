@@ -5,7 +5,7 @@
             "shopID":1,
             "shopName":"巢玖食品专营店",
             "shopIcon":"https://gtd.alicdn.com/tps/i2/TB1aJQKFVXXXXamXFXXEDhGGXXX-32-32.png",
-            "":9,
+            "orderStatus":9,
             "orderNo":"2580060204088165804",
             "orderTime":"2022-04-20 8:20:12",
             "goodsList":[
@@ -115,7 +115,7 @@
             "shopID":1,
             "shopName":"南极人京梦专卖店",
             "shopIcon":"",
-            "orderStatus":2,
+            "orderStatus":3,
             "orderNo":"2345677166280165804",
             "orderTime":"2022-04-20 8:20:12",
             "goodsList":[
@@ -150,7 +150,7 @@
             "shopID":1,
             "shopName":"南极人京梦专卖店",
             "shopIcon":"",
-            "orderStatus":2,
+            "orderStatus":4,
             "orderNo":"2345677166280165804",
             "orderTime":"2022-04-20 8:20:12",
             "goodsList":[
@@ -175,7 +175,7 @@
             "shopID":1,
             "shopName":"南极人京梦专卖店",
             "shopIcon":"",
-            "orderStatus":2,
+            "orderStatus":3,
             "orderNo":"1873333877211",
             "orderTime":"2022-04-20 8:20:12",
             "goodsList":[
@@ -210,7 +210,7 @@
             "shopID":1,
             "shopName":"南极人京梦专卖店",
             "shopIcon":"",
-            "orderStatus":2,
+            "orderStatus":4,
             "orderNo":"1873333877211",
             "orderTime":"2022-04-20 8:20:12",
             "goodsList":[
@@ -245,7 +245,7 @@
             "shopID":1,
             "shopName":"南极人京梦专卖店",
             "shopIcon":"",
-            "orderStatus":2,
+            "orderStatus":8,
             "orderNo":"1873333877211",
             "orderTime":"2022-04-20 8:20:12",
             "goodsList":[
@@ -280,7 +280,7 @@
             "shopID":1,
             "shopName":"南极人京梦专卖店",
             "shopIcon":"",
-            "orderStatus":2,
+            "orderStatus":8,
             "orderNo":"1873333877211",
             "orderTime":"2022-04-20 8:20:12",
             "goodsList":[

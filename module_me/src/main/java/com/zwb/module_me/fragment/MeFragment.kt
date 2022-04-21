@@ -60,7 +60,6 @@ class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
                     mScrollY = min(h, scrollY)
                     mBinding.barLayout.alpha = 1f * mScrollY / h
                     mBinding.toolbar.setBackgroundColor(255 * mScrollY / h shl 24 or color)
-                    LogUtils.e("scrollY==",scrollY.toString())
                     mBinding.ivHeader.translationY = (mOffset - scrollY).toFloat()
                 }
                 lastScrollY = scrollY
