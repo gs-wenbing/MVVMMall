@@ -1,4 +1,4 @@
-package com.zwb.module_my
+package com.zwb.module_me
 
 import org.junit.Test
 
