@@ -14,6 +14,9 @@
 
 <img src="https://github.com/gs-wenbing/MVVMMall/blob/master/screenshot/pic3.png" width="1125" alt="示例3" />
 
+
+<img src="https://github.com/gs-wenbing/MVVMMall/blob/master/screenshot/pic4.png" width="1125" alt="示例4" />
+
 # 说明
 该项目的数据和图片来自网络，均只用于案例展示，请勿用于其他用途。<br>
 组件化：   [AndroidBaseFrameMVVM](https://github.com/Quyunshuo/AndroidBaseFrameMVVM)
