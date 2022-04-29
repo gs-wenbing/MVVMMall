@@ -6,7 +6,8 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.service.home.IHomeService
 
-class HomeServiceWrap {
+class HomeServiceWrap private constructor() {
+
     @Autowired(name = RoutePath.Home.SERVICE_HOME)
     lateinit var service: IHomeService
 

@@ -25,7 +25,6 @@ import com.zwb.lib_base.utils.network.AutoRegisterNetListener
 import com.zwb.lib_base.utils.network.NetworkStateChangeListener
 import com.zwb.lib_base.utils.network.NetworkTypeEnum
 import com.zwb.lib_base.view.LoadingDialog
-import me.jessyan.autosize.AutoSizeCompat
 
 /**
  * Activity基类
@@ -173,13 +172,4 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         }
     }
 
-    override fun getResources(): Resources {
-        // 主要是为了解决 AndroidAutoSize 在横屏切换时导致适配失效的问题
-        // 但是 AutoSizeCompat.autoConvertDensity() 对线程做了判断 导致Coil等图片加载框架在子线程访问的时候会异常
-        // 所以在这里加了线程的判断 如果是非主线程 就取消单独的适配
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            AutoSizeCompat.autoConvertDensityOfGlobal((super.getResources()))
-        }
-        return super.getResources()
-    }
 }

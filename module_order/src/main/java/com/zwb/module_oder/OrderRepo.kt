@@ -1,12 +1,10 @@
 package com.zwb.module_oder
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.zwb.lib_base.ktx.dataConvert
 import com.zwb.lib_base.mvvm.m.BaseRepository
 import com.zwb.lib_base.net.RetrofitFactory
 import com.zwb.lib_base.net.State
-import com.zwb.lib_common.bean.GoodsEntity
 import com.zwb.lib_common.constant.Constants
 import com.zwb.module_oder.bean.OrderEntity
 

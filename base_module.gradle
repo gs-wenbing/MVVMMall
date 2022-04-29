@@ -84,7 +84,7 @@ dependencies {
     testImplementation Android.Junit
     androidTestImplementation AndroidX.TestExtJunit
     androidTestImplementation AndroidX.TestEspresso
-
+    kapt AndroidX.RoomCompiler
     kapt GitHub.GlideCompiler
     kapt GitHub.ARouteCompiler
     kapt GitHub.EventBusAPT

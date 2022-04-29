@@ -22,6 +22,7 @@ dependencies {
 
     api project(path: ':lib_base')
 
+    kapt AndroidX.RoomCompiler
     kapt GitHub.GlideCompiler
     kapt GitHub.ARouteCompiler
     kapt GitHub.EventBusAPT

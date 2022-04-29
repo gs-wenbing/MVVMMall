@@ -9,15 +9,6 @@
 
     <application>
 
-        <!-- 屏幕适配基准DP -->
-        <meta-data
-            android:name="design_width_in_dp"
-            android:value="360" />
-
-        <meta-data
-            android:name="design_height_in_dp"
-            android:value="640" />
-
         <!--  腾讯TBS X5内核初始化 dex2oat优化方案 -->
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"

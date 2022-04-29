@@ -2,6 +2,7 @@ package com.zwb.module_me.fragment
 
 import android.content.res.ColorStateList
 import android.text.style.AbsoluteSizeSpan
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
@@ -22,7 +23,7 @@ import com.zwb.module_me.adapter.HomeGoodsAdapter
 import com.zwb.module_me.databinding.FragmentMeBinding
 import kotlin.math.min
 
-class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
+class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>(), View.OnClickListener {
 
 
     private var mOffset = 0
@@ -82,13 +83,12 @@ class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
             GoodsServiceWrap.instance.startGoodsDetail(requireActivity(),(adapter.getItem(position) as GoodsEntity).goodsName)
         }
 
-        mBinding.includeOrder.tvAllOrder.setOnClickListener {
-            OrderServiceWrap.instance.startOrderList(requireActivity(), Constants.Order.ORDER_ALL)
-        }
-
-        mBinding.ivSetting.setOnClickListener {
-            SettingActivity.launch(requireActivity())
-        }
+        mBinding.includeOrder.tvAllOrder.setOnClickListener(this@MeFragment)
+        mBinding.includeOrder.tvNotPay.setOnClickListener(this@MeFragment)
+        mBinding.includeOrder.tvNotReceive.setOnClickListener(this@MeFragment)
+        mBinding.includeOrder.tvNotSend.setOnClickListener(this@MeFragment)
+        mBinding.includeOrder.tvNotComment.setOnClickListener(this@MeFragment)
+        mBinding.ivSetting.setOnClickListener(this@MeFragment)
     }
     private fun setViewStyle() {
 
@@ -162,5 +162,24 @@ class MeFragment : BaseFragment<FragmentMeBinding, MeViewModel>() {
 
     override fun initRequestData() {
         mViewModel.loadSeckillGoodsData()
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            mBinding.includeOrder.tvAllOrder ->
+                OrderServiceWrap.instance.startOrderList(requireActivity(), Constants.Order.ORDER_ALL)
+            mBinding.includeOrder.tvNotPay ->
+                OrderServiceWrap.instance.startOrderList(requireActivity(), Constants.Order.ORDER_NOT_PAY)
+            mBinding.includeOrder.tvNotReceive ->
+                OrderServiceWrap.instance.startOrderList(requireActivity(), Constants.Order.ORDER_NOT_RECEIVE)
+            mBinding.includeOrder.tvNotSend ->
+                OrderServiceWrap.instance.startOrderList(requireActivity(), Constants.Order.ORDER_NOT_SENT)
+            mBinding.includeOrder.tvNotComment ->
+                OrderServiceWrap.instance.startOrderList(requireActivity(), Constants.Order.ORDER_NOT_COMMENT)
+            mBinding.ivSetting -> SettingActivity.launch(requireActivity())
+        }
+
+
+
     }
 }

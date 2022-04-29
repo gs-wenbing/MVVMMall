@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/includeToolbar"
@@ -12,7 +13,6 @@
         android:id="@+id/rgTabs"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_below="@+id/includeToolbar"
         android:layout_height="@dimen/dp_40"
         android:orientation="horizontal">
         <RadioButton
@@ -25,50 +25,22 @@
             style="@style/tab_style"
             android:text="待付款"/>
         <RadioButton
-            android:id="@+id/rbNoSend"
-            style="@style/tab_style"
-            android:text="待发货"/>
-        <RadioButton
             android:id="@+id/rbNoReceive"
             style="@style/tab_style"
             android:text="待收货"/>
+        <RadioButton
+            android:id="@+id/rbNoSend"
+            style="@style/tab_style"
+            android:text="待发货"/>
         <RadioButton
             android:id="@+id/rbNoComment"
             style="@style/tab_style"
             android:text="待评价"/>
     </RadioGroup>
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/orderViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rgTabs"
-        android:layout_above="@+id/rlOrderBottom"
-        android:orientation="vertical"
-        app:srlReboundDuration="600"
-        >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvOrder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        android:background="#f3f3f3" />
 
-    <LinearLayout
-        android:id="@+id/rlOrderBottom"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:layout_alignParentBottom="true"
-        android:paddingRight="@dimen/dp_14"
-        android:paddingLeft="@dimen/dp_8"
-        android:paddingTop="@dimen/dp_4"
-        android:paddingBottom="@dimen/dp_4"
-        android:visibility="gone"
-        android:gravity="center_vertical|right"
-        android:background="@color/white">
-
-        <TextView
-            android:id="@+id/tvPaySubmit"
-            style="@style/common_solid_btn_style"
-            android:text="合并支付"/>
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

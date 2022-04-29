@@ -10,13 +10,13 @@
     android:paddingBottom="@dimen/dp_16">
 
     <com.allen.library.SuperTextView
-        android:id="@+id/tvCollected"
+        android:id="@+id/tvNotPay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/tvFollow"
+        app:layout_constraintRight_toLeftOf="@+id/tvReceive"
         app:layout_constraintTop_toTopOf="parent"
         app:sCenterBottomTextSize="@dimen/sp_12"
         app:sCenterBottomTextString="收藏夹"
@@ -27,12 +27,12 @@
         app:sUseShape="false" />
 
     <com.allen.library.SuperTextView
-        android:id="@+id/tvFollow"
+        android:id="@+id/tvReceive"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvCollected"
-        app:layout_constraintRight_toLeftOf="@+id/tvFootprint"
+        app:layout_constraintLeft_toRightOf="@+id/tvNotPay"
+        app:layout_constraintRight_toLeftOf="@+id/tvNotSend"
         app:layout_constraintTop_toTopOf="parent"
         app:sCenterBottomTextSize="@dimen/sp_12"
         app:sCenterBottomTextString="关注店铺"
@@ -43,11 +43,11 @@
         app:sUseShape="false" />
 
     <com.allen.library.SuperTextView
-        android:id="@+id/tvFootprint"
+        android:id="@+id/tvNotSend"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvFollow"
+        app:layout_constraintLeft_toRightOf="@+id/tvReceive"
         app:layout_constraintRight_toLeftOf="@+id/tvCard"
         app:layout_constraintTop_toTopOf="parent"
         app:sCenterBottomTextSize="@dimen/sp_12"
@@ -63,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvFootprint"
+        app:layout_constraintLeft_toRightOf="@+id/tvNotSend"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:sCenterBottomTextSize="@dimen/sp_12"

@@ -7,7 +7,8 @@ import com.zwb.lib_base.utils.LogUtils
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.service.me.IMeService
 
-class MeServiceWrap {
+class MeServiceWrap private constructor() {
+
     @Autowired(name = RoutePath.Me.SERVICE_ME)
     lateinit var service: IMeService
 

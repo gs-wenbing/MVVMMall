@@ -3,10 +3,14 @@
 
     <color name="deep_white">#fafafa</color>
     <color name="main_grey">#f5f5f5</color>
+    <color name="deep_white2">#E8E8E8</color>
 
     <color name="yellow">#FA9D12</color>
     <color name="mainBlack">#242828</color>
     <color name="grey_text">#4D4D4D</color>
     <color name="grey_light">#747474</color>
     <color name="mainBlue">#4277fb</color>
+
+    <color name="deliver_line_white">#40E8E8E8</color>
+    <color name="deliver_line_black">#40808080</color>
 </resources>

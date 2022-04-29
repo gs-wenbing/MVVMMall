@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/constraintLayout"
+        style="@style/AppTheme.Toolbar"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/white"
+        >
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@android:color/darker_gray"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="scrollable"
+            app:tabIndicatorFullWidth="false"
+            app:tabSelectedTextColor="@android:color/black"
+            app:tabTextColor="@android:color/darker_gray" />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dp_12"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/search" />
+
+    </RelativeLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp2Content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+</LinearLayout>

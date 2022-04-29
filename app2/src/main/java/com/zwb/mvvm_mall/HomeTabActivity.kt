@@ -18,7 +18,7 @@ import com.zwb.lib_common.service.cart.wrap.CartServiceWrap
 import com.zwb.lib_common.service.classify.wrap.ClassifyServiceWrap
 import com.zwb.lib_common.service.home.wrap.HomeServiceWrap
 import com.zwb.lib_common.service.me.wrap.MeServiceWrap
-import com.zwb.module_home.R
+import com.zwb.lib_common.service.video.wrap.VideoServiceWrap
 import com.zwb.mvvm_mall.databinding.ActivityHomeTabBinding
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -47,6 +47,10 @@ class HomeTabActivity: BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
                 }
                 R.id.menu_classify -> {
                     switchFragment(CLASSIFY)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.menu_video -> {
+                    switchFragment(VIDEO)
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.menu_cart -> {
@@ -122,6 +126,7 @@ class HomeTabActivity: BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
             when (index) {
                 HOME -> fragment = HomeServiceWrap.instance.getFragment()
                 CLASSIFY -> fragment = ClassifyServiceWrap.instance.getFragment()
+                VIDEO -> fragment = VideoServiceWrap.instance.getFragment()
                 CART -> fragment = CartServiceWrap.instance.getFragment()
                 MINE -> fragment = MeServiceWrap.instance.getFragment()
             }
@@ -148,8 +153,9 @@ class HomeTabActivity: BaseActivity<ActivityHomeTabBinding,SplashViewModel>() {
     companion object {
         const val HOME = 0
         const val CLASSIFY = 1
-        const val CART = 2
-        const val MINE = 3
+        const val VIDEO = 2
+        const val CART = 3
+        const val MINE = 4
         fun launch(activity: FragmentActivity) =
             activity.apply {
                 val intent = Intent(this, HomeTabActivity::class.java)

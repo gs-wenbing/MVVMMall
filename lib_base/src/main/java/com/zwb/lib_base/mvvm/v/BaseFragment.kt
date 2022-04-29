@@ -47,6 +47,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(),
     private var loadMap: HashMap<String, LoadService<*>> = HashMap()
     private lateinit var mLoadingDialog: LoadingDialog
 
+    private var isLoaded = false
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -78,21 +80,37 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(),
             if (javaClass.isAnnotationPresent(EventBusRegister::class.java)) EventBusUtils.register(this)
         }
         Log.d("$javaClass==fragment", "init: EventBus : $eventBusTimes ms")
-
-        val initViewTimes = measureTimeMillis {
-            _binding?.initView()
-        }
-        Log.d("$javaClass==fragment", "init: initView : $initViewTimes ms")
-
-
-        val initDataTimes = measureTimeMillis {
-            initObserve()
-            initRequestData()
-        }
-        Log.d("$javaClass==fragment", "init: initData : $initDataTimes ms")
-
-
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("$javaClass==fragment--------","onResume()")
+        if (!isLoaded && !isHidden) {
+            lazyInit()
+            isLoaded = true
+        }
+    }
+
+    private fun lazyInit(){
+        _binding?.initView()
+
+        initObserve()
+        initRequestData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        isLoaded = false
+    }
+
+    override fun onDestroy() {
+        if (javaClass.isAnnotationPresent(EventBusRegister::class.java)) EventBusUtils.unRegister(
+            this
+        )
+        super.onDestroy()
+    }
+
     fun setPlaceHolderLoad(view: View, resId:Int, key: String) {
         val loadSir = LoadSir.Builder()
             .addCallback(PlaceHolderCallback(resId))
@@ -152,15 +170,4 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(),
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onDestroy() {
-        if (javaClass.isAnnotationPresent(EventBusRegister::class.java)) EventBusUtils.unRegister(
-            this
-        )
-        super.onDestroy()
-    }
 }

@@ -2,6 +2,7 @@
 <resources>
     <string name="title_home">首页</string>
     <string name="title_classify">分类</string>
+    <string name="title_video">视频</string>
     <string name="title_cart">购物车</string>
     <string name="title_mine">我的</string>
 

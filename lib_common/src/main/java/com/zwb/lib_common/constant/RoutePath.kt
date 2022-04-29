@@ -52,5 +52,9 @@ object RoutePath{
         const val PAGE_ORDER_DETAIL = "$ORDER/OrderDetailActivity"
         const val SERVICE_ORDER = "$ORDER/order_service"
     }
-
+    object Video{
+        private const val VIDEO = "/video"
+        const val FRAGMENT_VIDEO = "${VIDEO}/VideoMainFragment"
+        const val SERVICE_VIDEO = "${VIDEO}/video_service"
+    }
 }

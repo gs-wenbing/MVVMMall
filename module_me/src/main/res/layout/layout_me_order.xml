@@ -27,7 +27,7 @@
         app:sUseShape="false" />
 
     <TextView
-        android:id="@+id/tvCollected"
+        android:id="@+id/tvNotPay"
         style="@style/mine_follow_text_style"
         android:layout_marginTop="@dimen/dp_10"
         android:drawableTop="@mipmap/order_unpay"
@@ -35,54 +35,54 @@
         android:text="待付款"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/tvFollow"
+        app:layout_constraintRight_toLeftOf="@+id/tvNotReceive"
         app:layout_constraintTop_toBottomOf="@+id/tvAllOrder" />
 
     <TextView
-        android:id="@+id/tvFollow"
+        android:id="@+id/tvNotReceive"
         style="@style/mine_follow_text_style"
         android:layout_marginTop="@dimen/dp_10"
         android:drawableTop="@mipmap/order_unrecieve"
         android:drawablePadding="@dimen/dp_10"
         android:text="待收货"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvCollected"
-        app:layout_constraintRight_toLeftOf="@+id/tvFootprint"
+        app:layout_constraintLeft_toRightOf="@+id/tvNotPay"
+        app:layout_constraintRight_toLeftOf="@+id/tvNotSend"
         app:layout_constraintTop_toBottomOf="@+id/tvAllOrder" />
 
     <TextView
-        android:id="@+id/tvFootprint"
+        android:id="@+id/tvNotSend"
         style="@style/mine_follow_text_style"
         android:layout_marginTop="@dimen/dp_10"
         android:drawableTop="@mipmap/order_unsend"
         android:drawablePadding="@dimen/dp_10"
         android:text="待发货"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvFollow"
-        app:layout_constraintRight_toLeftOf="@+id/tvUnComment"
+        app:layout_constraintLeft_toRightOf="@+id/tvNotReceive"
+        app:layout_constraintRight_toLeftOf="@+id/tvNotComment"
         app:layout_constraintTop_toBottomOf="@+id/tvAllOrder" />
 
     <TextView
-        android:id="@+id/tvUnComment"
+        android:id="@+id/tvNotComment"
         style="@style/mine_follow_text_style"
         android:layout_marginTop="@dimen/dp_10"
         android:drawableTop="@mipmap/order_comment"
         android:drawablePadding="@dimen/dp_10"
         android:text="待评价"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvFootprint"
-        app:layout_constraintRight_toRightOf="@+id/tvRedCard"
+        app:layout_constraintLeft_toRightOf="@+id/tvNotSend"
+        app:layout_constraintRight_toRightOf="@+id/tvSaleAfter"
         app:layout_constraintTop_toBottomOf="@+id/tvAllOrder" />
 
     <TextView
-        android:id="@+id/tvRedCard"
+        android:id="@+id/tvSaleAfter"
         style="@style/mine_follow_text_style"
         android:layout_marginTop="@dimen/dp_10"
         android:drawableTop="@mipmap/order_return"
         android:drawablePadding="@dimen/dp_10"
         android:text="退换/售后"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/tvUnComment"
+        app:layout_constraintLeft_toRightOf="@+id/tvNotComment"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAllOrder" />
 

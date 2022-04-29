@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    tools:background="@drawable/tools_player_bg">
+
+    <ImageView
+        android:id="@+id/iv_user_avatar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="J,JR"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/iv_user_avatar"
+        app:layout_constraintTop_toTopOf="@+id/iv_user_avatar"
+        tools:text="J,JR" />
+
+    <TextView
+        android:id="@+id/tv_user_release_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/deep_white2"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_user_name"
+        app:layout_constraintTop_toTopOf="@+id/iv_user_avatar"
+        tools:text="发布于: 20:46" />
+
+    <TextView
+        android:id="@+id/tv_user_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="胜者就是正义的，正确的一方"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_user_name"
+        app:layout_constraintTop_toBottomOf="@+id/iv_user_avatar"
+        tools:text="胜者就是正义的，正确的一方" />
+
+
+    <TextView
+        android:id="@+id/tv_like_count"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:drawableRight="@mipmap/iv_message_white"
+        android:drawablePadding="5dp"
+        android:text="20"
+        android:textColor="@color/deep_white2"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_user_message"
+        app:layout_constraintTop_toTopOf="@+id/iv_user_avatar"
+        tools:text="20" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/deliver_line_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_user_message"
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_message" />
+</androidx.constraintlayout.widget.ConstraintLayout>

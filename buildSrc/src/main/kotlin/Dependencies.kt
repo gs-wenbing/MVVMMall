@@ -19,6 +19,9 @@ object AndroidX {
     const val ConstraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
     const val ActivityKtx = "androidx.activity:activity-ktx:1.1.0"
     const val FragmentKtx = "androidx.fragment:fragment-ktx:1.2.5"
+    const val Room = "androidx.room:room-runtime:2.3.0"
+    const val RoomKtx = "androidx.room:room-ktx:2.3.0"
+    const val RoomCompiler = "androidx.room:room-compiler:2.3.0"
     const val MultiDex = "androidx.multidex:multidex:2.0.1"
     const val Viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
     const val TestExtJunit = "androidx.test.ext:junit:1.1.2"
@@ -82,8 +85,6 @@ object GitHub {
     // 腾讯 MMKV 替代SP
     const val MMKV = "com.tencent:mmkv-static:1.2.9"
 
-    // 屏幕适配
-    const val AutoSize = "me.jessyan:autosize:1.2.1"
     const val ARoute = "com.alibaba:arouter-api:1.5.1"
     const val ARouteCompiler = "com.alibaba:arouter-compiler:1.5.1"
     const val RecyclerViewAdapter = "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47"

@@ -12,6 +12,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 //  注意   api 和 implementation
     api Kotlin.Kotlin
+    api Android.Material
     api AndroidX.AppCompat
     api AndroidX.CoreKtx
     api AndroidX.ActivityKtx
@@ -19,6 +20,8 @@ dependencies {
     api AndroidX.MultiDex
     api AndroidX.ConstraintLayout
     api AndroidX.Viewpager2
+    api AndroidX.Room
+    api AndroidX.RoomKtx
 
     api JetPack.NavigationFragment
     api JetPack.NavigationUI
@@ -38,7 +41,6 @@ dependencies {
     api GitHub.EventBus
     api GitHub.ARoute
     api GitHub.AutoService
-    api GitHub.AutoSize
     api GitHub.MMKV
     api GitHub.SuperTextView
 
@@ -51,6 +53,7 @@ dependencies {
     api GitHub.RetrofitConverterGson
     api GitHub.OkHttpInterceptorLogging
 
+    kapt AndroidX.RoomCompiler
     kapt GitHub.GlideCompiler
     kapt GitHub.ARouteCompiler
     kapt GitHub.EventBusAPT

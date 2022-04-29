@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/themeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_6"
+        android:paddingTop="@dimen/dp_6"
+        app:sLeftIconRes="@mipmap/ic_launcher"
+        app:sLeftIconHeight="@dimen/dp_60"
+        app:sLeftIconWidth="@dimen/dp_60"
+        app:sLeftTopTextString="#我的 2021 旅行记"
+        app:sLeftTopTextSize="@dimen/sp_13"
+        app:sLeftTopTextColor="@color/mainBlack"
+        app:sLeftBottomTextString="晒出 2021 年你的旅行见闻和风景大片"
+        app:sLeftBottomTextColor="@color/grey_light"
+        app:sLeftBottomTextSize="@dimen/sp_12"
+        app:sLeftViewGravity="left_center"
+        app:sRightTextString="+ 关注"
+        app:sRightTextSize="@dimen/sp_12"
+        app:sRightTextColor="@color/mainBlack"
+        />
+</LinearLayout>

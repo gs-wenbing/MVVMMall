@@ -1,5 +1,4 @@
 package com.zwb.lib_base.net
-import android.util.Log
 import com.zwb.lib_base.utils.LogUtils
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -45,7 +44,7 @@ class RetrofitFactory private constructor() {
     private fun initLoggingIntercept(): Interceptor {
         return HttpLoggingInterceptor { message ->
             try {
-                val text: String = URLDecoder.decode(message, "utf-8")
+                val text: String = replacer(message)
                 LogUtils.e("OKHttp-----", text)
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()
@@ -55,7 +54,17 @@ class RetrofitFactory private constructor() {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
-
+    fun replacer(outBuffer: String): String {
+        var data = outBuffer
+        try {
+            data = data.replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
+            data = data.replace("\\+".toRegex(), "%2B")
+            data = URLDecoder.decode(data, "utf-8")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return data
+    }
     private fun initCookieIntercept(): Interceptor {
         return Interceptor { chain ->
             val request = chain.request()

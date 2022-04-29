@@ -12,6 +12,10 @@
         android:title="@string/title_classify" />
 
     <item
+        android:id="@+id/menu_video"
+        android:icon="@mipmap/tab_video"
+        android:title="@string/title_video" />
+    <item
         android:id="@+id/menu_cart"
         android:icon="@mipmap/tab_cart"
         android:title="@string/title_cart" />

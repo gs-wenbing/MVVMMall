@@ -7,7 +7,7 @@ import com.zwb.lib_base.utils.LogUtils
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.service.classify.IClassifyService
 
-class ClassifyServiceWrap {
+class ClassifyServiceWrap private constructor() {
 
     @Autowired(name = RoutePath.Classify.SERVICE_CLASSIFY)
     lateinit var service: IClassifyService

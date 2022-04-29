@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'com.alibaba.arouter'
 android {
     compileSdkVersion BuildConfig.compileSdkVersion
@@ -52,7 +53,8 @@ dependencies {
     implementation project(path: ':module_me')
     implementation project(path: ':module_goods')
     implementation project(path: ':module_order')
-//    implementation project(path: ':lib_base')
+    implementation project(path: ':module_video')
 
+    kapt AndroidX.RoomCompiler
 //    kapt GitHub.ARouteCompiler
 }

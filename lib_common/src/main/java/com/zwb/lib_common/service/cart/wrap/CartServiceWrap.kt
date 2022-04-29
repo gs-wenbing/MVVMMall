@@ -7,7 +7,8 @@ import com.zwb.lib_base.utils.LogUtils
 import com.zwb.lib_common.constant.RoutePath
 import com.zwb.lib_common.service.cart.ICartService
 
-class CartServiceWrap {
+class CartServiceWrap private constructor() {
+
     @Autowired(name = RoutePath.Cart.SERVICE_CART)
     lateinit var service: ICartService
 
