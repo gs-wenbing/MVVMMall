@@ -131,7 +131,7 @@ class SearchGoodsFragment :
                             goodsAttrFilter.selectString += it.attrName + ","
                         }
                         adapter.notifyDataSetChanged()
-                        mViewModel.loadSeckillGoodsData()
+                        mViewModel.loadSeckillGoodsData(loadKey())
                     }
                 })
             } else {
@@ -156,17 +156,18 @@ class SearchGoodsFragment :
         })
     }
 
+    override fun loadKey(): String {
+        return "loadGoodsList"
+    }
     override fun loadListData(action: Int, pageSize: Int, page: Int) {
-        Handler().postDelayed({
-            mViewModel.loadGoodsList(pageSize, page).observe(this,{
-                if (action != ACTION_MORE) {
-                    mGoodsList = it.toMutableList()
-                } else {
-                    mGoodsList?.addAll(it.toMutableList())
-                }
-                loadCompleted(action, list = it)
-            })
-        }, 2000)
+        mViewModel.loadGoodsList(pageSize, page, loadKey()).observe(this,{
+            if (action != ACTION_MORE) {
+                mGoodsList = it.toMutableList()
+            } else {
+                mGoodsList?.addAll(it.toMutableList())
+            }
+            loadCompleted(action, list = it)
+        })
     }
 
 }

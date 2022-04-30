@@ -1,9 +1,7 @@
 package com.zwb.module_oder.fragment
 
-import android.os.Handler
 import android.util.Log
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -11,12 +9,10 @@ import com.zwb.lib_base.ktx.gone
 import com.zwb.lib_base.ktx.isGone
 import com.zwb.lib_base.ktx.isVisible
 import com.zwb.lib_base.ktx.visible
-import com.zwb.lib_base.mvvm.v.BaseFragment
-import com.zwb.lib_common.base.BaseListActivity
 import com.zwb.lib_common.base.BaseListFragment
 import com.zwb.lib_common.constant.Constants
+import com.zwb.module_oder.OrderApi
 import com.zwb.module_oder.OrderFragmentViewModel
-import com.zwb.module_oder.OrderViewModel
 import com.zwb.module_oder.R
 import com.zwb.module_oder.adapter.OrderAdapter
 import com.zwb.module_oder.bean.OrderTitleEntity
@@ -32,6 +28,7 @@ class OrderFragment :
     private var mOrderSelectList: MutableList<OrderTitleEntity> = ArrayList()
 
     var orderStatus: Int = 0
+
 
     override fun FragmentOrderBinding.initView() {
         orderStatus = requireArguments().getInt(Constants.Order.PARAMS_ORDER_STATUS)
@@ -64,12 +61,14 @@ class OrderFragment :
         }
     }
 
+    override fun loadKey(): String {
+        return "${OrderApi.ORDER_LIST_URL}?status=${orderStatus}"
+    }
+
     override fun loadListData(action: Int, pageSize: Int, page: Int) {
-        Handler().postDelayed({
-            mViewModel.loadOrderList(pageSize, page, orderStatus).observe(this, {
-                loadCompleted(action, list = it)
-            })
-        },1000)
+        mViewModel.loadOrderList(pageSize, page, orderStatus, loadKey()).observe(this, {
+            loadCompleted(action, list = it)
+        })
     }
 
     private fun onItemCheckClick(item: OrderTitleEntity, position: Int) {

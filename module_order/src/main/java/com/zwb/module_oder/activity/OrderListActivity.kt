@@ -57,8 +57,6 @@ class OrderListActivity : BaseActivity<ActivityOrderBinding, OrderViewModel>() {
                 }
             }
         }
-        //防止内存泄露
-//        this.orderViewPager.offscreenPageLimit = 1
         tabList.add(this.rbAll)
         tabList.add(this.rbNoPay)
         tabList.add(this.rbNoReceive)

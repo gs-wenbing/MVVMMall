@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
 
     <include
@@ -14,6 +13,7 @@
         android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/includeToolbar"
         android:orientation="horizontal"
         android:paddingTop="5dp">
 
@@ -36,4 +36,4 @@
             app:navGraph="@navigation/classify_navigation" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

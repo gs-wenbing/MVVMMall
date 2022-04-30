@@ -1,7 +1,6 @@
 package com.zwb.module_goods
 
 import androidx.lifecycle.MutableLiveData
-import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zwb.lib_base.ktx.initiateRequest
 import com.zwb.lib_base.mvvm.vm.BaseViewModel
 import com.zwb.lib_base.utils.LogUtils
@@ -39,24 +38,24 @@ class GoodsViewModel:BaseViewModel() {
         }, loadState)
     }
 
-    fun loadGoodsList(pageSize: Int, page: Int): MutableLiveData<List<GoodsEntity>> {
+    fun loadGoodsList(pageSize: Int, page: Int, loadKey: String): MutableLiveData<List<GoodsEntity>> {
         LogUtils.e(tag = "loadPage", "$pageSize===$page")
         val goodsLiveData: MutableLiveData<List<GoodsEntity>> = MutableLiveData()
         initiateRequest({
             if(page >= 3){
                 goodsLiveData.value = mutableListOf()
             }else{
-                goodsLiveData.value = repository.loadGoodsList()
+                goodsLiveData.value = repository.loadGoodsList(loadKey)
             }
-        }, loadState)
+        }, loadState,loadKey)
         return goodsLiveData
     }
 
     var mSeckillGoods:MutableLiveData<List<GoodsEntity>> = MutableLiveData()
-    fun loadSeckillGoodsData(){
+    fun loadSeckillGoodsData(loadKey: String){
         initiateRequest({
-            mSeckillGoods.value = repository.loadGoodsList()
-        }, loadState)
+            mSeckillGoods.value = repository.loadGoodsList(loadKey)
+        }, loadState, loadKey)
     }
 
     fun loadFilterAttrsData() : MutableLiveData<List<GoodsAttrFilterEntity>>{

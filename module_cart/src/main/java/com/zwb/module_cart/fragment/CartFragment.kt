@@ -103,11 +103,7 @@ class CartFragment: BaseFragment<CartFragmentBinding, CartViewModel>() {
     }
 
     override fun initRequestData() {
-        //模拟加载效果
-        Handler().postDelayed({
-            mViewModel.loadCartGoodsData()
-        }, 2000)
-
+        mViewModel.loadCartGoodsData()
     }
 
     override fun initObserve() {

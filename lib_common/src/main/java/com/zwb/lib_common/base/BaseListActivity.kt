@@ -1,5 +1,7 @@
 package com.zwb.lib_common.base
 
+import android.os.Handler
+import android.text.TextUtils
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -22,6 +24,7 @@ abstract class BaseListActivity<T, VB : ViewBinding, VM : BaseViewModel> : BaseA
     private var mCurrentPage = 1
     private var mPageSize = 10
     private var mHasCheckNet = true
+    private lateinit var loadKey:String
 
     fun init(
         adapter: BaseQuickAdapter<T, BaseViewHolder>,
@@ -44,15 +47,26 @@ abstract class BaseListActivity<T, VB : ViewBinding, VM : BaseViewModel> : BaseA
             mCurrentPage = 1
             mRecyclerListener?.loadListData(ACTION_REFRESH, mPageSize, mCurrentPage)
         }
-        setDefaultLoad(mRefreshLy, LOAD_KEY)
+        loadKey = if (TextUtils.isEmpty(loadKey())) LOAD_KEY else loadKey()
+        setDefaultLoad(mRefreshLy, loadKey)
     }
+    /**
+     * 这个key 一般是请求数据的url
+     * 作用是请求返回（或异常）后处理LoadSir的Callback
+     * 同时请求数据时也要把这个key传过去  （有点烦）
+     */
+    abstract fun loadKey(): String
 
     override fun initObserve() {
     }
 
     override fun initRequestData() {
         if (mHasCheckNet && !NetworkStateClient.isConnected()) {
-            mViewModel.loadState.value = State(StateType.NETWORK_ERROR, LOAD_KEY)
+            // 如果不延时，LoadSir框架中的LoadService#initCallback方法异步执行loadLayout.showCallback(defalutCallback)
+            // 会把我们的Callback覆盖
+            Handler().postDelayed({
+                mViewModel.loadState.value = State(StateType.NETWORK_ERROR, loadKey)
+            },100)
             return
         }
         mRecyclerListener?.loadListData(ACTION_DEFAULT, mPageSize, 1.also { mCurrentPage = it })

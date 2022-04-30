@@ -19,7 +19,7 @@ class VideoMainFragment : BaseFragment<FragmentVideoMainBinding, VideoViewModel>
     override fun FragmentVideoMainBinding.initView() {
         StatusBarUtil.immersive(requireActivity())
         StatusBarUtil.darkMode(requireActivity(),true)
-        StatusBarUtil.setPaddingSmart(requireContext(), mBinding.constraintLayout)
+        StatusBarUtil.setPaddingSmart(requireContext(), mBinding.relativeLayout)
 
         val fragments: MutableList<Fragment> = mutableListOf()
         fragments.add(DiscoverFragment())

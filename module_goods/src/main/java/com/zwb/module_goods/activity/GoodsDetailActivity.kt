@@ -89,7 +89,7 @@ class GoodsDetailActivity:BaseActivity<ActivityGoodsDetailBinding, GoodsViewMode
     }
 
     override fun initRequestData() {
-        mViewModel.loadSeckillGoodsData()
+        mViewModel.loadSeckillGoodsData("")
         mViewModel.loadCommentList()
     }
 

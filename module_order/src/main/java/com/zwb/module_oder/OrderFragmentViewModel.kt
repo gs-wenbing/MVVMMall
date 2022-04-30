@@ -12,14 +12,14 @@ class OrderFragmentViewModel : BaseViewModel() {
         OrderRepo(loadState)
     }
 
-    fun loadOrderList(pageSize: Int, page: Int, ordersStatus: Int): MutableLiveData<List<MultiItemEntity>> {
+    fun loadOrderList(pageSize: Int, page: Int, ordersStatus: Int, key:String): MutableLiveData<List<MultiItemEntity>> {
         val orderLiveData: MutableLiveData<List<MultiItemEntity>> = MutableLiveData()
         initiateRequest({
             val list = mutableListOf<MultiItemEntity>()
             if (page >= 3) {
                 orderLiveData.value = list
             } else {
-                val orderList = repository.loadOrderList(pageSize, page, ordersStatus, OrderApi.ORDER_LIST_URL)
+                val orderList = repository.loadOrderList(pageSize, page, ordersStatus, key)
                 orderList.forEach { order ->
                     list.add(OrderTitleEntity(order.id, order.shopID, order.shopName, order.shopIcon, order.orderStatus))
                     list.addAll(order.goodsList)
@@ -27,7 +27,7 @@ class OrderFragmentViewModel : BaseViewModel() {
                 }
                 orderLiveData.value = list
             }
-        }, loadState , OrderApi.ORDER_LIST_URL)
+        }, loadState , key)
         return orderLiveData
     }
 
