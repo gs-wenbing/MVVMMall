@@ -69,6 +69,7 @@ class RetrofitFactory private constructor() {
         return Interceptor { chain ->
             val request = chain.request()
             val response = chain.proceed(request)
+            LogUtils.e("OKHttp-----response", "initCookieIntercept")
             response
         }
     }
@@ -78,6 +79,11 @@ class RetrofitFactory private constructor() {
             val request = chain.request()
             val builder = request.newBuilder()
             val response = chain.proceed(builder.build())
+            LogUtils.e("OKHttp-----response", "initLoginIntercept")
+
+
+
+
             response
         }
     }
@@ -89,32 +95,10 @@ class RetrofitFactory private constructor() {
                 .addHeader("Content-Type", "application/json")
                 .addHeader("charset", "UTF-8")
                 .build()
-            chain.proceed(request)
+            LogUtils.e("OKHttp-----response", "initCommonInterceptor")
+            val response = chain.proceed(request)
+            response
         }
     }
 
-    private fun parseCookie(it: List<String>): String {
-        if(it.isEmpty()){
-            return ""
-        }
-
-        val stringBuilder = StringBuilder()
-
-        it.forEach { cookie ->
-            stringBuilder.append(cookie).append(";")
-        }
-
-        if(stringBuilder.isEmpty()){
-            return ""
-        }
-        //末尾的";"去掉
-        return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString()
-    }
-
-    private fun saveCookie(domain: String?, parseCookie: String) {
-//        domain?.let {
-//            var resutl :String by SPreference("cookie", parseCookie)
-//            resutl = parseCookie
-//        }
-    }
 }

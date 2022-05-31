@@ -36,11 +36,11 @@ class LoginActivity: BaseActivity<LoginActivityLoginBinding, LoginViewModel>(), 
         mBinding.editUsername.onFocusChangeListener = this@LoginActivity
         mBinding.editPassword.onFocusChangeListener = this@LoginActivity
 
-        val registerFragment = RegisterFragment()
+//        val registerFragment = RegisterFragment()
         val transaction = supportFragmentManager.beginTransaction()
         mBinding.btnRegister.setOnClickListener {
-            transaction.add(R.id.frameContent, registerFragment)
-            transaction.commit()
+//            transaction.add(R.id.frameContent, registerFragment)
+//            transaction.commit()
         }
         mBinding.btnLogin.setOnClickListener {
             val sign2 = mBinding.editUsername.text.isNotEmpty()
